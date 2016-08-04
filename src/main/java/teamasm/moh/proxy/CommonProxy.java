@@ -1,9 +1,11 @@
 package teamasm.moh.proxy;
 
 import codechicken.lib.packet.PacketCustom;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import teamasm.moh.handler.EventHandler;
 import teamasm.moh.network.PacketDispatcher;
 import teamasm.moh.network.ServerPacketHandler;
 
@@ -13,7 +15,7 @@ import teamasm.moh.network.ServerPacketHandler;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
-
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 
     public void init(FMLInitializationEvent event) {
