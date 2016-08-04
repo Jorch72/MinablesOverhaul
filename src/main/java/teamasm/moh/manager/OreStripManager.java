@@ -41,7 +41,7 @@ public class OreStripManager {
     }
 
     @SubscribeEvent
-    public static void oreRegisterEvent(OreRegisterEvent event) {
+    public void oreRegisterEvent(OreRegisterEvent event) {
         ItemStack stack = event.getOre();
         String name = event.getName();
         List<String> names = new LinkedList<String>();
