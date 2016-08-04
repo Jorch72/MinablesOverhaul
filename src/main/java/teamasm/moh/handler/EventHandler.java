@@ -12,9 +12,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class EventHandler {
 
     @SubscribeEvent
-    public void onOreGen(OreGenEvent.GenerateMinable event){
+    public void onOreGen(OreGenEvent.GenerateMinable event) {
         //FMLLog.info("EVENT! " + event.getType());
-        switch (event.getType()){
+        switch (event.getType()) {
         case DIAMOND:
         case GOLD:
         case IRON:
@@ -27,8 +27,8 @@ public class EventHandler {
             break;
 
         case CUSTOM:
-            if (event.getGenerator()instanceof WorldGenMinable){
-                FMLLog.info("Canceling gen of ore %s", ((WorldGenMinable)event.getGenerator()).oreBlock.toString());
+            if (event.getGenerator() instanceof WorldGenMinable) {
+                FMLLog.info("Canceling gen of custom ore %s", ((WorldGenMinable) event.getGenerator()).oreBlock.toString());
                 event.setResult(Result.DENY);
             }
             break;
@@ -44,6 +44,5 @@ public class EventHandler {
             break;
         }
     }
-
 
 }

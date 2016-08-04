@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import teamasm.moh.handler.EventHandler;
+import teamasm.moh.manager.OreStripManager;
 import teamasm.moh.network.PacketDispatcher;
 import teamasm.moh.network.ServerPacketHandler;
 
@@ -19,6 +20,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(handler);
         MinecraftForge.TERRAIN_GEN_BUS.register(handler);
         MinecraftForge.ORE_GEN_BUS.register(handler);
+        MinecraftForge.EVENT_BUS.register(new OreStripManager());
     }
 
     public void init(FMLInitializationEvent event) {
@@ -26,7 +28,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-
+        OreStripManager.init();
     }
 
 }
