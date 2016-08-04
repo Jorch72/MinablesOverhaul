@@ -1,9 +1,11 @@
 package teamasm.moh.proxy;
 
+import codechicken.lib.model.loader.CCBakedModelLoader;
 import codechicken.lib.packet.PacketCustom;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import teamasm.moh.client.MinablesOverhaulBakedModelLoader;
 import teamasm.moh.network.ClientPacketHandler;
 import teamasm.moh.network.PacketDispatcher;
 
@@ -15,6 +17,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        CCBakedModelLoader.registerLoader(MinablesOverhaulBakedModelLoader.INTSNCE);
     }
 
     @Override
