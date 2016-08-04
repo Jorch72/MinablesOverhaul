@@ -68,13 +68,13 @@ processResources {
 }
 
 version = "${project.minecraft.version}-${project.version}"
-//def commonManifest = {
-//    attributes 'FMLCorePlugin': 'codechicken.core.launch.CodeChickenCorePlugin'
-//}
+def commonManifest = {
+    attributes 'FMLAT': 'moh_at.cfg'
+}
 
 jar {
     classifier = 'universal'
-    //manifest commonManifest
+    manifest commonManifest
 }
 
 task srcJar(type: Jar) {
@@ -85,7 +85,7 @@ task srcJar(type: Jar) {
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
-    //manifest commonManifest
+    manifest commonManifest
 }
 
 // Tell the artifact system about our extra jars
