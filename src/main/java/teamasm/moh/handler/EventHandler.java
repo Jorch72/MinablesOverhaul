@@ -1,10 +1,15 @@
 package teamasm.moh.handler;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.manager.OreStripManager;
+import teamasm.moh.reference.Reference;
 
 /**
  * Created by covers1624 on 8/4/2016.
@@ -23,4 +28,10 @@ public class EventHandler {
         }
     }
 
+    @SubscribeEvent
+    public void attachCapability(AttachCapabilitiesEvent.Entity event) {
+        if (event.getEntity() instanceof EntityPlayer) {
+            event.addCapability(new ResourceLocation(Reference.MOD_ID, "IResearch"), new ResearchProvider());
+        }
+    }
 }

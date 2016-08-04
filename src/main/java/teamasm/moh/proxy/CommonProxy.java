@@ -2,9 +2,13 @@ package teamasm.moh.proxy;
 
 import codechicken.lib.packet.PacketCustom;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import teamasm.moh.entity.capabilities.IResearch;
+import teamasm.moh.entity.capabilities.ResearchProvider;
+import teamasm.moh.entity.capabilities.ResearchStorage;
 import teamasm.moh.handler.EventHandler;
 import teamasm.moh.init.ModBlocks;
 import teamasm.moh.init.ModItems;
@@ -27,6 +31,8 @@ public class CommonProxy {
         ModBlocks.init();
         ModItems.init();
         Recipes.init();
+
+        CapabilityManager.INSTANCE.register(IResearch.class, new ResearchStorage(), ResearchProvider.DefaultImpl.class);
     }
 
     public void init(FMLInitializationEvent event) {
