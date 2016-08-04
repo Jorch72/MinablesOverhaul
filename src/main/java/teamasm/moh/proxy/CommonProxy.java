@@ -23,7 +23,6 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(handler);
         MinecraftForge.TERRAIN_GEN_BUS.register(handler);
         MinecraftForge.ORE_GEN_BUS.register(handler);
-        MinecraftForge.EVENT_BUS.register(new OreStripManager());
 
         ModBlocks.init();
         ModItems.init();
