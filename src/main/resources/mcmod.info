@@ -1,0 +1,10 @@
+[
+  {
+    "modid": "minablesoverhaul",
+    "name": "MinablesOverhaul",
+    "description": "Overhaul all the ores.",
+    "version": "${mod_version}",
+    "mcversion": "${mc_version}",
+    "authorList": ["covers1624", "brandon3055", "Gigabit101"]
+  }
+]
