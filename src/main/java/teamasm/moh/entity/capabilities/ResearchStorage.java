@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * Created by brandon3055 on 5/08/2016.
@@ -23,6 +24,8 @@ public class ResearchStorage implements Capability.IStorage<IResearch> {
             tag.setString("Name", name);
             tag.setByte("Progress", (byte) (int) instance.getResearch().get(name));
         }
+
+        FMLLog.info("ResearchStorage.write "+list+" "+instance.getResearch());
 
         return list;
     }
