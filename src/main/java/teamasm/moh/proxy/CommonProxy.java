@@ -15,7 +15,10 @@ import teamasm.moh.network.ServerPacketHandler;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        EventHandler handler = new EventHandler();
+        MinecraftForge.EVENT_BUS.register(handler);
+        MinecraftForge.TERRAIN_GEN_BUS.register(handler);
+        MinecraftForge.ORE_GEN_BUS.register(handler);
     }
 
     public void init(FMLInitializationEvent event) {
