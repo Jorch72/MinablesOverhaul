@@ -7,11 +7,12 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import teamasm.moh.reference.Reference;
 
 /**
  * Created by covers1624 on 8/5/2016.
  */
-public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader{
+public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
 
     public static final MinablesOverhaulBakedModelLoader INSTANCE = new MinablesOverhaulBakedModelLoader();
 
@@ -42,7 +43,9 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader{
 
     @Override
     public void addTextures(Builder<ResourceLocation> builder) {
-
+        String oresLocation = Reference.MOD_PREFIX + "blocks/ores/";
+        builder.add(new ResourceLocation(oresLocation + "normal/oreGold"));
+        builder.add(new ResourceLocation(oresLocation + "normal/oreIron"));
     }
 
     @Override
