@@ -1,5 +1,6 @@
 package teamasm.moh.init;
 
+import codechicken.lib.asm.ObfMapping;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamasm.moh.item.Debugger;
@@ -10,11 +11,16 @@ import teamasm.moh.item.ItemOreDrop;
  */
 public class ModItems {
 
-    public static Item debugger = new Debugger();
-    public static Item itemOreDrop = new ItemOreDrop();
+    public static Item debugger;
+    public static Item itemOreDrop;
 
     public static void init() {
-        GameRegistry.register(debugger.setRegistryName("debugger"));
+        if (!ObfMapping.obfuscated) {
+            debugger = new Debugger();
+            GameRegistry.register(debugger.setRegistryName("debugger"));
+        }
+
+        itemOreDrop = new ItemOreDrop();
         GameRegistry.register(itemOreDrop.setRegistryName("oreDrop"));
     }
 
