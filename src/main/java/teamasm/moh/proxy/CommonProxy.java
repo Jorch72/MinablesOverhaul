@@ -6,11 +6,14 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import teamasm.moh.MinablesOverhaul;
 import teamasm.moh.entity.capabilities.IResearch;
 import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.entity.capabilities.ResearchStorage;
 import teamasm.moh.handler.EventHandler;
+import teamasm.moh.handler.GuiHandler;
 import teamasm.moh.init.ModBlocks;
 import teamasm.moh.init.ModItems;
 import teamasm.moh.init.Ores;
@@ -43,6 +46,7 @@ public class CommonProxy {
         CapabilityManager.INSTANCE.register(IResearch.class, new ResearchStorage(), ResearchProvider.DefaultImpl.class);
 
         GameRegistry.registerWorldGenerator(new WorldGeneratorMOH(), 100000);
+        NetworkRegistry.INSTANCE.registerGuiHandler(MinablesOverhaul.instance, new GuiHandler());
     }
 
     public void init(FMLInitializationEvent event) {
