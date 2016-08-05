@@ -27,7 +27,7 @@ public class ModBlocks {
         GameRegistry.register(blockMachine.setRegistryName("machine"));
         GameRegistry.register(new ItemBlockMultiType(blockMachine).setRegistryName("machine"));
 
-        blockMachine.addSubItemAndTile(0, "reducerCrusher", TileReducerCrusher.class);
+        blockMachine.registerSubItemAndTile(0, "reducerCrusher", TileReducerCrusher.class);
 
     }
 
