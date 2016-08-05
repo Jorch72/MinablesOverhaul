@@ -7,7 +7,8 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import teamasm.moh.reference.Reference;
+import teamasm.moh.init.ModItems;
+import teamasm.moh.reference.MOHRegistry;
 
 /**
  * Created by covers1624 on 8/5/2016.
@@ -27,7 +28,11 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
 
         @Override
         public String createKey(ItemStack stack) {
-            return null;
+            StringBuilder builder = new StringBuilder();
+            if (stack.getItem().equals(ModItems.itemOreDrop)){
+                String oreName;
+            }
+            return builder.toString();
         }
 
         @Override
@@ -43,23 +48,7 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
 
     @Override
     public void addTextures(Builder<ResourceLocation> builder) {
-        String oresLocation = Reference.MOD_PREFIX + "blocks/ores/";
-        //Base
-        builder.add(new ResourceLocation(oresLocation + "oreBase"));
-        builder.add(new ResourceLocation(oresLocation + "oreUnknown"));
 
-        //"normal"
-        String normalLocation = oresLocation + "normal/";
-        builder.add(new ResourceLocation(normalLocation + "oreGold"));
-        builder.add(new ResourceLocation(normalLocation + "oreIron"));
-
-        //"misc"
-        String miscLocation = oresLocation + "misc/";
-        builder.add(new ResourceLocation(miscLocation + "oreCoal"));
-        builder.add(new ResourceLocation(miscLocation + "oreDiamond"));
-        builder.add(new ResourceLocation(miscLocation + "oreEmerald"));
-        builder.add(new ResourceLocation(miscLocation + "oreLapis"));
-        builder.add(new ResourceLocation(miscLocation + "oreRedstone"));
     }
 
     @Override
