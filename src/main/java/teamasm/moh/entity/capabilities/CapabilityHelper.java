@@ -4,8 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-import teamasm.moh.MinablesOverhaul;
-import teamasm.moh.newnet.PacketResearchSync;
+import teamasm.moh.network.PacketDispatcher;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,6 @@ import java.util.Map;
  * Created by brandon3055 on 5/08/2016.
  */
 public class CapabilityHelper {
-
 
     //This is here because its faster to have a local static instance of the capability (atleast according to the doc)
     @CapabilityInject(IResearch.class)
@@ -58,8 +56,9 @@ public class CapabilityHelper {
     public static void syncResearch(EntityPlayer player) {
         if (player instanceof EntityPlayerMP && player.hasCapability(RESEARCH_CAP, null)) {
             IResearch research = player.getCapability(RESEARCH_CAP, null);
-            PacketResearchSync packet = new PacketResearchSync(research);
-            MinablesOverhaul.network.sendTo(packet, (EntityPlayerMP)player);
+            PacketDispatcher.dispatchResearchSync(research, (EntityPlayerMP) player);
+            //PacketResearchSync packet = new PacketResearchSync(research);
+            //MinablesOverhaul.network.sendTo(packet, (EntityPlayerMP)player);
         }
     }
 }

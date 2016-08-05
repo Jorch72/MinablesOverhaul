@@ -26,8 +26,6 @@ public class MinablesOverhaul {
     @Instance(MOD_NAME)
     public static MinablesOverhaul instance;
 
-    public static SimpleNetworkWrapper network;
-
     public MinablesOverhaul() {
         instance = this;
     }
