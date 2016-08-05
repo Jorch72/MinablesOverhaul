@@ -7,8 +7,6 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import teamasm.moh.init.ModItems;
-import teamasm.moh.reference.MOHRegistry;
 
 /**
  * Created by covers1624 on 8/5/2016.
@@ -29,9 +27,9 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
         @Override
         public String createKey(ItemStack stack) {
             StringBuilder builder = new StringBuilder();
-            if (stack.getItem().equals(ModItems.itemOreDrop)){
+            //if (stack.getItem().equals(ModItems.itemOreDrop)){
                 String oreName;
-            }
+            //}
             return builder.toString();
         }
 
