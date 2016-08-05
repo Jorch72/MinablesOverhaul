@@ -2,6 +2,7 @@ package teamasm.moh.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import teamasm.moh.reference.Reference;
 
@@ -40,16 +41,14 @@ public class GuiUtils {
 
         gui.drawTexturedModalRect(x, y, 0, 150, 14, height);
         gui.drawTexturedModalRect(x, y + height - 1, 0, 255, 14, 1);
-        //double size = energyStored / (double)maxEnergyStored;
         int draw = (int) ((double) energyStored / (double) maxEnergyStored * (height - 2));
-
         gui.drawTexturedModalRect(x + 1, y + height - draw - 1, 14, height + 150 - draw, 12, draw);
-       // gui.drawTexturedModalRect(x + 1, y + 1 + (int) (size * height - 1), 14, 150, 12, (int)((height - 2) * size));
 
         if (isInRect(x, y, 14, height, mouseX, mouseY)) {
             List<String> list = new ArrayList<String>();
             list.add(energyStored + " / " + maxEnergyStored + " RF");
             net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+            GlStateManager.disableLighting();
         }
     }
 
