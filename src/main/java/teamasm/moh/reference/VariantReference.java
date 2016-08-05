@@ -20,9 +20,6 @@ public class VariantReference {
     public static final String[] miscOres = new String[] { "oreLapis", "oreDiamond", "oreRedstone", "oreEmerald", "oreQuartz", "oreCoal", "oreRuby", "oreSapphire", "orePeridot" };
     public static final List<String> miscOresList = Lists.newArrayList(ArrayUtils.arrayToLowercase(miscOres));
 
-    public static final Map<String, Colour> colourMap = new HashMap<String, Colour>();
-
-    static {
-        colourMap.put("oreGold", new ColourRGBA(0x000000));//Example will need to work out the colours for everything later
-    }
+    public static final String[] machines = new String[] {};
+    public static final List<String> machinesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(machines));
 }
