@@ -7,9 +7,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import teamasm.moh.entity.capabilities.IResearch;
-
-import static teamasm.moh.entity.capabilities.ResearchStorage.RESEARCH_CAP;
+import teamasm.moh.entity.capabilities.CapabilityHelper;
 
 /**
  * Created by brandon3055 on 5/08/2016.
@@ -19,18 +17,17 @@ public class Debugger extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 
-        if (!world.isRemote && player.hasCapability(RESEARCH_CAP, null)) {
-            IResearch research = player.getCapability(RESEARCH_CAP, null);
-
+        if (!world.isRemote) {
 
             if (player.isSneaking()) {
-                research.setResearch("Test", research.getResearch().containsKey("Test") ? research.getResearch().get("Test") + 1 : 0);
-
+                CapabilityHelper.setResearch(player, "Test", CapabilityHelper.getResearch(player, "Test") + 1);
             }
             else {
-                FMLLog.info(""+research.getResearch());
+                FMLLog.info(""+CapabilityHelper.getResearch(player, "Test"));
             }
-
+        }
+        else {
+            FMLLog.info("Client: "+CapabilityHelper.getResearch(player, "Test"));
         }
 
         return super.onItemRightClick(stack, world, player, hand);

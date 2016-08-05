@@ -6,6 +6,9 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import teamasm.moh.MinablesOverhaul;
 import teamasm.moh.entity.capabilities.IResearch;
 import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.entity.capabilities.ResearchStorage;
@@ -16,6 +19,7 @@ import teamasm.moh.init.Recipes;
 import teamasm.moh.manager.OreStripManager;
 import teamasm.moh.network.PacketDispatcher;
 import teamasm.moh.network.ServerPacketHandler;
+import teamasm.moh.newnet.PacketResearchSync;
 
 /**
  * Created by covers1624 on 8/4/2016.
@@ -33,6 +37,8 @@ public class CommonProxy {
         Recipes.init();
 
         CapabilityManager.INSTANCE.register(IResearch.class, new ResearchStorage(), ResearchProvider.DefaultImpl.class);
+
+        registerNetwork();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -43,4 +49,8 @@ public class CommonProxy {
         OreStripManager.init();
     }
 
+    private void registerNetwork() {
+        MinablesOverhaul.network = NetworkRegistry.INSTANCE.newSimpleChannel("MinablesNet");
+        MinablesOverhaul.network.registerMessage(PacketResearchSync.Handler.class, PacketResearchSync.class, 0, Side.CLIENT);
+    }
 }

@@ -9,10 +9,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import teamasm.moh.entity.capabilities.CapabilityHelper;
 import teamasm.moh.entity.capabilities.ResearchProvider;
-import teamasm.moh.entity.capabilities.ResearchStorage;
 import teamasm.moh.manager.OreStripManager;
 import teamasm.moh.reference.Reference;
+
+import static teamasm.moh.entity.capabilities.ResearchStorage.RESEARCH_CAP;
 
 /**
  * Created by covers1624 on 8/4/2016.
@@ -40,8 +43,13 @@ public class EventHandler {
 
     @SubscribeEvent
     public void maintainCapability(PlayerEvent.Clone event) {
-        if (event.getOriginal().hasCapability(ResearchStorage.RESEARCH_CAP, null) && event.getEntityPlayer().hasCapability(ResearchStorage.RESEARCH_CAP, null)) {
-            event.getEntityPlayer().getCapability(ResearchStorage.RESEARCH_CAP, null).setResearch(event.getOriginal().getCapability(ResearchStorage.RESEARCH_CAP, null).getResearch());
+        if (event.getOriginal().hasCapability(RESEARCH_CAP, null) && event.getEntityPlayer().hasCapability(RESEARCH_CAP, null)) {
+            event.getEntityPlayer().getCapability(RESEARCH_CAP, null).setResearch(event.getOriginal().getCapability(RESEARCH_CAP, null).getResearch());
         }
+    }
+
+    @SubscribeEvent
+    public void playerLoggedIn(PlayerLoggedInEvent event) {
+        CapabilityHelper.syncResearch(event.player);
     }
 }

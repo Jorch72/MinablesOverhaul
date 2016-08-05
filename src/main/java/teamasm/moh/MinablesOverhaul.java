@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import teamasm.moh.proxy.CommonProxy;
 
 import static teamasm.moh.reference.Reference.*;
@@ -24,6 +25,8 @@ public class MinablesOverhaul {
 
     @Instance(MOD_NAME)
     public static MinablesOverhaul instance;
+
+    public static SimpleNetworkWrapper network;
 
     public MinablesOverhaul() {
         instance = this;
