@@ -26,7 +26,7 @@ public class ModBlocks {
 
         GameRegistry.register(new ItemBlockOre(blockOreNormal).setRegistryName("oreNormal"));
 
-        
+
         blockMachine = new BlockMachine();
         GameRegistry.register(blockMachine.setRegistryName("machine"));
         GameRegistry.register(new ItemBlockMultiType(blockMachine).setRegistryName("machine"));
