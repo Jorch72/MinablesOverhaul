@@ -2,6 +2,15 @@ package teamasm.moh.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import teamasm.moh.world.WorldGenHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by brandon3055 on 4/08/2016.
@@ -13,7 +22,18 @@ public class BlockOre extends Block {
         this.setResistance(5.0F);
     }
 
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> stacks = new ArrayList<ItemStack>();
 
+        if (world instanceof World) {
+            stacks.add(WorldGenHandler.getOreAt((World)world, pos));
+        }
+
+        return stacks;
+    }
+
+    //todo delete
 //    private final List<String> variants;
 //
 //    private final PropertyString TYPE;
