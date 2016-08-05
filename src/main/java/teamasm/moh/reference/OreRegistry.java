@@ -54,7 +54,6 @@ public class OreRegistry {
     public ItemStack getRandomOreForSeed(Random random) { //TODO refine this and add support for purity when that mechanic gets implemented.
         int oreCount = 1 + random.nextInt(maxOresPerOre);
         ItemStack stack = new ItemStack(ModItems.brokenOre);
-        NBTTagList oreList = new NBTTagList();
         Map<String, Float> ores = new HashMap<String, Float>();
 
         for (int i = 0; i < oreCount; i++) {
@@ -69,6 +68,7 @@ public class OreRegistry {
             }
         }
 
+        NBTTagList oreList = new NBTTagList();
         for (String name : ores.keySet()) {
             NBTTagCompound oreCompound = new NBTTagCompound();
             oreCompound.setString("Name", name);
@@ -76,7 +76,9 @@ public class OreRegistry {
             oreList.appendTag(oreCompound);
         }
 
-        ItemNBTUtils.validateTagExists(stack).setTag("Ores", oreList);
+        NBTTagCompound itemCompound = ItemNBTUtils.validateTagExists(stack);
+        itemCompound.setTag("Ores", oreList);
+        itemCompound.setFloat("ParticleSize", 1F);
 
         return stack;
     }

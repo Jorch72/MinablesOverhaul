@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.item.Debugger;
-import teamasm.moh.item.ItemOreDrop;
+import teamasm.moh.item.ItemOre;
 import teamasm.moh.reference.Reference;
 
 /**
@@ -25,7 +25,7 @@ public class ModItems {
             GameRegistry.register(debugger.setRegistryName("debugger"));
         }
 
-        brokenOre = new ItemOreDrop();
+        brokenOre = new ItemOre();
         brokenOre.setUnlocalizedName(Reference.MOD_PREFIX + "brokenOre");
         GameRegistry.register(brokenOre.setRegistryName("brokenOre"));
     }
