@@ -4,7 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
+import teamasm.moh.reference.OreRegistry;
 
 import java.util.Random;
 
@@ -29,7 +29,11 @@ public class WorldGenHandler {
         GridPoint grid = getNearestGridPoint(blockPos.getX(), blockPos.getZ());
         random.setSeed(grid.getPointSeed(world));
 
-        return null;//TODO
+        if (random.nextFloat() > chancePerPoint) {
+            return null;
+        }
+
+        return OreRegistry.INSTANCE.getRandomOreForSeed(random);
     }
 
     //endregion
@@ -41,23 +45,14 @@ public class WorldGenHandler {
         int posZ = (chunkZ * 16);
         GridPoint grid = getNearestGridPoint(posX, posZ);
 
-        //FMLLog.info("Point "+grid.x+" "+grid.z);
-
-    //    FMLLog.info("Generate "+grid.z+" "+posZ+" "+(grid.z > posZ));
-        if (grid.z > posZ) {
-            //FMLLog.info("Generate");
-        }
-        if (grid.x >= posX && grid.x <= posX + 16 && grid.z >= posZ && grid.z <= posZ + 16) {
-            FMLLog.info("Generate");
-
-
+        if (grid.x > posX && grid.x <= posX + 16 && grid.z > posZ && grid.z <= posZ + 16) {
             random.setSeed(grid.getPointSeed(world));
 
             if (random.nextFloat() > chancePerPoint) {
                 return;
             }
 
-            int yLevel = 33;//3 + (int) (random.nextDouble() * (world.getSeaLevel() - 3));
+            int yLevel = 3 + (int) (random.nextDouble() * (world.getSeaLevel() - 3));
 
             generatePocketAt(world, new BlockPos(grid.x, yLevel, grid.z));
         }
@@ -86,13 +81,23 @@ public class WorldGenHandler {
 //        return multiple * round(number / multiple);
         int result = number;
 
-        if (number < 0) result *= -1;
+        if (number < 0) {
+            result *= -1;
+        }
 
-        if (result % multiple == 0) return number;
-        else if (result % multiple < multiple/2) result = result - result % multiple;
-        else result = result + (multiple - result % multiple);
+        if (result % multiple == 0) {
+            return number;
+        }
+        else if (result % multiple < multiple/2) {
+            result = result - result % multiple;
+        }
+        else {
+            result = result + (multiple - result % multiple);
+        }
 
-        if (number < 0) result *= -1;
+        if (number < 0) {
+            result *= -1;
+        }
         return result;
     }
 
@@ -101,7 +106,7 @@ public class WorldGenHandler {
             return (int)Math.round(number);
         }
         else {
-            return (int)Math.round(number - 0.5);
+            return (int)Math.round(number - 0.51);
         }
     }
 
