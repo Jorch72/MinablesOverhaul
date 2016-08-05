@@ -1,9 +1,9 @@
 package teamasm.moh.world;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import teamasm.moh.init.ModBlocks;
 import teamasm.moh.reference.OreRegistry;
 
 import java.util.Random;
@@ -65,7 +65,7 @@ public class WorldGenHandler {
         Iterable<BlockPos> blocks = BlockPos.getAllInBox(blockPos.add(-diameter, -diameter, -diameter), blockPos.add(diameter, diameter, diameter));
 
         for (BlockPos pos : blocks) {
-            world.setBlockState(pos, Blocks.IRON_ORE.getDefaultState());//todo replace with the actual ore block
+            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());//todo replace with the actual ore block
         }
     }
 

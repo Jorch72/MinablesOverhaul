@@ -4,8 +4,7 @@ import codechicken.lib.block.ItemBlockMultiType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamasm.moh.block.BlockOre;
 import teamasm.moh.block.itemblock.BlockMachine;
-import teamasm.moh.block.itemblock.ItemBlockOre;
-import teamasm.moh.reference.VariantReference;
+import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.machines.SomeMachine;
 
 /**
@@ -13,19 +12,15 @@ import teamasm.moh.tile.machines.SomeMachine;
  */
 public class ModBlocks {
 
-    public static BlockOre blockOreNormal;
-    public static BlockOre blockOreMisc;
-
+    public static BlockOre blockOre;
     public static BlockMachine blockMachine;
 
     public static void init() {
-        blockOreNormal = new BlockOre(VariantReference.normalOresList);
-        blockOreMisc = new BlockOre(VariantReference.miscOresList);
-        GameRegistry.register(blockOreNormal.setRegistryName("oreNormal"));
-        GameRegistry.register(blockOreMisc.setRegistryName("oreMisc"));
 
-        GameRegistry.register(new ItemBlockOre(blockOreNormal).setRegistryName("oreNormal"));
-
+        blockOre = new BlockOre();
+        blockOre.setUnlocalizedName(Reference.MOD_PREFIX + "blockOre");
+        GameRegistry.register(blockOre.setRegistryName("blockOre"));
+        GameRegistry.register(new ItemBlockMultiType(blockOre).setRegistryName("blockOre"));
 
         blockMachine = new BlockMachine();
         GameRegistry.register(blockMachine.setRegistryName("machine"));
