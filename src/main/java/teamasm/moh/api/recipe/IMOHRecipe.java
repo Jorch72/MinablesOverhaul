@@ -6,6 +6,7 @@ import teamasm.moh.api.recipe.output.IRecipeOutput;
 /**
  * Created by covers1624 on 8/5/2016.
  */
+@Deprecated
 public interface IMOHRecipe {
 
     /**
