@@ -82,4 +82,18 @@ public class GuiUtils {
     public static void drawString(GuiScreen gui, String string, int x, int y) {
         gui.mc.fontRendererObj.drawString(string, x, y, 16777215);
     }
+
+    public static void drawProgressBar(GuiScreen gui, int progress, int x, int y){
+        //empty
+        gui.mc.getTextureManager().bindTexture(guiElements);
+        gui.drawTexturedModalRect(x, y, 150, 18, 22, 15);
+
+        //with progress
+        //scale
+        int j = progress / 4;
+        if(j > 0){
+            gui.drawTexturedModalRect(x, y, 150, 34, j + 1, 15);
+        }
+
+    }
 }
