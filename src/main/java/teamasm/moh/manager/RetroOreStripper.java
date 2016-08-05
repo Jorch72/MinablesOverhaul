@@ -50,6 +50,7 @@ public class RetroOreStripper {
                 }
                 Entry<Integer, LinkedList<ChunkPos>> entry = iterator.next();
                 WorldServer world = getServer().worldServerForDimension(entry.getKey());
+                //Chunk chunk = world.getChunkFromChunkCoords(entry.)
                 chunksProcessed++;
                 iterator.remove();
             }
