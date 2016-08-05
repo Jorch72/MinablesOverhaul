@@ -1,5 +1,6 @@
 package teamasm.moh.block;
 
+import codechicken.lib.block.BlockMultiTile;
 import codechicken.lib.tile.IDisplayTickTile;
 import codechicken.lib.tile.IGuiTile;
 import codechicken.lib.tile.IHarvestTile;
@@ -24,7 +25,7 @@ import java.util.Random;
 /**
  * Created by brandon3055 on 4/08/2016.
  */
-public class BaseBlock extends Block {
+public class BaseBlock extends BlockMultiTile {
 
     public BaseBlock(Material material) {
         super(material);
