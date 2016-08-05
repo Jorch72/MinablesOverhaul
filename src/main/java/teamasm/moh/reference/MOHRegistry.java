@@ -12,8 +12,6 @@ import java.util.Map;
  */
 public class MOHRegistry {
 
-    public static final OreRegistry REGISTRY = new OreRegistry();
-
     public static void init() {
 
     }

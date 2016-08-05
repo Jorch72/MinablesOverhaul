@@ -14,6 +14,9 @@ import java.util.*;
  * This will be the registry that handles ALL the ores.
  */
 public class OreRegistry {
+
+    public static final OreRegistry INSTANCE = new OreRegistry();
+
     private Random random = new Random();
 
     private List<String> oreList = new ArrayList<String>();
@@ -29,7 +32,7 @@ public class OreRegistry {
     private static int maxOresPerOre = 5;
 
     /**
-     * @param oreName The ore dictionary name of the ore.
+     * @param oreName   The ore dictionary name of the ore.
      * @param genWeight The generation weight of the ore. Higher numbers have a higher chance to generate.
      * @param maxPurity The maximum purity this ore can spawn with. range 0 > 1. Should always be greater than 0. Purity of 1 = 4 ingots ber block.
      * @param oreColour The colour for the ore item.
@@ -46,6 +49,10 @@ public class OreRegistry {
         return oreList;
     }
 
+    public boolean isOreRegistered(String ore) {
+        return oreList.contains(ore);
+    }
+
     public ItemStack getRandomOreForSeed(long seed) { //TODO refine this and add support for purity when that mechanic gets implemented.
         random.setSeed(seed);
         int oreCount = 1 + random.nextInt(maxOresPerOre);
@@ -60,8 +67,7 @@ public class OreRegistry {
 
             if (ores.containsKey(name)) {
                 ores.put(name, ores.get(name) + purity);
-            }
-            else {
+            } else {
                 ores.put(name, purity);
             }
         }

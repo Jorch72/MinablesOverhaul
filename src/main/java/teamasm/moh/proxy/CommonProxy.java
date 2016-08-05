@@ -13,6 +13,7 @@ import teamasm.moh.entity.capabilities.ResearchStorage;
 import teamasm.moh.handler.EventHandler;
 import teamasm.moh.init.ModBlocks;
 import teamasm.moh.init.ModItems;
+import teamasm.moh.init.Ores;
 import teamasm.moh.init.Recipes;
 import teamasm.moh.manager.OreStripManager;
 import teamasm.moh.network.PacketDispatcher;
@@ -33,6 +34,7 @@ public class CommonProxy {
         ModBlocks.init();
         ModItems.init();
         Recipes.init();
+        Ores.init();
 
         CapabilityManager.INSTANCE.register(IResearch.class, new ResearchStorage(), ResearchProvider.DefaultImpl.class);
 

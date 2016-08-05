@@ -3,13 +3,12 @@ package teamasm.moh.manager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import org.apache.logging.log4j.Level;
+import teamasm.moh.reference.MOHRegistry;
+import teamasm.moh.reference.OreRegistry;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -26,7 +25,7 @@ public class OreStripManager {
         scanOreDictionaryBecauseForgeIsFuckingRetardedAndHasTheOreDictionaryRegisterEventAsAnInnerClassCausingInitialOreDictionaryEntriesToNotHaveAnEventFired();
         for (Entry<ItemStack, List<String>> entry : stackMap.entrySet()) {
             for (String resource : entry.getValue()) {
-                if (resource.startsWith("ore")) {
+                if (resource.startsWith("ore") && OreRegistry.INSTANCE.isOreRegistered(resource)) {
                     if (ForgeRegistries.BLOCKS.containsKey(entry.getKey().getItem().getRegistryName())) {
                         Block block = ForgeRegistries.BLOCKS.getValue(entry.getKey().getItem().getRegistryName());
                         String stateString = block.getStateFromMeta(entry.getKey().getMetadata()).toString();
