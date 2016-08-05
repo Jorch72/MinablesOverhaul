@@ -53,7 +53,7 @@ public class OreRegistry {
 
     public ItemStack getRandomOreForSeed(Random random) { //TODO refine this and add support for purity when that mechanic gets implemented.
         int oreCount = 1 + random.nextInt(maxOresPerOre);
-        ItemStack stack = new ItemStack(ModItems.itemOreDrop);
+        ItemStack stack = new ItemStack(ModItems.brokenOre);
         NBTTagList oreList = new NBTTagList();
         Map<String, Float> ores = new HashMap<String, Float>();
 
