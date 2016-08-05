@@ -1,6 +1,7 @@
 package teamasm.moh.init;
 
 import codechicken.lib.block.ItemBlockMultiType;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamasm.moh.block.BlockOre;
 import teamasm.moh.block.BlockMachine;
@@ -20,7 +21,7 @@ public class ModBlocks {
         blockOre = new BlockOre();
         blockOre.setUnlocalizedName(Reference.MOD_PREFIX + "blockOre");
         GameRegistry.register(blockOre.setRegistryName("blockOre"));
-        GameRegistry.register(new ItemBlockMultiType(blockOre).setRegistryName("blockOre"));
+        GameRegistry.register(new ItemBlock(blockOre).setRegistryName("blockOre"));
 
         blockMachine = new BlockMachine();
         GameRegistry.register(blockMachine.setRegistryName("machine"));
