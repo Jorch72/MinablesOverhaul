@@ -78,4 +78,8 @@ public class GuiUtils {
     public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
         return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
     }
+
+    public static void drawString(GuiScreen gui, String string, int x, int y) {
+        gui.mc.fontRendererObj.drawString(string, x, y, 16777215);
+    }
 }

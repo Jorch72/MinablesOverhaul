@@ -15,8 +15,8 @@ public class ContainerReducerCrusher extends BaseContainer{
         super(inventoryPlayer.player);
         this.tileReducerCrusher = tileReducerCrusher;
 
-        addSlotToContainer(new Slot(tileReducerCrusher, 0, 40, 40));
-        addSlotToContainer(new Slot(tileReducerCrusher, 1, 100, 40));
+        addSlotToContainer(new Slot(tileReducerCrusher, 0, 41, 31));
+        addSlotToContainer(new Slot(tileReducerCrusher, 1, 121, 31));
         addPlayersInventory();
         addPlayersHotbar();
     }
