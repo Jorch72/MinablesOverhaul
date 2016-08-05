@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
-import teamasm.moh.reference.MOHRegistry;
 import teamasm.moh.reference.OreRegistry;
 
 import java.util.*;
@@ -20,6 +19,7 @@ public class OreStripManager {
 
     private static final Map<ItemStack, List<String>> stackMap = new HashMap<ItemStack, List<String>>();
     private static final List<String> oresToStrip = new ArrayList<String>();
+    private static final List<ItemStack> stripedOreStacks = new ArrayList<ItemStack>();
 
     public static void init() {
         scanOreDictionaryBecauseForgeIsFuckingRetardedAndHasTheOreDictionaryRegisterEventAsAnInnerClassCausingInitialOreDictionaryEntriesToNotHaveAnEventFired();
@@ -31,6 +31,7 @@ public class OreStripManager {
                         String stateString = block.getStateFromMeta(entry.getKey().getMetadata()).toString();
                         FMLLog.log("MinablesOverhaul", Level.INFO, "Adding Block {%s} with OreDictionary entry {%s} to the Ore strip list.", stateString, resource);
                         oresToStrip.add(stateString);
+                        stripedOreStacks.add(entry.getKey());
                         break;
                     } else {
                         FMLLog.log("MinablesOverhaul", Level.WARN, "Found ore in OreDictionary that has prefix of \"ore\" but has no block registered..");
