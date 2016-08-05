@@ -1,5 +1,7 @@
 package teamasm.moh.reference;
 
+import codechicken.lib.colour.Colour;
+import codechicken.lib.colour.ColourRGBA;
 import codechicken.lib.util.ArrayUtils;
 import com.google.common.collect.Lists;
 
@@ -18,9 +20,9 @@ public class VariantReference {
     public static final String[] miscOres = new String[] { "oreLapis", "oreDiamond", "oreRedstone", "oreEmerald", "oreQuartz", "oreCoal", "oreRuby", "oreSapphire", "orePeridot" };
     public static final List<String> miscOresList = Lists.newArrayList(ArrayUtils.arrayToLowercase(miscOres));
 
-    public static final Map<String, Integer> colourMap = new HashMap<String, Integer>();
+    public static final Map<String, Colour> colourMap = new HashMap<String, Colour>();
 
     static {
-        colourMap.put("oreGold", 0xFF0000);//Example will need to work out the colours for everything later
+        colourMap.put("oreGold", new ColourRGBA(0x000000));//Example will need to work out the colours for everything later
     }
 }
