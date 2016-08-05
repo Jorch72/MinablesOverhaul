@@ -24,8 +24,11 @@ public class GuiReducerCrusher extends GuiContainer {
         GuiUtils.drawSlot(this, guiLeft + 40, guiTop + 30);
         GuiUtils.drawSlot(this, guiLeft + 120, guiTop + 30);
 
-
-        GuiUtils.drawEnergyBar(this, guiLeft + 5, guiTop + 5, 70, tileReducerCrusher.getEnergyStored(EnumFacing.DOWN), tileReducerCrusher.getMaxEnergyStored(EnumFacing.DOWN), mouseX, mouseY);
         GuiUtils.drawPlayerSlots(this, guiLeft + xSize / 2, guiTop + 80, true);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        GuiUtils.drawEnergyBar(this, 5,  5, 70, tileReducerCrusher.getEnergyStored(EnumFacing.DOWN), tileReducerCrusher.getMaxEnergyStored(EnumFacing.DOWN), mouseX - guiLeft, mouseY - guiTop);
     }
 }
