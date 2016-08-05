@@ -70,6 +70,11 @@ public class GuiUtils {
         }
     }
 
+    public static void drawSlot(GuiScreen gui, int posX, int posY) {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(guiElements);
+        gui.drawTexturedModalRect(posX, posY, 150, 0, 18, 18);
+    }
+
     public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
         return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
     }
