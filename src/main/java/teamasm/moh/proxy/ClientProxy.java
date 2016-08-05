@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-        CCBakedModelLoader.registerLoader(MinablesOverhaulBakedModelLoader.INTSNCE);
+        CCBakedModelLoader.registerLoader(MinablesOverhaulBakedModelLoader.INSTANCE);
     }
 
     @Override

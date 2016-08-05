@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader{
 
-    public static final MinablesOverhaulBakedModelLoader INTSNCE = new MinablesOverhaulBakedModelLoader();
+    public static final MinablesOverhaulBakedModelLoader INSTANCE = new MinablesOverhaulBakedModelLoader();
 
     public static class MinablesOverhaulKeyProvider implements IModKeyProvider {
 
