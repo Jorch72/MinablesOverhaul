@@ -1,4 +1,4 @@
-package teamasm.moh.block.tileentity.basetiles;
+package teamasm.moh.tile;
 
 /**
  * Created by brandon3055 on 5/08/2016.

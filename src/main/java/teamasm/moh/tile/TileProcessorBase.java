@@ -1,4 +1,4 @@
-package teamasm.moh.block.tileentity.basetiles;
+package teamasm.moh.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import teamasm.moh.manager.IOverhaulRecipe;

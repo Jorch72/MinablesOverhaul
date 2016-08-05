@@ -1,4 +1,4 @@
-package teamasm.moh.block.tileentity.basetiles;
+package teamasm.moh.tile;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;

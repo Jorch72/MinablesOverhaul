@@ -1,4 +1,4 @@
-package teamasm.moh.block.tileentity.basetiles;
+package teamasm.moh.tile;
 
 import codechicken.lib.inventory.InventorySimple;
 import codechicken.lib.inventory.InventoryUtils;
