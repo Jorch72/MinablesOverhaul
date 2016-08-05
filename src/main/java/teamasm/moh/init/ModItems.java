@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamasm.moh.item.Debugger;
 import teamasm.moh.item.ItemOreDrop;
+import teamasm.moh.reference.Reference;
 
 /**
  * Created by brandon3055 on 4/08/2016.
@@ -21,6 +22,7 @@ public class ModItems {
         }
 
         brokenOre = new ItemOreDrop();
+        brokenOre.setUnlocalizedName(Reference.MOD_PREFIX + "brokenOre");
         GameRegistry.register(brokenOre.setRegistryName("brokenOre"));
     }
 
