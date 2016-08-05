@@ -57,8 +57,6 @@ public class CapabilityHelper {
         if (player instanceof EntityPlayerMP && player.hasCapability(RESEARCH_CAP, null)) {
             IResearch research = player.getCapability(RESEARCH_CAP, null);
             PacketDispatcher.dispatchResearchSync(research, (EntityPlayerMP) player);
-            //PacketResearchSync packet = new PacketResearchSync(research);
-            //MinablesOverhaul.network.sendTo(packet, (EntityPlayerMP)player);
         }
     }
 }
