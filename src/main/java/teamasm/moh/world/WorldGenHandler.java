@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 
 import java.util.Random;
 
@@ -36,16 +37,30 @@ public class WorldGenHandler {
     //region WorldGen
 
     public static void generateChunk(World world, int chunkX, int chunkZ) {
-        GridPoint grid = getNearestGridPoint(chunkX * 16, chunkZ * 16);
-        random.setSeed(grid.getPointSeed(world));
+        int posX = (chunkX * 16);
+        int posZ = (chunkZ * 16);
+        GridPoint grid = getNearestGridPoint(posX, posZ);
 
-        if (random.nextFloat() > chancePerPoint) {
-            return;
+        //FMLLog.info("Point "+grid.x+" "+grid.z);
+
+    //    FMLLog.info("Generate "+grid.z+" "+posZ+" "+(grid.z > posZ));
+        if (grid.z > posZ) {
+            //FMLLog.info("Generate");
         }
+        if (grid.x >= posX && grid.x <= posX + 16 && grid.z >= posZ && grid.z <= posZ + 16) {
+            FMLLog.info("Generate");
 
-        int yLevel = 3 + (int) (random.nextDouble() * (world.getSeaLevel() - 3));
 
-        generatePocketAt(world, new BlockPos(grid.x, yLevel, grid.z));
+            random.setSeed(grid.getPointSeed(world));
+
+            if (random.nextFloat() > chancePerPoint) {
+                return;
+            }
+
+            int yLevel = 33;//3 + (int) (random.nextDouble() * (world.getSeaLevel() - 3));
+
+            generatePocketAt(world, new BlockPos(grid.x, yLevel, grid.z));
+        }
     }
 
     private static void generatePocketAt(World world, BlockPos blockPos) {
@@ -64,11 +79,30 @@ public class WorldGenHandler {
     //region Grid Calculations
 
     private static GridPoint getNearestGridPoint(int blockX, int blockZ) {
-        return new GridPoint(getNearestMultiple(blockX, gridSize), getNearestMultiple(blockZ, gridSize));
+        return new GridPoint(getNearestMultiple(blockX, gridSize), getNearestMultiple(blockZ, gridSize));//TODO Switch back to grid size
     }
 
     private static int getNearestMultiple(int number, int multiple) {
-        return multiple * Math.round(number / multiple);
+//        return multiple * round(number / multiple);
+        int result = number;
+
+        if (number < 0) result *= -1;
+
+        if (result % multiple == 0) return number;
+        else if (result % multiple < multiple/2) result = result - result % multiple;
+        else result = result + (multiple - result % multiple);
+
+        if (number < 0) result *= -1;
+        return result;
+    }
+
+    private static int round(double number) {
+        if (number % 1 >= 0.5) {
+            return (int)Math.round(number);
+        }
+        else {
+            return (int)Math.round(number - 0.5);
+        }
     }
 
     //endregion
