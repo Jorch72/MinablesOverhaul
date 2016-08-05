@@ -1,4 +1,4 @@
-package teamasm.moh.block.itemblock;
+package teamasm.moh.block;
 
 import codechicken.lib.block.property.PropertyString;
 import codechicken.lib.tile.IActiveTile;

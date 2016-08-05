@@ -3,10 +3,11 @@ package teamasm.moh.init;
 import codechicken.lib.block.ItemBlockMultiType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamasm.moh.block.BlockOre;
-import teamasm.moh.block.itemblock.BlockMachine;
+import teamasm.moh.block.BlockMachine;
 import teamasm.moh.block.itemblock.ItemBlockOre;
 import teamasm.moh.reference.VariantReference;
-import teamasm.moh.tile.machines.SomeMachine;
+import teamasm.moh.tile.machines.hand.TileManualDryer;
+import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 
 /**
  * Created by brandon3055 on 4/08/2016.
@@ -31,7 +32,7 @@ public class ModBlocks {
         GameRegistry.register(blockMachine.setRegistryName("machine"));
         GameRegistry.register(new ItemBlockMultiType(blockMachine).setRegistryName("machine"));
 
-        blockMachine.addSubItemAndTile(0, "someMachine", SomeMachine.class);
+        blockMachine.addSubItemAndTile(0, "reducerCrusher", TileReducerCrusher.class);
 
     }
 

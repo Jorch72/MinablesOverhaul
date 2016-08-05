@@ -2,8 +2,13 @@ package teamasm.moh.tile;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import teamasm.moh.MinablesOverhaul;
+import teamasm.moh.reference.GuiIds;
 
 /**
  * Created by brandon3055 on 5/08/2016.
@@ -42,5 +47,9 @@ public abstract class TileProcessEnergy extends TileProcessorBase implements IEn
     public void readFromNBT(NBTTagCompound compound) {
         energyStorage.readFromNBT(compound);
         super.readFromNBT(compound);
+    }
+
+    protected void openGui(GuiIds id, World world, BlockPos pos, EntityPlayer player) {
+        player.openGui(MinablesOverhaul.instance, id.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
     }
 }
