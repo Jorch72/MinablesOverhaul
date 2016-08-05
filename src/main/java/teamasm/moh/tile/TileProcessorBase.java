@@ -1,7 +1,7 @@
 package teamasm.moh.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import teamasm.moh.manager.IOverhaulRecipe;
+import teamasm.moh.api.recipe.IMOHRecipe;
 
 /**
  * Created by brandon3055 on 5/08/2016.
@@ -13,7 +13,7 @@ public abstract class TileProcessorBase extends TileInventoryBase {
     /**
      * The currently crafting recipe.
      */
-    protected IOverhaulRecipe activeRecipe = null;
+    protected IMOHRecipe activeRecipe = null;
     /**
      * The progress in ticks for the current recipe.
      * This is a double because progress will slow when energy is low.
@@ -24,7 +24,7 @@ public abstract class TileProcessorBase extends TileInventoryBase {
      */
     public int recipeTime = 0;
 
-    public abstract IOverhaulRecipe checkForValidRecipe();
+    public abstract IMOHRecipe checkForValidRecipe();
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
