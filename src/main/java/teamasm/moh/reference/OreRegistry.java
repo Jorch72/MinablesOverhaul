@@ -17,8 +17,6 @@ public class OreRegistry {
 
     public static final OreRegistry INSTANCE = new OreRegistry();
 
-    private Random random = new Random();
-
     private List<String> oreList = new ArrayList<String>();
     private List<WeightedOre> weightedOres = new ArrayList<WeightedOre>();
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
@@ -53,10 +51,9 @@ public class OreRegistry {
         return oreList.contains(ore);
     }
 
-    public ItemStack getRandomOreForSeed(long seed) { //TODO refine this and add support for purity when that mechanic gets implemented.
-        random.setSeed(seed);
+    public ItemStack getRandomOreForSeed(Random random) { //TODO refine this and add support for purity when that mechanic gets implemented.
         int oreCount = 1 + random.nextInt(maxOresPerOre);
-        ItemStack stack = new ItemStack(ModItems.itemOreDrop);
+        ItemStack stack = new ItemStack(ModItems.brokenOre);
         NBTTagList oreList = new NBTTagList();
         Map<String, Float> ores = new HashMap<String, Float>();
 
@@ -92,5 +89,27 @@ public class OreRegistry {
             super(itemWeightIn);
             this.name = name;
         }
+    }
+
+    /**
+     * Returns a map of ores contained within the given stack and their purity.
+     * @param stack the stack.
+     * @return a map or ore name to purity.
+     */
+    public static Map<String, Float> getOres(ItemStack stack) {
+        Map<String, Float> oreMap = new HashMap<String, Float>();
+        NBTTagCompound compound = stack.getTagCompound();
+
+        if (compound == null || !compound.hasKey("Ores")) {
+
+            return oreMap;
+        }
+
+        NBTTagList oreList = compound.getTagList("Ores", 10);
+        for (int i = 0; i < oreList.tagCount(); i++) {
+            oreMap.put(oreList.getCompoundTagAt(i).getString("Name"), oreList.getCompoundTagAt(i).getFloat("Purity"));
+        }
+
+        return oreMap;
     }
 }

@@ -12,7 +12,7 @@ import teamasm.moh.item.ItemOreDrop;
 public class ModItems {
 
     public static Item debugger;
-    public static Item itemOreDrop;
+    public static Item brokenOre;
 
     public static void init() {
         if (!ObfMapping.obfuscated) {
@@ -20,8 +20,8 @@ public class ModItems {
             GameRegistry.register(debugger.setRegistryName("debugger"));
         }
 
-        itemOreDrop = new ItemOreDrop();
-        GameRegistry.register(itemOreDrop.setRegistryName("oreDrop"));
+        brokenOre = new ItemOreDrop();
+        GameRegistry.register(brokenOre.setRegistryName("brokenOre"));
     }
 
 }

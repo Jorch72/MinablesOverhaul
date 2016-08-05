@@ -16,6 +16,7 @@ import teamasm.moh.init.ModItems;
 import teamasm.moh.init.Ores;
 import teamasm.moh.init.Recipes;
 import teamasm.moh.manager.OreStripManager;
+import teamasm.moh.manager.RetroOreStripper;
 import teamasm.moh.network.PacketDispatcher;
 import teamasm.moh.network.ServerPacketHandler;
 import teamasm.moh.world.WorldGeneratorMOH;
@@ -30,6 +31,9 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(handler);
         MinecraftForge.TERRAIN_GEN_BUS.register(handler);
         MinecraftForge.ORE_GEN_BUS.register(handler);
+
+        //RetroOreStripper stripper = new RetroOreStripper();
+        //MinecraftForge.EVENT_BUS.register(stripper);
 
         ModBlocks.init();
         ModItems.init();
