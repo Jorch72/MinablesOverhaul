@@ -80,6 +80,29 @@ public class ItemOre extends Item {
     }
 
     /**
+     * Adds the given value to the current purity value of the specified mineral.
+     *
+     * @param ore the ore name.
+     * @param amount the amount to add (can be positive or negative)
+     * @param stack the stack.
+     */
+    public void modifyPurity(String ore, float amount, ItemStack stack) {
+        Map<String, Float> ores = getOres(stack);
+
+        if (ores.containsKey(ore)) {
+            amount = ores.get(ore) + amount;
+        }
+
+        if (amount <= 0) {
+            ores.remove(ore);
+        }
+        else {
+            ores.put(ore, amount);
+        }
+        setOres(ores, stack);
+    }
+
+    /**
      * Note: Particles in this case do not refer to visual effects.<br>
      * But instead refer to the size of the ore chunks/fragments AKA particles.
      *
