@@ -1,10 +1,16 @@
 package teamasm.moh.manager;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketChunkData;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerChunkMap;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -12,10 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
@@ -29,7 +32,6 @@ public class RetroOreStripper {
     public static final int chunksPerTick = Integer.parseInt(System.getProperty("moh.stripingChunksPerTick", "10"));
 
     private static Map<Integer, LinkedList<ChunkPos>> chunkQue = new LinkedHashMap<Integer, LinkedList<ChunkPos>>();
-
     private static Map<Integer, LinkedList<ChunkPos>> stripedChunks = new LinkedHashMap<Integer, LinkedList<ChunkPos>>();
 
     @SubscribeEvent
@@ -42,17 +44,74 @@ public class RetroOreStripper {
     @SubscribeEvent
     public void tickEvent(TickEvent.ServerTickEvent event) {
         if (event.phase == Phase.START) {
+            Map<Integer, List<Chunk>> modifiedChunkMap = new LinkedHashMap<Integer, List<Chunk>>();
             Iterator<Entry<Integer, LinkedList<ChunkPos>>> iterator = chunkQue.entrySet().iterator();
-            int chunksProcessed = 0;
+
             while (iterator.hasNext()) {
-                if (chunksProcessed >= chunksPerTick) {
-                    break;
-                }
+                int chunksProcessed = 0;
+
                 Entry<Integer, LinkedList<ChunkPos>> entry = iterator.next();
                 WorldServer world = getServer().worldServerForDimension(entry.getKey());
-                //Chunk chunk = world.getChunkFromChunkCoords(entry.)
-                chunksProcessed++;
+                Iterator<ChunkPos> chunkIterator = entry.getValue().iterator();
+                while (chunkIterator.hasNext()) {
+                    if (chunksProcessed >= chunksPerTick) {
+                        break;
+                    }
+                    ChunkPos chunkPos = chunkIterator.next();
+                    Chunk chunk = world.getChunkFromChunkCoords(chunkPos.chunkXPos, chunkPos.chunkZPos);
+                    for (int i = 0; i < 16; i++) {
+                        for (int j = 0; j < 16; j++) {
+                            for (int k = 0; k < 256; k++) {
+                                ExtendedBlockStorage storage = chunk.storageArrays[k >> 4];
+                                if (storage != null) {
+                                    IBlockState state = storage.get(i, k, j);
+                                    if (OreStripManager.shouldStrip(state)) {
+                                        IBlockState replacement;
+                                        if (entry.getKey() == -1) {
+                                            replacement = Blocks.NETHERRACK.getDefaultState();
+                                        } else if (entry.getKey() == 1) {
+                                            replacement = Blocks.END_STONE.getDefaultState();
+                                        } else {
+                                            replacement = Blocks.STONE.getDefaultState();
+                                        }
+                                        storage.set(i, k, j, replacement);
+                                        List<Chunk> modifiedChunks = modifiedChunkMap.get(entry.getKey());
+                                        if (modifiedChunks == null){
+                                            modifiedChunks = new LinkedList<Chunk>();
+                                        }
+                                        if (!modifiedChunks.contains(chunk)){
+                                            modifiedChunks.add(chunk);
+                                        }
+                                        modifiedChunkMap.put(entry.getKey(), modifiedChunks);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    chunksProcessed++;
+                    chunkIterator.remove();
+                }
                 iterator.remove();
+            }
+
+            for (Entry<Integer, List<Chunk>> entry : modifiedChunkMap.entrySet()) {
+                WorldServer worldServer = getServer().worldServerForDimension(entry.getKey());
+                sendChunkData(worldServer, entry.getValue());
+            }
+            modifiedChunkMap.clear();
+        }
+    }
+
+    private static void sendChunkData(WorldServer worldServer, List<Chunk> modifiedChunks) {
+        for (Chunk chunk : modifiedChunks) {
+            PlayerChunkMap playerChunkMap = worldServer.getPlayerChunkMap();
+            if (playerChunkMap == null) {
+                return;
+            }
+            PlayerChunkMapEntry watcher = playerChunkMap.getEntry(chunk.xPosition, chunk.zPosition);
+            if (watcher != null) {
+                watcher.sendPacket(new SPacketChunkData(chunk, 65535));
             }
         }
     }
