@@ -95,6 +95,7 @@ public class OreRegistry {
 
     /**
      * Returns a map of ores contained within the given stack and their purity.
+     *
      * @param stack the stack.
      * @return a map or ore name to purity.
      */

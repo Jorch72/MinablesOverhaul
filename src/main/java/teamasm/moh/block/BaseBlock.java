@@ -7,7 +7,6 @@ import codechicken.lib.tile.IHarvestTile;
 import codechicken.lib.tile.IRotatableTile;
 import codechicken.lib.util.ItemUtils;
 import codechicken.lib.util.RotationUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;

@@ -3,10 +3,10 @@ package teamasm.moh.init;
 import codechicken.lib.block.ItemBlockMultiType;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import teamasm.moh.block.BlockOre;
 import teamasm.moh.block.BlockMachine;
-import teamasm.moh.tile.machines.teir1.*;
+import teamasm.moh.block.BlockOre;
 import teamasm.moh.reference.Reference;
+import teamasm.moh.tile.machines.teir1.*;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 import teamasm.moh.tile.machines.tier2.TileSeperatorElectrostatic;
 

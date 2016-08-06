@@ -50,7 +50,8 @@ public class ItemOre extends Item {
 
     /**
      * Overwrites the minerals contained within this ore with the given ore map.
-     * @param ores A map of String (Ore name) to Float (Purity)
+     *
+     * @param ores  A map of String (Ore name) to Float (Purity)
      * @param stack the stack.
      */
     public void setOres(Map<String, Float> ores, ItemStack stack) {
@@ -69,9 +70,9 @@ public class ItemOre extends Item {
     /**
      * Sets the purity for teh specified mineral and ads it to the ore if id did not previously exist.
      *
-     * @param ore The ore name (Ore dictionary name)
+     * @param ore    The ore name (Ore dictionary name)
      * @param purity the purity (A value between 0 and 1 indicating a purity between 0 and 100%)
-     * @param stack the stack.
+     * @param stack  the stack.
      */
     public void setOre(String ore, float purity, ItemStack stack) {
         Map<String, Float> ores = getOres(stack);
@@ -82,9 +83,9 @@ public class ItemOre extends Item {
     /**
      * Adds the given value to the current purity value of the specified mineral.
      *
-     * @param ore the ore name.
+     * @param ore    the ore name.
      * @param amount the amount to add (can be positive or negative)
-     * @param stack the stack.
+     * @param stack  the stack.
      */
     public void modifyPurity(String ore, float amount, ItemStack stack) {
         Map<String, Float> ores = getOres(stack);
@@ -95,8 +96,7 @@ public class ItemOre extends Item {
 
         if (amount <= 0) {
             ores.remove(ore);
-        }
-        else {
+        } else {
             ores.put(ore, amount);
         }
         setOres(ores, stack);
@@ -115,11 +115,11 @@ public class ItemOre extends Item {
 
     /**
      * Sets the particle size for this ore stack.
-     *
+     * <p/>
      * Note: Particles in this case do not refer to visual effects.<br>
      * But instead refer to the size of the ore chunks/fragments AKA particles.
      *
-     * @param stack the stack.
+     * @param stack        the stack.
      * @param particleSize a value between 0 and 1.
      */
     public void setParticleSize(ItemStack stack, float particleSize) {
@@ -135,7 +135,7 @@ public class ItemOre extends Item {
     }
 
     /**
-     * @param stack The stack.
+     * @param stack   The stack.
      * @param reduced a boolean
      */
     public void setReduced(ItemStack stack, boolean reduced) {
@@ -149,14 +149,14 @@ public class ItemOre extends Item {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         Map<String, Float> ores = getOres(stack);
-        tooltip.add(TextFormatting.GOLD+"Contains traces of:");
+        tooltip.add(TextFormatting.GOLD + "Contains traces of:");
 
         for (String name : ores.keySet()) {
-            tooltip.add(TextFormatting.BLUE+" -"+name +" "+ores.get(name) * 100F+"%");
+            tooltip.add(TextFormatting.BLUE + " -" + name + " " + ores.get(name) * 100F + "%");
         }
 
-        tooltip.add(TextFormatting.GOLD+"Particle Size: " + getParticleSize(stack));
-        tooltip.add(TextFormatting.GOLD+"Is Reduced: " + isReduced(stack));
+        tooltip.add(TextFormatting.GOLD + "Particle Size: " + getParticleSize(stack));
+        tooltip.add(TextFormatting.GOLD + "Is Reduced: " + isReduced(stack));
     }
 
     //endregion

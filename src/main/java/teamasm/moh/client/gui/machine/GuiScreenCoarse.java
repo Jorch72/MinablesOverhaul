@@ -32,6 +32,6 @@ public class GuiScreenCoarse extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        GuiUtils.drawEnergyBar(this, 5,  5, 70, tileScreenCoarse.getEnergyStored(EnumFacing.DOWN), tileScreenCoarse.getMaxEnergyStored(EnumFacing.DOWN), mouseX - guiLeft, mouseY - guiTop);
+        GuiUtils.drawEnergyBar(this, 5, 5, 70, tileScreenCoarse.getEnergyStored(EnumFacing.DOWN), tileScreenCoarse.getMaxEnergyStored(EnumFacing.DOWN), mouseX - guiLeft, mouseY - guiTop);
     }
 }

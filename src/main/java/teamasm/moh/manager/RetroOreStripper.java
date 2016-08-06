@@ -46,15 +46,17 @@ public class RetroOreStripper {
         if (event.phase == Phase.START) {
             Map<Integer, List<Chunk>> modifiedChunkMap = new LinkedHashMap<Integer, List<Chunk>>();
             Iterator<Entry<Integer, LinkedList<ChunkPos>>> iterator = chunkQue.entrySet().iterator();
-
+            boolean stop = false;
             while (iterator.hasNext()) {
                 int chunksProcessed = 0;
 
                 Entry<Integer, LinkedList<ChunkPos>> entry = iterator.next();
                 WorldServer world = getServer().worldServerForDimension(entry.getKey());
+                //FMLLog.info("Dimension %s Que: %s", entry.getKey(), "Remaining: " + entry.getValue().size());
                 Iterator<ChunkPos> chunkIterator = entry.getValue().iterator();
                 while (chunkIterator.hasNext()) {
                     if (chunksProcessed >= chunksPerTick) {
+                        stop = true;
                         break;
                     }
                     ChunkPos chunkPos = chunkIterator.next();
@@ -74,12 +76,12 @@ public class RetroOreStripper {
                                         } else {
                                             replacement = Blocks.STONE.getDefaultState();
                                         }
-                                        storage.set(i, k, j, replacement);
+                                        storage.set(i, k & 15, j, replacement);
                                         List<Chunk> modifiedChunks = modifiedChunkMap.get(entry.getKey());
-                                        if (modifiedChunks == null){
+                                        if (modifiedChunks == null) {
                                             modifiedChunks = new LinkedList<Chunk>();
                                         }
-                                        if (!modifiedChunks.contains(chunk)){
+                                        if (!modifiedChunks.contains(chunk)) {
                                             modifiedChunks.add(chunk);
                                         }
                                         modifiedChunkMap.put(entry.getKey(), modifiedChunks);
@@ -91,6 +93,9 @@ public class RetroOreStripper {
 
                     chunksProcessed++;
                     chunkIterator.remove();
+                }
+                if (stop) {
+                    break;
                 }
                 iterator.remove();
             }
@@ -118,33 +123,41 @@ public class RetroOreStripper {
 
     @SubscribeEvent
     public void chunkLoadEvent(ChunkDataEvent.Load event) {
-        NBTTagCompound tagCompound = event.getData().getCompoundTag(DATA_TAG);
-        if (tagCompound == null || !tagCompound.hasKey(STRIP_FLAG) || !tagCompound.getBoolean(STRIP_FLAG)) {
-            LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
-            if (chunkQue.containsKey(event.getWorld().provider.getDimension())) {
-                chunks = chunkQue.get(event.getWorld().provider.getDimension());
+        int dim = event.getWorld().provider.getDimension();
+        if (dim == -1 || dim == 0 || dim == 1) {
+
+            NBTTagCompound tagCompound = event.getData().getCompoundTag(DATA_TAG);
+            if (tagCompound == null || !tagCompound.hasKey(STRIP_FLAG) || !tagCompound.getBoolean(STRIP_FLAG)) {
+                LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
+                if (chunkQue.containsKey(event.getWorld().provider.getDimension())) {
+                    chunks = chunkQue.get(event.getWorld().provider.getDimension());
+                }
+                chunks.add(event.getChunk().getChunkCoordIntPair());
+                chunkQue.put(dim, chunks);
+            } else if (tagCompound.getBoolean(STRIP_FLAG)) {
+                LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
+                if (stripedChunks.containsKey(event.getWorld().provider.getDimension())) {
+                    chunks = stripedChunks.get(event.getWorld().provider.getDimension());
+                }
+                chunks.add(event.getChunk().getChunkCoordIntPair());
+                stripedChunks.put(event.getWorld().provider.getDimension(), chunks);
             }
-            chunks.add(event.getChunk().getChunkCoordIntPair());
-        } else if (tagCompound.getBoolean(STRIP_FLAG)) {
-            LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
-            if (stripedChunks.containsKey(event.getWorld().provider.getDimension())) {
-                chunks = stripedChunks.get(event.getWorld().provider.getDimension());
-            }
-            chunks.add(event.getChunk().getChunkCoordIntPair());
-            stripedChunks.put(event.getWorld().provider.getDimension(), chunks);
         }
     }
 
     @SubscribeEvent
     public void chunkSaveEvent(ChunkDataEvent.Save event) {
-        NBTTagCompound tagCompound = new NBTTagCompound();
-        if (event.getData().hasKey(DATA_TAG)) {
-            tagCompound = event.getData().getCompoundTag(DATA_TAG);
+        int dim = event.getWorld().provider.getDimension();
+        if (dim == -1 || dim == 0 || dim == 1) {
+            NBTTagCompound tagCompound = new NBTTagCompound();
+            if (event.getData().hasKey(DATA_TAG)) {
+                tagCompound = event.getData().getCompoundTag(DATA_TAG);
+            }
+            if (!tagCompound.hasKey(STRIP_FLAG) && stripedChunks.containsKey(dim) && stripedChunks.get(dim).contains(event.getChunk().getChunkCoordIntPair())) {
+                tagCompound.setBoolean(STRIP_FLAG, true);
+            }
+            event.getData().setTag(DATA_TAG, tagCompound);
         }
-        if (!tagCompound.hasKey(STRIP_FLAG) && stripedChunks.get(event.getWorld().provider.getDimension()).contains(event.getChunk().getChunkCoordIntPair())) {
-            tagCompound.setBoolean(STRIP_FLAG, true);
-        }
-        event.getData().setTag(DATA_TAG, tagCompound);
     }
 
     private static MinecraftServer getServer() {

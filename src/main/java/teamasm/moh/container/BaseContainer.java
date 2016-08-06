@@ -7,10 +7,10 @@ import net.minecraft.inventory.Slot;
 /**
  * Created by Gigabit101 on 05/08/2016.
  */
-public class BaseContainer extends Container{
+public class BaseContainer extends Container {
     EntityPlayer entityPlayer;
 
-    public BaseContainer(EntityPlayer entityPlayer){
+    public BaseContainer(EntityPlayer entityPlayer) {
         super();
         this.entityPlayer = entityPlayer;
     }

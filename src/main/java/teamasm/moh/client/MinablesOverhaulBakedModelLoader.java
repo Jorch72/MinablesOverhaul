@@ -28,7 +28,7 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
         public String createKey(ItemStack stack) {
             StringBuilder builder = new StringBuilder();
             //if (stack.getItem().equals(ModItems.itemOreDrop)){
-                String oreName;
+            String oreName;
             //}
             return builder.toString();
         }

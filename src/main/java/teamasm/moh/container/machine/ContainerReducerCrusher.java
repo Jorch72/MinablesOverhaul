@@ -12,7 +12,7 @@ import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 public class ContainerReducerCrusher extends BaseContainer {
     private TileReducerCrusher tileReducerCrusher;
 
-    public ContainerReducerCrusher(InventoryPlayer inventoryPlayer, TileReducerCrusher tileReducerCrusher){
+    public ContainerReducerCrusher(InventoryPlayer inventoryPlayer, TileReducerCrusher tileReducerCrusher) {
         super(inventoryPlayer.player);
         this.tileReducerCrusher = tileReducerCrusher;
 

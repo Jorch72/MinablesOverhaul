@@ -5,7 +5,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import teamasm.moh.container.BaseContainer;
 import teamasm.moh.tile.machines.teir1.TileScreenCoarse;
-import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 
 /**
  * Created by Gigabit101 on 05/08/2016.
@@ -13,7 +12,7 @@ import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 public class ContainerScreenCoarse extends BaseContainer {
     private TileScreenCoarse tileScreenCoarse;
 
-    public ContainerScreenCoarse(InventoryPlayer inventoryPlayer, TileScreenCoarse tileScreenCoarse){
+    public ContainerScreenCoarse(InventoryPlayer inventoryPlayer, TileScreenCoarse tileScreenCoarse) {
         super(inventoryPlayer.player);
         this.tileScreenCoarse = tileScreenCoarse;
 

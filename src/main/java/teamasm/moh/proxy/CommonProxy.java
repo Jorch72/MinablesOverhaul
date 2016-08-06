@@ -38,8 +38,8 @@ public class CommonProxy {
         MinecraftForge.TERRAIN_GEN_BUS.register(handler);
         MinecraftForge.ORE_GEN_BUS.register(handler);
 
-        //RetroOreStripper stripper = new RetroOreStripper();
-        //MinecraftForge.EVENT_BUS.register(stripper);
+        RetroOreStripper stripper = new RetroOreStripper();
+        MinecraftForge.EVENT_BUS.register(stripper);
 
         ModBlocks.init();
         ModItems.init();

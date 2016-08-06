@@ -32,6 +32,6 @@ public class GuiReducerCrusher extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        GuiUtils.drawEnergyBar(this, 5,  5, 70, tileReducerCrusher.getEnergyStored(EnumFacing.DOWN), tileReducerCrusher.getMaxEnergyStored(EnumFacing.DOWN), mouseX - guiLeft, mouseY - guiTop);
+        GuiUtils.drawEnergyBar(this, 5, 5, 70, tileReducerCrusher.getEnergyStored(EnumFacing.DOWN), tileReducerCrusher.getMaxEnergyStored(EnumFacing.DOWN), mouseX - guiLeft, mouseY - guiTop);
     }
 }

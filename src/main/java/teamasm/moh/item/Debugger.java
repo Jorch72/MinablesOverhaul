@@ -17,21 +17,21 @@ public class Debugger extends Item {
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 
         if (world.isRemote) {
-            FMLLog.info(""+34.5 % 1);
+            FMLLog.info("" + 34.5 % 1);
         }
 
-//        if (!world.isRemote) {
-//
-//            if (player.isSneaking()) {
-//                CapabilityHelper.setResearch(player, "Test", CapabilityHelper.getResearch(player, "Test") + 1);
-//            }
-//            else {
-//                FMLLog.info(""+CapabilityHelper.getResearch(player, "Test"));
-//            }
-//        }
-//        else {
-//            FMLLog.info("Client: "+CapabilityHelper.getResearch(player, "Test"));
-//        }
+        //        if (!world.isRemote) {
+        //
+        //            if (player.isSneaking()) {
+        //                CapabilityHelper.setResearch(player, "Test", CapabilityHelper.getResearch(player, "Test") + 1);
+        //            }
+        //            else {
+        //                FMLLog.info(""+CapabilityHelper.getResearch(player, "Test"));
+        //            }
+        //        }
+        //        else {
+        //            FMLLog.info("Client: "+CapabilityHelper.getResearch(player, "Test"));
+        //        }
 
         return super.onItemRightClick(stack, world, player, hand);
     }
