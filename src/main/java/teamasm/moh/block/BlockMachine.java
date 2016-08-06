@@ -26,6 +26,7 @@ public class BlockMachine extends BaseBlock {//TODO More stuff.
 
     public BlockMachine() {
         super(Material.ROCK);
+        setHardness(2.0F);
     }
 
     @Override
