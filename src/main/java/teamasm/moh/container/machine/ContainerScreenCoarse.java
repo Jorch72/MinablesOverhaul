@@ -3,6 +3,7 @@ package teamasm.moh.container.machine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceOutput;
 import teamasm.moh.container.BaseContainer;
 import teamasm.moh.tile.machines.teir1.TileScreenCoarse;
 
@@ -17,7 +18,7 @@ public class ContainerScreenCoarse extends BaseContainer {
         this.tileScreenCoarse = tileScreenCoarse;
 
         addSlotToContainer(new Slot(tileScreenCoarse, 0, 41, 31));
-        addSlotToContainer(new Slot(tileScreenCoarse, 1, 121, 31));
+        addSlotToContainer(new SlotFurnaceOutput(inventoryPlayer.player, tileScreenCoarse, 1, 121, 31));
         addPlayersInventory();
         addPlayersHotbar();
     }

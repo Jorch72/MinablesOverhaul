@@ -3,6 +3,7 @@ package teamasm.moh.container.machine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceOutput;
 import teamasm.moh.container.BaseContainer;
 import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 
@@ -17,7 +18,7 @@ public class ContainerReducerCrusher extends BaseContainer {
         this.tileReducerCrusher = tileReducerCrusher;
 
         addSlotToContainer(new Slot(tileReducerCrusher, 0, 41, 31));
-        addSlotToContainer(new Slot(tileReducerCrusher, 1, 121, 31));
+        addSlotToContainer(new SlotFurnaceOutput(inventoryPlayer.player, tileReducerCrusher, 1, 121, 31));
         addPlayersInventory();
         addPlayersHotbar();
     }
