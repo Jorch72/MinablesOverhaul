@@ -30,7 +30,7 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
             //if (stack.getItem().equals(ModItems.itemOreDrop)){
             String oreName;
             //}
-            return builder.toString();
+            return null;//builder.toString();
         }
 
         @Override

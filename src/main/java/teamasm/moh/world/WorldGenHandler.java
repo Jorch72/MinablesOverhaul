@@ -1,8 +1,12 @@
 package teamasm.moh.world;
 
+import codechicken.lib.world.placement.BlockPlacementBatcher;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.gen.NoiseGeneratorSimplex;
 import teamasm.moh.init.ModBlocks;
 import teamasm.moh.reference.OreRegistry;
 
@@ -15,12 +19,15 @@ import java.util.Random;
 public class WorldGenHandler {
     private static Random random = new Random();
 
-    private static int gridSize = 48;
+    private static int gridSize = 512;
     /**
      * Ore pocket size should be no more then half grid size to avoid overlap.
      */
-    private static int orePocketSize = 24;
+    private static int orePocketSizeFactor = 128;
+    private static int orePocketHeightFactor = 32;
     private static float chancePerPoint = 0.3F;
+    private static float noiseFactor = 0.3F;
+    private static NoiseGeneratorSimplex noise = new NoiseGeneratorSimplex(new Random());
 
     //region OreCalculation
 
@@ -40,6 +47,7 @@ public class WorldGenHandler {
     //region WorldGen
 
     public static void generateChunk(World world, int chunkX, int chunkZ) {
+        noiseFactor = 0.3F;
         int posX = (chunkX * 16);
         int posZ = (chunkZ * 16);
         GridPoint grid = getNearestGridPoint(posX, posZ);
@@ -51,20 +59,60 @@ public class WorldGenHandler {
                 return;
             }
 
-            int yLevel = 3 + (int) (random.nextDouble() * (world.getSeaLevel() - 3));
+            int yLevel = 3 + (int) (random.nextDouble() * (Math.min(world.getSeaLevel(), getTopBlock(world, new BlockPos(grid.x, world.getSeaLevel(), grid.z))) - 10));
+
+            if (yLevel < 0) {
+                return;
+            }
 
             generatePocketAt(world, new BlockPos(grid.x, yLevel, grid.z));
         }
     }
 
+    private static int getTopBlock(World world, BlockPos blockPos) {
+        for (int y = blockPos.getY(); y > 0; y--){
+            if (world.getBlockState(new BlockPos(blockPos.getX(), y, blockPos.getZ())).getBlock() == Blocks.STONE) {
+                return y;
+            }
+        }
+        return 0;
+    }
+
     private static void generatePocketAt(World world, BlockPos blockPos) {
-        //todo Create some proper generation code that dose not just generate a giant block of ore
+        if (!(world instanceof WorldServer)) {
+            return;
+        }
 
-        int diameter = orePocketSize / 2;
-        Iterable<BlockPos> blocks = BlockPos.getAllInBox(blockPos.add(-diameter, -diameter, -diameter), blockPos.add(diameter, diameter, diameter));
+        int xRad = (int) (orePocketSizeFactor * (0.8 + (random.nextDouble() * 0.2)));
+        int yRad = (int) (orePocketHeightFactor * (0.8 + (random.nextDouble() * 0.2)));
+        int zRad = (int) (orePocketSizeFactor * (0.8 + (random.nextDouble() * 0.2)));
 
-        for (BlockPos pos : blocks) {
-            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());//todo replace with the actual ore block
+        BlockPlacementBatcher batcher = new BlockPlacementBatcher((WorldServer)world);
+
+        for (int x = blockPos.getX() - xRad; x <= blockPos.getX() + xRad; x++) {
+            double xDist = 1D - (Math.abs(x - blockPos.getX()) / (double) xRad);
+            for (int y = blockPos.getY() - yRad; y <= blockPos.getY() + yRad; y++) {
+                double yDist = Math.abs(y - blockPos.getY());
+                for (int z = blockPos.getZ() - zRad; z <= blockPos.getZ() + zRad; z++) {
+                    double zDist = 1D - (Math.abs(z - blockPos.getZ()) / (double) zRad);
+
+                    double nValue = Math.max(noise.getValue(x / 64D, z / 64D), 0) * yRad * xDist * zDist;
+
+                    nValue += noise.getValue((x / 16D) + 512D, (z / 16D) + 512D) * (yRad / 3) * xDist * zDist;
+
+                    if (nValue > yDist + 0.5 && y >= 0 && noiseFactor < random.nextFloat()) {
+                        setBlock(world, batcher, new BlockPos(x, y, z));
+                    }
+                }
+            }
+        }
+
+        batcher.finish();
+    }
+
+    private static void setBlock(World world, BlockPlacementBatcher batcher, BlockPos pos) {
+        if (world.getBlockState(pos) == Blocks.STONE.getDefaultState()) {
+            batcher.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         }
     }
 

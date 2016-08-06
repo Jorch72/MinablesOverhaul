@@ -19,6 +19,7 @@ public class OreRegistry {
 
     private List<String> oreList = new ArrayList<String>();
     private List<WeightedOre> weightedOres = new ArrayList<WeightedOre>();
+    private static List<WeightedChance> weightedChance = new ArrayList<WeightedChance>();
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
     private Map<String, Integer> nameToColour = new HashMap<String, Integer>();
     private Map<String, Float> nameToPurity = new HashMap<String, Float>();
@@ -28,6 +29,13 @@ public class OreRegistry {
      * The maximum possible ores per vein.
      */
     private static int maxOresPerOre = 5;
+
+    static {
+        for (int i = 1; i <= maxOresPerOre; i++) {
+            int chance = maxOresPerOre - i;
+            weightedChance.add(new WeightedChance(i, 1 + (chance * 2)));
+        }
+    }
 
     /**
      * @param oreName   The ore dictionary name of the ore.
@@ -52,7 +60,7 @@ public class OreRegistry {
     }
 
     public ItemStack getRandomOreForSeed(Random random) { //TODO refine this and add support for purity when that mechanic gets implemented.
-        int oreCount = 1 + random.nextInt(maxOresPerOre);
+        int oreCount = WeightedRandom.getRandomItem(random, weightedChance).count;
         ItemStack stack = new ItemStack(ModItems.brokenOre);
         Map<String, Float> ores = new HashMap<String, Float>();
 
@@ -89,6 +97,16 @@ public class OreRegistry {
         public WeightedOre(String name, int itemWeightIn) {
             super(itemWeightIn);
             this.name = name;
+        }
+    }
+
+    private static class WeightedChance extends WeightedRandom.Item {
+
+        private final int count;
+
+        public WeightedChance(int count, int itemWeightIn) {
+            super(itemWeightIn);
+            this.count = count;
         }
     }
 
