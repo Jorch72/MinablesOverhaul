@@ -109,8 +109,8 @@ public class ItemOre extends Item {
      * @param stack the stack.
      * @return the particle size for this ore stack.
      */
-    public float getParticleSize(ItemStack stack) {
-        return ItemNBTUtils.getFloat(stack, "ParticleSize");
+    public int getParticleSize(ItemStack stack) {
+        return stack.getItemDamage();
     }
 
     /**
@@ -120,10 +120,10 @@ public class ItemOre extends Item {
      * But instead refer to the size of the ore chunks/fragments AKA particles.
      *
      * @param stack        the stack.
-     * @param particleSize a value between 0 and 1.
+     * @param particleSize a value between 1 and 20.
      */
-    public void setParticleSize(ItemStack stack, float particleSize) {
-        ItemNBTUtils.setFloat(stack, "ParticleSize", particleSize);
+    public void setParticleSize(ItemStack stack, int particleSize) {
+        stack.setItemDamage(particleSize);
     }
 
     /**
