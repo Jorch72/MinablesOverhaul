@@ -52,4 +52,8 @@ public abstract class TileProcessEnergy extends TileProcessorBase implements IEn
     protected void openGui(GuiIds id, World world, BlockPos pos, EntityPlayer player) {
         player.openGui(MinablesOverhaul.instance, id.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
     }
+
+    public long getPowerScaled (int scale) {
+        return (this.getEnergyStored(EnumFacing.DOWN) * scale) / this.getMaxEnergyStored(EnumFacing.DOWN);
+    }
 }

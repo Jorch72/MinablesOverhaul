@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 public class TileInventoryBase extends TileEntity implements IInventory {
 
     private InventorySimple inventorySimple;
+    public int progress;
 
     public TileInventoryBase() {
     }

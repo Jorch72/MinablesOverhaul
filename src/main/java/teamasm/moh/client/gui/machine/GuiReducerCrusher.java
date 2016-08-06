@@ -25,7 +25,7 @@ public class GuiReducerCrusher extends GuiContainer {
         GuiUtils.drawSlot(this, guiLeft + 40, guiTop + 30);
         GuiUtils.drawSlot(this, guiLeft + 120, guiTop + 30);
         //TODO sync this (listener maybe??)
-        GuiUtils.drawProgressBar(this, (int) tileReducerCrusher.progress, guiLeft + 80, guiTop + 30);
+        GuiUtils.drawProgressBar(this, (int) tileReducerCrusher.getEnergyStored(EnumFacing.DOWN), guiLeft + 80, guiTop + 30);
 
         GuiUtils.drawPlayerSlots(this, guiLeft + xSize / 2, guiTop + 80, true);
     }
