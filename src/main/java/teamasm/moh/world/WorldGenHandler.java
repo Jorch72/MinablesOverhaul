@@ -22,7 +22,6 @@ public class WorldGenHandler {
     private static int orePocketSize = 24;
     private static float chancePerPoint = 0.3F;
 
-
     //region OreCalculation
 
     public static ItemStack getOreAt(World world, BlockPos blockPos) {
@@ -78,7 +77,7 @@ public class WorldGenHandler {
     }
 
     private static int getNearestMultiple(int number, int multiple) {
-//        return multiple * round(number / multiple);
+        //        return multiple * round(number / multiple);
         int result = number;
 
         if (number < 0) {
@@ -87,11 +86,9 @@ public class WorldGenHandler {
 
         if (result % multiple == 0) {
             return number;
-        }
-        else if (result % multiple < multiple/2) {
+        } else if (result % multiple < multiple / 2) {
             result = result - result % multiple;
-        }
-        else {
+        } else {
             result = result + (multiple - result % multiple);
         }
 
@@ -103,10 +100,9 @@ public class WorldGenHandler {
 
     private static int round(double number) {
         if (number % 1 >= 0.5) {
-            return (int)Math.round(number);
-        }
-        else {
-            return (int)Math.round(number - 0.51);
+            return (int) Math.round(number);
+        } else {
+            return (int) Math.round(number - 0.51);
         }
     }
 

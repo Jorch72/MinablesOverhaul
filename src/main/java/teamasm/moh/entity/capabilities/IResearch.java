@@ -14,7 +14,7 @@ public interface IResearch {
 
     /**
      * @param research the name of the research. For ores this is the ore dictionary name of the ore.
-     * @param value the research level. This ranges from 0 to 100 (0% - 100%)
+     * @param value    the research level. This ranges from 0 to 100 (0% - 100%)
      */
     void setResearch(String research, int value);
 

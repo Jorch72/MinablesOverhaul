@@ -17,9 +17,9 @@ public class ClientHelper {
         try {
             Field field = CCBakedModelLoader.class.getDeclaredField("modelCache");
             field.setAccessible(true);
-            Map<String , IBakedModel> cache = (Map<String, IBakedModel>) field.get(null);
+            Map<String, IBakedModel> cache = (Map<String, IBakedModel>) field.get(null);
             cache.clear();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import teamasm.moh.container.BaseContainer;
-import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 
 /**
@@ -13,7 +12,7 @@ import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 public class ContainerReducerGrinder extends BaseContainer {
     private TileReducerGrinder tileReducerGrinder;
 
-    public ContainerReducerGrinder(InventoryPlayer inventoryPlayer, TileReducerGrinder tileReducerGrinder){
+    public ContainerReducerGrinder(InventoryPlayer inventoryPlayer, TileReducerGrinder tileReducerGrinder) {
         super(inventoryPlayer.player);
         this.tileReducerGrinder = tileReducerGrinder;
 

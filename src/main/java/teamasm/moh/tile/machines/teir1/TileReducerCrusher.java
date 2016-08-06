@@ -15,22 +15,23 @@ import teamasm.moh.tile.TileProcessEnergy;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileReducerCrusher extends TileProcessEnergy implements IGuiTile, ITickable{
+public class TileReducerCrusher extends TileProcessEnergy implements IGuiTile, ITickable {
 
     public TileReducerCrusher() {
         setInventory(2, 64);
     }
+
     int runCost = 100;
 
     @Override
     public void update() {
-        if(!worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             if (getEnergyStored(EnumFacing.DOWN) >= runCost && getStackInSlot(0) != null && getStackInSlot(0).getItem() instanceof ItemOre) {
                 int stacksize = getStackInSlot(0).stackSize;
                 ItemOre itemOre = (ItemOre) getStackInSlot(0).getItem();
                 if (stacksize > 1 && itemOre.getParticleSize(getStackInSlot(0)) > 0.1) {
                     //set new Particle size and copy
-//                    itemOre.setParticleSize(getStackInSlot(0), itemOre.getParticleSize(getStackInSlot(0)) / stacksize);
+                    //                    itemOre.setParticleSize(getStackInSlot(0), itemOre.getParticleSize(getStackInSlot(0)) / stacksize);
                     itemOre.setReduced(getStackInSlot(0), true);
                     ItemStack copyStack = getStackInSlot(0);
                     copyStack.stackSize = 1;

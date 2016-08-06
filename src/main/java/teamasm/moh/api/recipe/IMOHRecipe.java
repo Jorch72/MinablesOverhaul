@@ -2,8 +2,6 @@ package teamasm.moh.api.recipe;
 
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 /**
  * Created by covers1624 on 8/5/2016.
  */

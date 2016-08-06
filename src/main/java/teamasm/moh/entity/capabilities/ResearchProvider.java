@@ -51,8 +51,7 @@ public class ResearchProvider implements ICapabilitySerializable<NBTBase> {
         public void setResearch(String name, int value) {
             if (value > 100) {
                 value = 100;
-            }
-            else if (value < 0) {
+            } else if (value < 0) {
                 value = 0;
             }
             research.put(name, value);

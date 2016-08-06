@@ -13,17 +13,16 @@ public class OreStack {
         this.stackSize = stackSize;
     }
 
-    public OreStack(Object object){
-        if (object instanceof String){
+    public OreStack(Object object) {
+        if (object instanceof String) {
             this.mat = (String) object;
             this.stackSize = 1;
-        } else if (object instanceof OreStack){
+        } else if (object instanceof OreStack) {
             this.mat = ((OreStack) object).mat;
             this.stackSize = ((OreStack) object).stackSize;
-        } else{
+        } else {
             throw new IllegalArgumentException("Not a string or OreStack!");
         }
     }
-
 
 }

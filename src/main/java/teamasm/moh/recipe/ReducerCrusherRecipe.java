@@ -1,7 +1,6 @@
 package teamasm.moh.recipe;
 
 import net.minecraft.item.ItemStack;
-import teamasm.moh.recipe.BaseRecipe;
 
 /**
  * Created by Gigabit101 on 05/08/2016.

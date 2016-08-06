@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Created by brandon3055 on 6/08/2016.
  */
-public class WorldGeneratorMOH implements IWorldGenerator{
+public class WorldGeneratorMOH implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {

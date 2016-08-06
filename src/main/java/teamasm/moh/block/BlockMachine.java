@@ -11,7 +11,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import teamasm.moh.block.BaseBlock;
 
 import static codechicken.lib.block.StateReference.FACING_HOZ;
 import static teamasm.moh.reference.VariantReference.machinesList;

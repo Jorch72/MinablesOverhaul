@@ -16,17 +16,17 @@ import java.util.List;
 public class GuiUtils {
     public static ResourceLocation guiElements = new ResourceLocation(Reference.MOD_PREFIX + "textures/gui/guiElements.png");
 
-//    public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
-//        double zLevel = 300;
-//        Tessellator tessellator = Tessellator.getInstance();
-//        VertexBuffer vertexbuffer = tessellator.getBuffer();
-//        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-//        vertexbuffer.pos((double)(x + 0), (double)(y + height), zLevel).tex((double) ((float) (textureX + 0) * 0.00390625F), (double) ((float) (textureY + height) * 0.00390625F)).endVertex();
-//        vertexbuffer.pos((double)(x + width), (double)(y + height), zLevel).tex((double) ((float) (textureX + width) * 0.00390625F), (double) ((float) (textureY + height) * 0.00390625F)).endVertex();
-//        vertexbuffer.pos((double)(x + width), (double)(y + 0), zLevel).tex((double) ((float) (textureX + width) * 0.00390625F), (double) ((float) (textureY + 0) * 0.00390625F)).endVertex();
-//        vertexbuffer.pos((double)(x + 0), (double)(y + 0), zLevel).tex((double) ((float) (textureX + 0) * 0.00390625F), (double) ((float) (textureY + 0) * 0.00390625F)).endVertex();
-//        tessellator.draw();
-//    }
+    //    public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
+    //        double zLevel = 300;
+    //        Tessellator tessellator = Tessellator.getInstance();
+    //        VertexBuffer vertexbuffer = tessellator.getBuffer();
+    //        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+    //        vertexbuffer.pos((double)(x + 0), (double)(y + height), zLevel).tex((double) ((float) (textureX + 0) * 0.00390625F), (double) ((float) (textureY + height) * 0.00390625F)).endVertex();
+    //        vertexbuffer.pos((double)(x + width), (double)(y + height), zLevel).tex((double) ((float) (textureX + width) * 0.00390625F), (double) ((float) (textureY + height) * 0.00390625F)).endVertex();
+    //        vertexbuffer.pos((double)(x + width), (double)(y + 0), zLevel).tex((double) ((float) (textureX + width) * 0.00390625F), (double) ((float) (textureY + 0) * 0.00390625F)).endVertex();
+    //        vertexbuffer.pos((double)(x + 0), (double)(y + 0), zLevel).tex((double) ((float) (textureX + 0) * 0.00390625F), (double) ((float) (textureY + 0) * 0.00390625F)).endVertex();
+    //        tessellator.draw();
+    //    }
 
     public static void drawDefaultBackground(GuiScreen gui, int x, int y, int width, int height) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(guiElements);
@@ -83,7 +83,7 @@ public class GuiUtils {
         gui.mc.fontRendererObj.drawString(string, x, y, 16777215);
     }
 
-    public static void drawProgressBar(GuiScreen gui, int progress, int x, int y){
+    public static void drawProgressBar(GuiScreen gui, int progress, int x, int y) {
         //empty
         gui.mc.getTextureManager().bindTexture(guiElements);
         gui.drawTexturedModalRect(x, y, 150, 18, 22, 15);
@@ -91,7 +91,7 @@ public class GuiUtils {
         //with progress
         //scale
         int j = progress / 4;
-        if(j > 0){
+        if (j > 0) {
             gui.drawTexturedModalRect(x, y, 150, 34, j + 1, 15);
         }
 

@@ -22,10 +22,11 @@ public class TileInventoryBase extends TileEntity implements IInventory {
 
     private InventorySimple inventorySimple;
 
-    public TileInventoryBase() {}
+    public TileInventoryBase() {
+    }
 
     /**
-     * @param slots Number of inventory slots.
+     * @param slots      Number of inventory slots.
      * @param stackLimit Inventory stack size limit.
      */
     public void setInventory(int slots, int stackLimit) {
@@ -72,8 +73,7 @@ public class TileInventoryBase extends TileEntity implements IInventory {
     public boolean isUseableByPlayer(EntityPlayer player) {
         if (worldObj == null) {
             return false;
-        }
-        else if (worldObj.getTileEntity(pos) != this) {
+        } else if (worldObj.getTileEntity(pos) != this) {
             return false;
         }
         return player.getDistanceSq(pos.add(0.5, 0.5, 0.5)) < 64;
