@@ -11,6 +11,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -149,6 +150,16 @@ public class RetroOreStripper {
                 stripedChunks.put(event.getWorld().provider.getDimension(), chunks);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void populateChunkEvent(PopulateChunkEvent.Pre event) {
+        LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
+        if (stripedChunks.containsKey(event.getWorld().provider.getDimension())) {
+            chunks = stripedChunks.get(event.getWorld().provider.getDimension());
+        }
+        chunks.add(new ChunkPos(event.getChunkX(), event.getChunkZ()));
+        stripedChunks.put(event.getWorld().provider.getDimension(), chunks);
     }
 
     @SubscribeEvent
