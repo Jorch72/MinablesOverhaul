@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamasm.moh.MinablesOverhaul;
+import teamasm.moh.api.recipe.APIConstants;
 import teamasm.moh.entity.capabilities.IResearch;
 import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.entity.capabilities.ResearchStorage;
@@ -19,6 +20,7 @@ import teamasm.moh.init.ModItems;
 import teamasm.moh.init.Ores;
 import teamasm.moh.init.Recipes;
 import teamasm.moh.manager.OreStripManager;
+import teamasm.moh.manager.RecipeManager;
 import teamasm.moh.manager.RetroOreStripper;
 import teamasm.moh.network.PacketDispatcher;
 import teamasm.moh.network.ServerPacketHandler;
@@ -30,6 +32,7 @@ import teamasm.moh.world.WorldGeneratorMOH;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
+        APIConstants.setRecipeRegistry(RecipeManager.INSTANCE);
         EventHandler handler = new EventHandler();
         MinecraftForge.EVENT_BUS.register(handler);
         MinecraftForge.TERRAIN_GEN_BUS.register(handler);

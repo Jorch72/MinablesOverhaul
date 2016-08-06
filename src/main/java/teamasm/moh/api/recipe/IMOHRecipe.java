@@ -1,12 +1,12 @@
 package teamasm.moh.api.recipe;
 
 import net.minecraft.item.ItemStack;
-import teamasm.moh.api.recipe.output.IRecipeOutput;
+
+import java.util.List;
 
 /**
  * Created by covers1624 on 8/5/2016.
  */
-@Deprecated
 public interface IMOHRecipe {
 
     /**
@@ -28,11 +28,17 @@ public interface IMOHRecipe {
     boolean isRecipe(ItemStack[] stacks);
 
     /**
-     * Called by the tile to consume items from the craft matrix and spit out the result.
+     * Gets the results for the recipe
      *
-     * @param stacks Craft matrix.
-     * @return The resulting StackHolder.
+     * @return The results of the recipe.
      */
-    IRecipeOutput craftItem(ItemStack[] stacks);
+    ItemStack[] getRecipeResults();
+
+    /**
+     * Gets the inputs of the recipe;
+     *
+     * @return Will be an ItemStack or a OreStack.
+     */
+    Object[] getRecipeInputs();
 
 }
