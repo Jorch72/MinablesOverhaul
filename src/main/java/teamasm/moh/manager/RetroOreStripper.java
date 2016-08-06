@@ -31,8 +31,8 @@ public class RetroOreStripper {
 
     public static final int chunksPerTick = Integer.parseInt(System.getProperty("moh.stripingChunksPerTick", "10"));
 
-    private static Map<Integer, LinkedList<ChunkPos>> chunkQue = new LinkedHashMap<Integer, LinkedList<ChunkPos>>();
-    private static Map<Integer, LinkedList<ChunkPos>> stripedChunks = new LinkedHashMap<Integer, LinkedList<ChunkPos>>();
+    private static final Map<Integer, LinkedList<ChunkPos>> chunkQue = new LinkedHashMap<Integer, LinkedList<ChunkPos>>();
+    private static final Map<Integer, LinkedList<ChunkPos>> stripedChunks = new LinkedHashMap<Integer, LinkedList<ChunkPos>>();
 
     @SubscribeEvent
     public void onWorldUnload(WorldEvent.Unload event) {
@@ -46,58 +46,60 @@ public class RetroOreStripper {
         if (event.phase == Phase.START) {
             Map<Integer, List<Chunk>> modifiedChunkMap = new LinkedHashMap<Integer, List<Chunk>>();
             Iterator<Entry<Integer, LinkedList<ChunkPos>>> iterator = chunkQue.entrySet().iterator();
-            boolean stop = false;
-            while (iterator.hasNext()) {
-                int chunksProcessed = 0;
+            synchronized (chunkQue) {
+                boolean stop = false;
+                while (iterator.hasNext()) {
+                    int chunksProcessed = 0;
 
-                Entry<Integer, LinkedList<ChunkPos>> entry = iterator.next();
-                WorldServer world = getServer().worldServerForDimension(entry.getKey());
-                //FMLLog.info("Dimension %s Que: %s", entry.getKey(), "Remaining: " + entry.getValue().size());
-                Iterator<ChunkPos> chunkIterator = entry.getValue().iterator();
-                while (chunkIterator.hasNext()) {
-                    if (chunksProcessed >= chunksPerTick) {
-                        stop = true;
-                        break;
-                    }
-                    ChunkPos chunkPos = chunkIterator.next();
-                    Chunk chunk = world.getChunkFromChunkCoords(chunkPos.chunkXPos, chunkPos.chunkZPos);
-                    for (int i = 0; i < 16; i++) {
-                        for (int j = 0; j < 16; j++) {
-                            for (int k = 0; k < 256; k++) {
-                                ExtendedBlockStorage storage = chunk.storageArrays[k >> 4];
-                                if (storage != null) {
-                                    IBlockState state = storage.get(i, k & 15, j);
-                                    if (OreStripManager.shouldStrip(state)) {
-                                        IBlockState replacement;
-                                        if (entry.getKey() == -1) {
-                                            replacement = Blocks.NETHERRACK.getDefaultState();
-                                        } else if (entry.getKey() == 1) {
-                                            replacement = Blocks.END_STONE.getDefaultState();
-                                        } else {
-                                            replacement = Blocks.STONE.getDefaultState();
+                    Entry<Integer, LinkedList<ChunkPos>> entry = iterator.next();
+                    WorldServer world = getServer().worldServerForDimension(entry.getKey());
+                    //FMLLog.info("Dimension %s Que: %s", entry.getKey(), "Remaining: " + entry.getValue().size());
+                    Iterator<ChunkPos> chunkIterator = entry.getValue().iterator();
+                    while (chunkIterator.hasNext()) {
+                        if (chunksProcessed >= chunksPerTick) {
+                            stop = true;
+                            break;
+                        }
+                        ChunkPos chunkPos = chunkIterator.next();
+                        Chunk chunk = world.getChunkFromChunkCoords(chunkPos.chunkXPos, chunkPos.chunkZPos);
+                        for (int i = 0; i < 16; i++) {
+                            for (int j = 0; j < 16; j++) {
+                                for (int k = 0; k < 256; k++) {
+                                    ExtendedBlockStorage storage = chunk.storageArrays[k >> 4];
+                                    if (storage != null) {
+                                        IBlockState state = storage.get(i, k & 15, j);
+                                        if (OreStripManager.shouldStrip(state)) {
+                                            IBlockState replacement;
+                                            if (entry.getKey() == -1) {
+                                                replacement = Blocks.NETHERRACK.getDefaultState();
+                                            } else if (entry.getKey() == 1) {
+                                                replacement = Blocks.END_STONE.getDefaultState();
+                                            } else {
+                                                replacement = Blocks.STONE.getDefaultState();
+                                            }
+                                            storage.set(i, k & 15, j, replacement);
+                                            List<Chunk> modifiedChunks = modifiedChunkMap.get(entry.getKey());
+                                            if (modifiedChunks == null) {
+                                                modifiedChunks = new LinkedList<Chunk>();
+                                            }
+                                            if (!modifiedChunks.contains(chunk)) {
+                                                modifiedChunks.add(chunk);
+                                            }
+                                            modifiedChunkMap.put(entry.getKey(), modifiedChunks);
                                         }
-                                        storage.set(i, k & 15, j, replacement);
-                                        List<Chunk> modifiedChunks = modifiedChunkMap.get(entry.getKey());
-                                        if (modifiedChunks == null) {
-                                            modifiedChunks = new LinkedList<Chunk>();
-                                        }
-                                        if (!modifiedChunks.contains(chunk)) {
-                                            modifiedChunks.add(chunk);
-                                        }
-                                        modifiedChunkMap.put(entry.getKey(), modifiedChunks);
                                     }
                                 }
                             }
                         }
-                    }
 
-                    chunksProcessed++;
-                    chunkIterator.remove();
+                        chunksProcessed++;
+                        chunkIterator.remove();
+                    }
+                    if (stop) {
+                        break;
+                    }
+                    iterator.remove();
                 }
-                if (stop) {
-                    break;
-                }
-                iterator.remove();
             }
 
             for (Entry<Integer, List<Chunk>> entry : modifiedChunkMap.entrySet()) {
@@ -129,11 +131,13 @@ public class RetroOreStripper {
             NBTTagCompound tagCompound = event.getData().getCompoundTag(DATA_TAG);
             if (tagCompound == null || !tagCompound.hasKey(STRIP_FLAG) || !tagCompound.getBoolean(STRIP_FLAG)) {
                 LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
-                if (chunkQue.containsKey(event.getWorld().provider.getDimension())) {
-                    chunks = chunkQue.get(event.getWorld().provider.getDimension());
+                synchronized (chunkQue) {
+                    if (chunkQue.containsKey(event.getWorld().provider.getDimension())) {
+                        chunks = chunkQue.get(event.getWorld().provider.getDimension());
+                    }
+                    chunks.add(event.getChunk().getChunkCoordIntPair());
+                    chunkQue.put(dim, chunks);
                 }
-                chunks.add(event.getChunk().getChunkCoordIntPair());
-                chunkQue.put(dim, chunks);
             } else if (tagCompound.getBoolean(STRIP_FLAG)) {
                 LinkedList<ChunkPos> chunks = new LinkedList<ChunkPos>();
                 if (stripedChunks.containsKey(event.getWorld().provider.getDimension())) {
