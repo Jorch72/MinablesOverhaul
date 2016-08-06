@@ -30,8 +30,8 @@ public class ModItems {
         GameRegistry.register(brokenOre.setRegistryName("brokenOre"));
     }
 
-    @SideOnly(Side.CLIENT)//@Covers feel free to replace this with whatever you had in mind
-    public static void initRendering() {
+    @SideOnly(Side.CLIENT)
+    public static void registerModelVariants() {
         ModelLoader.setCustomModelResourceLocation(brokenOre, 0, new ModelResourceLocation(Reference.MOD_PREFIX + "brokenOre"));
     }
 }
