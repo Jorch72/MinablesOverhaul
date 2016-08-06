@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.text.TextFormatting;
 import teamasm.moh.MinablesOverhaul;
 
 import java.util.HashMap;
@@ -124,7 +125,15 @@ public class ItemOre extends Item {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        Map<String, Float> ores = getOres(stack);
+        tooltip.add(TextFormatting.GOLD+"Contains traces of:");
 
+        for (String name : ores.keySet()) {
+            tooltip.add(TextFormatting.BLUE+" -"+name +" "+ores.get(name) * 100F+"%");
+        }
+
+        tooltip.add(TextFormatting.GOLD+"Particle Size: " + getParticleSize(stack));
+        tooltip.add(TextFormatting.GOLD+"Is Reduced: " + isReduced(stack));
     }
 
     //endregion

@@ -6,6 +6,7 @@ import teamasm.moh.tile.TileProcessEnergy;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
+@Deprecated //Will skip this oen for the moment.
 public class TileSeperatorMagnetic extends TileProcessEnergy {
 
     public TileSeperatorMagnetic() {
