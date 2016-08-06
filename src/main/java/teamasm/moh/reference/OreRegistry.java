@@ -78,7 +78,6 @@ public class OreRegistry {
 
         NBTTagCompound itemCompound = ItemNBTUtils.validateTagExists(stack);
         itemCompound.setTag("Ores", oreList);
-        itemCompound.setFloat("ParticleSize", 1F);
 
         return stack;
     }
