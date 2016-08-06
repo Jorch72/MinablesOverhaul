@@ -13,7 +13,7 @@ public class ContainerReducerGrinder extends BaseContainer {
     private TileReducerGrinder tileReducerGrinder;
 
     public ContainerReducerGrinder(InventoryPlayer inventoryPlayer, TileReducerGrinder tileReducerGrinder) {
-        super(inventoryPlayer.player);
+        super(inventoryPlayer.player, tileReducerGrinder);
         this.tileReducerGrinder = tileReducerGrinder;
 
         addSlotToContainer(new Slot(tileReducerGrinder, 0, 41, 31));

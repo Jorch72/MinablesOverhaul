@@ -13,7 +13,7 @@ public class ContainerReducerCrusher extends BaseContainer {
     private TileReducerCrusher tileReducerCrusher;
 
     public ContainerReducerCrusher(InventoryPlayer inventoryPlayer, TileReducerCrusher tileReducerCrusher) {
-        super(inventoryPlayer.player);
+        super(inventoryPlayer.player, tileReducerCrusher);
         this.tileReducerCrusher = tileReducerCrusher;
 
         addSlotToContainer(new Slot(tileReducerCrusher, 0, 41, 31));

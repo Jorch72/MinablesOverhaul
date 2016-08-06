@@ -13,7 +13,7 @@ public class ContainerScreenCoarse extends BaseContainer {
     private TileScreenCoarse tileScreenCoarse;
 
     public ContainerScreenCoarse(InventoryPlayer inventoryPlayer, TileScreenCoarse tileScreenCoarse) {
-        super(inventoryPlayer.player);
+        super(inventoryPlayer.player, tileScreenCoarse);
         this.tileScreenCoarse = tileScreenCoarse;
 
         addSlotToContainer(new Slot(tileScreenCoarse, 0, 41, 31));
