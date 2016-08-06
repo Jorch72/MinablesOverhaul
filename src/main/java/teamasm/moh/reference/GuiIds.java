@@ -6,6 +6,15 @@ package teamasm.moh.reference;
 public enum GuiIds {
 
     REDUCER_CRUSHER,
+    REDUCER_GRINDER,
+    SCREEN_COARSE,
+    SCREEN_MEDIUM,
+    SCREEN_FINE,
+    SEPARATOR_MAGNETIC,
+    SEPARATOR_GRAVITY,
+    SEPARATOR_FLOTATION,
+    SEPARATOR_ELECTROSTATIC,
+    DRYER_ROTARY,
     UNKNOWN;
 
     public static GuiIds parse(int ID) {

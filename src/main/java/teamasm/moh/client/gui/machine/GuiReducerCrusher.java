@@ -1,9 +1,10 @@
-package teamasm.moh.client.gui;
+package teamasm.moh.client.gui.machine;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumFacing;
-import teamasm.moh.container.ContainerReducerCrusher;
+import teamasm.moh.client.gui.GuiUtils;
+import teamasm.moh.container.machine.ContainerReducerCrusher;
 import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 
 /**
@@ -24,7 +25,7 @@ public class GuiReducerCrusher extends GuiContainer {
         GuiUtils.drawSlot(this, guiLeft + 40, guiTop + 30);
         GuiUtils.drawSlot(this, guiLeft + 120, guiTop + 30);
         //TODO sync this (listener maybe??)
-        GuiUtils.drawProgressBar(this, 50, guiLeft + 80, guiTop + 30);
+        GuiUtils.drawProgressBar(this, (int) tileReducerCrusher.progress, guiLeft + 80, guiTop + 30);
 
         GuiUtils.drawPlayerSlots(this, guiLeft + xSize / 2, guiTop + 80, true);
     }
