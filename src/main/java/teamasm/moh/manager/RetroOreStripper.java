@@ -64,7 +64,7 @@ public class RetroOreStripper {
                             for (int k = 0; k < 256; k++) {
                                 ExtendedBlockStorage storage = chunk.storageArrays[k >> 4];
                                 if (storage != null) {
-                                    IBlockState state = storage.get(i, k, j);
+                                    IBlockState state = storage.get(i, k & 15, j);
                                     if (OreStripManager.shouldStrip(state)) {
                                         IBlockState replacement;
                                         if (entry.getKey() == -1) {
