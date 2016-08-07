@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import teamasm.moh.client.CustomTextureDebug;
 import teamasm.moh.client.OreDustTextureManager;
 import teamasm.moh.entity.capabilities.CapabilityHelper;
 import teamasm.moh.entity.capabilities.ResearchProvider;
@@ -39,7 +38,6 @@ public class EventHandler {
         if (event.getGenerator() instanceof WorldGenMinable) {
             WorldGenMinable worldGenMinable = (WorldGenMinable) event.getGenerator();
             if (OreStripManager.shouldStrip(worldGenMinable.oreBlock)) {
-                //FMLLog.info("Canceling ore gen for %s", worldGenMinable.oreBlock.toString());
                 event.setResult(Result.DENY);
             }
         }
@@ -83,7 +81,6 @@ public class EventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void textureStitchEvent(TextureStitchEvent.Pre event) {
-        CustomTextureDebug.load(event.getMap());
         OreDustTextureManager.loadTextures(event.getMap());
     }
 }
