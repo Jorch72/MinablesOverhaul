@@ -9,6 +9,6 @@ import teamasm.moh.client.render.tile.RenderTileDebug;
 public class RenderItemDebug extends RenderItemMachine {
     @Override
     public void renderItem(ItemStack item) {
-        RenderTileDebug.render(0, 0, 0, 10);
+        RenderTileDebug.render(0, 0, 0, 30, false);
     }
 }
