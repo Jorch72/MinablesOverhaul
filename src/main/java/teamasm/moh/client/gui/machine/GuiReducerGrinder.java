@@ -21,7 +21,8 @@ public class GuiReducerGrinder extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GuiUtils.drawDefaultBackground(this, guiLeft, guiTop, xSize, ySize);
-        GuiUtils.drawString(this, "Reducer Grinder", guiLeft + 45, guiTop + 10);
+        drawCenteredString(fontRendererObj, "Grinder", guiLeft + xSize / 2, guiTop + 10, 0xFFFFFF);
+        //GuiUtils.drawString(this, "Reducer Grinder", guiLeft + 45, guiTop + 10);
         GuiUtils.drawSlot(this, guiLeft + 40, guiTop + 30);
         GuiUtils.drawSlot(this, guiLeft + 120, guiTop + 30);
         //TODO sync this (listener maybe??)

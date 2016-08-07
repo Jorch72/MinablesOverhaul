@@ -4,7 +4,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.fml.common.FMLLog;
 import teamasm.moh.api.recipe.IMOHRecipe;
+import teamasm.moh.init.ModItems;
 import teamasm.moh.item.ItemOre;
 import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
@@ -53,7 +55,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             progress += speed;
         }
         else if (!workCache.isEmpty() && progress >= cycleTimeTime) {
-
+            tryProcessOutput();
         }
 //        if (inputValid()) {
 //            progress++;
@@ -64,7 +66,35 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
     }
 
     protected void tryProcessOutput() {
+        ItemStack output = getStackInSlot(SLOT_OUTPUT);
+        ItemStack newStack = new ItemStack(ModItems.brokenOre);
+        ItemOre item = (ItemOre) ModItems.brokenOre;
+        item.setOres(workCache, newStack);
+        item.setReduced(newStack, true);
 
+        boolean wasSuccessful = false;
+
+        if (output == null) {
+            setInventorySlotContents(SLOT_OUTPUT, newStack);
+            wasSuccessful = true;
+        }
+        else if (output.stackSize >= 64) {
+            wasSuccessful = false;
+        }
+        else if (ItemStack.areItemStackTagsEqual(output, newStack)) {
+            output.stackSize++;
+            wasSuccessful = true;
+        }
+
+        if (wasSuccessful) {
+            workCache.clear();
+            progress = 0;
+            //todo add waste (cobble) output
+        }
+        else {
+            isIdle = true;
+            sendShortToClient(0, 0);
+        }
     }
 
     protected void addItemsToCache(){
@@ -121,6 +151,11 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         }
 
         ItemOre item = (ItemOre)input.getItem();
+
+        if (item.isReduced(input)) {
+            return false;
+        }
+
         Map<String, Float> stackOre = item.getOres(input);
 
         for (String name : stackOre.keySet()) {
@@ -134,7 +169,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
     protected double getWorkSpeed() {
         double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
-        if (Math.abs(rotationSpeed - speed) > 0.05) {
+        if (Math.abs(rotationSpeed - speed) > 0.01) {
             rotationSpeed = (float)speed;
             sendShortToClient(0, (int)(rotationSpeed * 1000F));
         }
@@ -168,8 +203,9 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
     @Override
     public void onShortPacket(int index, int value) {
+        FMLLog.info("onShortPacket " + value);
         if (index == 0) {
-            rotation = value / 1000F;
+            rotationSpeed = value / 1000F;
         }
     }
 
@@ -216,6 +252,10 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
         super.setInventorySlotContents(index, stack);
         isIdle = false;
+        if (!worldObj.isRemote) {
+            getWorkSpeed();
+            sendShortToClient(0, (int)(rotationSpeed * 1000F));
+        }
     }
 
     //endregion

@@ -21,7 +21,7 @@ public class GuiReducerCrusher extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GuiUtils.drawDefaultBackground(this, guiLeft, guiTop, xSize, ySize);
-        GuiUtils.drawString(this, "Reducer Crusher", guiLeft + 45, guiTop + 10);
+        drawCenteredString(fontRendererObj, "Crusher", guiLeft + xSize / 2, guiTop + 10, 0xFFFFFF);
         GuiUtils.drawSlot(this, guiLeft + 40, guiTop + 30);
         GuiUtils.drawSlot(this, guiLeft + 120, guiTop + 30);
 
