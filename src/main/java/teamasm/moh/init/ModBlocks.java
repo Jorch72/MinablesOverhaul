@@ -81,6 +81,7 @@ public class ModBlocks {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockMachine), i, location);
         }
 
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockOre), 0, new ModelResourceLocation(blockOre.getRegistryName(), "normal"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(testBlock), 0, new ModelResourceLocation(testBlock.getRegistryName(), "inventory"));
 
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerCrusher"), new RenderItemCrusherAutomatic());
