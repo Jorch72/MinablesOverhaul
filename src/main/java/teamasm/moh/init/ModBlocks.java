@@ -1,20 +1,30 @@
 package teamasm.moh.init;
 
+import codechicken.lib.asm.ObfMapping;
 import codechicken.lib.block.ItemBlockMultiType;
 import codechicken.lib.render.ModelRegistryHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamasm.moh.block.BlockDebug;
 import teamasm.moh.block.BlockMachine;
 import teamasm.moh.block.BlockOre;
+import teamasm.moh.client.RenderTileDebug;
 import teamasm.moh.client.render.item.*;
 import teamasm.moh.client.render.tile.*;
 import teamasm.moh.reference.Reference;
+import teamasm.moh.tile.TileDebug;
 import teamasm.moh.tile.machines.teir1.*;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 import teamasm.moh.tile.machines.tier2.TileSeparatorElectrostatic;
@@ -28,6 +38,8 @@ public class ModBlocks {
 
     public static BlockOre blockOre;
     public static BlockMachine blockMachine;
+
+    public static Block testBlock;
 
     public static void init() {
 
@@ -49,10 +61,21 @@ public class ModBlocks {
         blockMachine.registerSubItemAndTile(6, "separatorFlotation", TileSeparatorFlotation.class);
         blockMachine.registerSubItemAndTile(7, "separatorElectrostatic", TileSeparatorElectrostatic.class);
         blockMachine.registerSubItemAndTile(8, "dryerRotary", TileDryerRotary.class);
+        if (!ObfMapping.obfuscated) {
+            testBlock = new BlockDebug();
+            testBlock.setRegistryName("testBlock");
+            GameRegistry.register(testBlock);
+            GameRegistry.register(new ItemBlock(testBlock).setRegistryName("testBlock"));
+            GameRegistry.registerTileEntity(TileDebug.class, "testBlock");
+        }
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerModels() {
+
+        if (!ObfMapping.obfuscated) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileDebug.class, new RenderTileDebug());
+        }
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileReducerCrusher.class, new RenderTileCrusherAutomatic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileReducerGrinder.class, new RenderTileGrinderAutomatic());
