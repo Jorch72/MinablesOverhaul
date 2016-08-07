@@ -1,6 +1,7 @@
 package teamasm.moh.tile.machines.tier2;
 
 import teamasm.moh.api.recipe.IMOHRecipe;
+import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 
 /**
@@ -15,5 +16,10 @@ public class TileSeperatorElectrostatic extends TileProcessEnergy {
     @Override
     public IMOHRecipe checkForValidRecipe() {
         return null;
+    }
+
+    @Override
+    public GuiIds getGuiID() {
+        return GuiIds.UNKNOWN;
     }
 }

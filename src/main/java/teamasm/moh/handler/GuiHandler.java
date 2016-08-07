@@ -12,6 +12,7 @@ import teamasm.moh.container.machine.ContainerReducerCrusher;
 import teamasm.moh.container.machine.ContainerReducerGrinder;
 import teamasm.moh.container.machine.ContainerScreenCoarse;
 import teamasm.moh.reference.GuiIds;
+import teamasm.moh.tile.TileProcessEnergy;
 import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 import teamasm.moh.tile.machines.teir1.TileScreenCoarse;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
@@ -24,6 +25,10 @@ public class GuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
+        if (!(tileEntity instanceof TileProcessEnergy)) {
+            return null;
+        }
+
         switch (GuiIds.parse(ID)) {
         case REDUCER_CRUSHER:
             return new ContainerReducerCrusher(player.inventory, (TileReducerCrusher) tileEntity);
@@ -40,6 +45,10 @@ public class GuiHandler implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
+        if (!(tileEntity instanceof TileProcessEnergy)) {
+            return null;
+        }
+
         switch (GuiIds.parse(ID)) {
         case REDUCER_CRUSHER:
             return new GuiReducerCrusher(player.inventory, (TileReducerCrusher) tileEntity);

@@ -10,13 +10,14 @@ import teamasm.moh.tile.TileProcessEnergy;
 /**
  * Created by Gigabit101 on 07/08/2016.
  */
-public class ContainerPoweredMachine extends BaseContainer{
-    TileProcessEnergy tileProcessEnergy;
+public class ContainerPoweredMachine extends BaseContainer {
+    public TileProcessEnergy tileProcessEnergy;
     public int power;
     public int progress;
 
     public ContainerPoweredMachine(EntityPlayer entityPlayer, TileProcessEnergy tileProcessEnergy) {
         super(entityPlayer, tileProcessEnergy);
+        this.tileProcessEnergy = tileProcessEnergy;
     }
 
     @Override

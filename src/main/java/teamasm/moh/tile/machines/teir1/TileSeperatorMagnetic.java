@@ -1,6 +1,7 @@
 package teamasm.moh.tile.machines.teir1;
 
 import teamasm.moh.api.recipe.IMOHRecipe;
+import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 
 /**
@@ -16,5 +17,10 @@ public class TileSeperatorMagnetic extends TileProcessEnergy {
     @Override
     public IMOHRecipe checkForValidRecipe() {
         return null;
+    }
+
+    @Override
+    public GuiIds getGuiID() {
+        return GuiIds.UNKNOWN;
     }
 }

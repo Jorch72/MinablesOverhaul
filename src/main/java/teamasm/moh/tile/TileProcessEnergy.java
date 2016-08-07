@@ -1,5 +1,6 @@
 package teamasm.moh.tile;
 
+import codechicken.lib.tile.IGuiTile;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +14,7 @@ import teamasm.moh.reference.GuiIds;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public abstract class TileProcessEnergy extends TileProcessorBase implements IEnergyReceiver {
+public abstract class TileProcessEnergy extends TileProcessorBase implements IEnergyReceiver, IGuiTile {
 
     protected EnergyStorage energyStorage = new EnergyStorage(512000, 32000, 0);
 
@@ -56,4 +57,11 @@ public abstract class TileProcessEnergy extends TileProcessorBase implements IEn
     public long getPowerScaled (int scale) {
         return (this.getEnergyStored(EnumFacing.DOWN) * scale) / this.getMaxEnergyStored(EnumFacing.DOWN);
     }
+
+    @Override
+    public void openGui(World world, BlockPos pos, EntityPlayer player) {
+        openGui(getGuiID(), world, pos, player);
+    }
+
+    public abstract GuiIds getGuiID();
 }
