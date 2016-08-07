@@ -21,7 +21,7 @@ public class OreRegistry {
 
     public static final OreRegistry INSTANCE = new OreRegistry();
 
-    private List<String> oreList = new ArrayList<String>();
+    private List<String> oreList = new LinkedList<String>();
     public List<WeightedOre> weightedOres = new ArrayList<WeightedOre>();
     private static List<WeightedChance> weightedChance = new ArrayList<WeightedChance>();
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
@@ -145,5 +145,13 @@ public class OreRegistry {
         }
 
         return oreMap;
+    }
+
+    public static int getOreIndex(String name) {
+        return INSTANCE.getOreList().indexOf(name);
+    }
+
+    public static String getFromIndex(int index) {
+        return index < 0 || index >= INSTANCE.getOreList().size() ? null : INSTANCE.getOreList().get(index);
     }
 }

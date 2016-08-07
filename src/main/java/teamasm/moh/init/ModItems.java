@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.item.Debugger;
 import teamasm.moh.item.ItemOre;
+import teamasm.moh.item.ItemOreDust;
 import teamasm.moh.reference.Reference;
 
 /**
@@ -18,6 +19,7 @@ public class ModItems {
 
     public static Item debugger;
     public static Item brokenOre;
+    public static Item oreDust;
 
     public static void init() {
         if (!ObfMapping.obfuscated) {
@@ -28,6 +30,10 @@ public class ModItems {
         brokenOre = new ItemOre();
         brokenOre.setUnlocalizedName(Reference.MOD_PREFIX + "brokenOre");
         GameRegistry.register(brokenOre.setRegistryName("brokenOre"));
+
+        oreDust = new ItemOreDust();//TODO Custom Item
+        brokenOre.setUnlocalizedName(Reference.MOD_PREFIX + "oreDust");
+        GameRegistry.register(brokenOre.setRegistryName("oreDust"));
     }
 
     @SideOnly(Side.CLIENT)
