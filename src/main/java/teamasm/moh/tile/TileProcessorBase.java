@@ -66,7 +66,7 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     //endregion
 
     //region Save
-    
+
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound compound = new NBTTagCompound();
@@ -103,12 +103,14 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setDouble("Progress", progress);
+        compound.setByte("Facing", (byte) facing.getIndex());
         return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         progress = compound.getDouble("Progress");
+        facing = EnumFacing.getFront(compound.getByte("Facing"));
         super.readFromNBT(compound);
     }
 
