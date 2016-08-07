@@ -28,7 +28,7 @@ public class RenderItemCrusherAutomatic implements IItemRenderer, IPerspectiveAw
 
     @Override
     public void renderItem(ItemStack item) {
-        RenderTileCrusherAutomatic.render(0, 0, 0, 2, (EventHandler.clientTicks + EventHandler.renderTickFrame) / 3);
+        RenderTileCrusherAutomatic.render(0, 0, 0, 2, -(EventHandler.clientTicks + EventHandler.renderTickFrame));
     }
 
     @Override
