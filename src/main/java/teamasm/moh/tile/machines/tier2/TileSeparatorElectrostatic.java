@@ -1,4 +1,4 @@
-package teamasm.moh.tile.machines.teir1;
+package teamasm.moh.tile.machines.tier2;
 
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.reference.GuiIds;
@@ -7,9 +7,9 @@ import teamasm.moh.tile.TileProcessEnergy;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileSeperatorGravity extends TileProcessEnergy {
+public class TileSeparatorElectrostatic extends TileProcessEnergy {
 
-    public TileSeperatorGravity() {
+    public TileSeparatorElectrostatic() {
         setInventory(2, 64);
     }
 

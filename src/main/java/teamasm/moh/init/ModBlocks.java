@@ -12,18 +12,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.block.BlockMachine;
 import teamasm.moh.block.BlockOre;
-import teamasm.moh.client.render.item.RenderItemCrusherAutomatic;
-import teamasm.moh.client.render.item.RenderItemGrinderAutomatic;
-import teamasm.moh.client.render.item.RenderItemScreenCoarse;
-import teamasm.moh.client.render.item.RenderItemScreenFine;
-import teamasm.moh.client.render.tile.RenderTileCrusherAutomatic;
-import teamasm.moh.client.render.tile.RenderTileGrinderAutomatic;
-import teamasm.moh.client.render.tile.RenderTileScreenCoarse;
-import teamasm.moh.client.render.tile.RenderTileScreenFine;
+import teamasm.moh.client.render.item.*;
+import teamasm.moh.client.render.tile.*;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.machines.teir1.*;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
-import teamasm.moh.tile.machines.tier2.TileSeperatorElectrostatic;
+import teamasm.moh.tile.machines.tier2.TileSeparatorElectrostatic;
 
 import static teamasm.moh.reference.VariantReference.machinesList;
 
@@ -50,10 +44,10 @@ public class ModBlocks {
         blockMachine.registerSubItemAndTile(1, "reducerGrinder", TileReducerGrinder.class);
         blockMachine.registerSubItemAndTile(2, "screenCoarse", TileScreenCoarse.class);
         blockMachine.registerSubItemAndTile(3, "screenFine", TileScreenFine.class);
-        blockMachine.registerSubItemAndTile(4, "separatorMagnetic", TileSeperatorMagnetic.class);
-        blockMachine.registerSubItemAndTile(5, "separatorGravity", TileSeperatorGravity.class);
-        blockMachine.registerSubItemAndTile(6, "separatorFlotation", TileSeperatorFlotation.class);
-        blockMachine.registerSubItemAndTile(7, "separatorElectrostatic", TileSeperatorElectrostatic.class);
+        blockMachine.registerSubItemAndTile(4, "separatorMagnetic", TileSeparatorMagnetic.class);
+        blockMachine.registerSubItemAndTile(5, "separatorGravity", TileSeparatorGravity.class);
+        blockMachine.registerSubItemAndTile(6, "separatorFlotation", TileSeparatorFlotation.class);
+        blockMachine.registerSubItemAndTile(7, "separatorElectrostatic", TileSeparatorElectrostatic.class);
         blockMachine.registerSubItemAndTile(8, "dryerRotary", TileDryerRotary.class);
     }
 
@@ -64,6 +58,8 @@ public class ModBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileReducerGrinder.class, new RenderTileGrinderAutomatic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileScreenCoarse.class, new RenderTileScreenCoarse());
         ClientRegistry.bindTileEntitySpecialRenderer(TileScreenFine.class, new RenderTileScreenFine());
+        //ClientRegistry.bindTileEntitySpecialRenderer(TileSeparatorMagnetic.class, new RenderTileSeparatorMagnetic());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSeparatorGravity.class, new RenderTileSeparatorGravity());
 
         for (int i = 0; i < machinesList.size(); i++) {
             String variant = machinesList.get(i);
@@ -75,6 +71,8 @@ public class ModBlocks {
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerGrinder"), new RenderItemGrinderAutomatic());
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenCoarse"), new RenderItemScreenCoarse());
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenFine"), new RenderItemScreenFine());
+        //ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=separatorMagnetic"), new RenderItemSeparatorMagnetic());
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=separatorGravity"), new RenderItemSeparatorGravity());
 
     }
 

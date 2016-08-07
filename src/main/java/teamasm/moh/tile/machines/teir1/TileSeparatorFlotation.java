@@ -7,9 +7,9 @@ import teamasm.moh.tile.TileProcessEnergy;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileSeperatorFlotation extends TileProcessEnergy {
+public class TileSeparatorFlotation extends TileProcessEnergy {
 
-    public TileSeperatorFlotation() {
+    public TileSeparatorFlotation() {
         setInventory(2, 64);
     }
 

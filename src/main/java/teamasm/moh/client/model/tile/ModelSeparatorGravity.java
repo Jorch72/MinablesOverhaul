@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * SeperatorAutomatic - brandon3055
  * Created using Tabula 5.1.0
  */
-public class ModelSeparatorAutomatic extends ModelBase {
+public class ModelSeparatorGravity extends ModelBase {
     public ModelRenderer crankShaft;
     public ModelRenderer motorFront;
     public ModelRenderer motorBack;
@@ -33,7 +33,7 @@ public class ModelSeparatorAutomatic extends ModelBase {
     public ModelRenderer motorCoil3;
     public ModelRenderer motorCoil4;
 
-    public ModelSeparatorAutomatic() {
+    public ModelSeparatorGravity() {
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.drumTop = new ModelRenderer(this, 0, 24);
@@ -128,6 +128,8 @@ public class ModelSeparatorAutomatic extends ModelBase {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        animationRotation /= 3F;
+        this.crankShaft.rotateAngleX = animationRotation;
         this.motorBottom.render(scale);
         this.motorBack.render(scale);
         this.supportLeft.render(scale);
