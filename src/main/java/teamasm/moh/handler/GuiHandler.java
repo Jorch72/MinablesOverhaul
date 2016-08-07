@@ -8,13 +8,16 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import teamasm.moh.client.gui.machine.GuiReducerCrusher;
 import teamasm.moh.client.gui.machine.GuiReducerGrinder;
 import teamasm.moh.client.gui.machine.GuiScreenCoarse;
+import teamasm.moh.client.gui.machine.GuiScreenFine;
 import teamasm.moh.container.machine.ContainerReducerCrusher;
 import teamasm.moh.container.machine.ContainerReducerGrinder;
 import teamasm.moh.container.machine.ContainerScreenCoarse;
+import teamasm.moh.container.machine.ContainerScreenFine;
 import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 import teamasm.moh.tile.machines.teir1.TileScreenCoarse;
+import teamasm.moh.tile.machines.teir1.TileScreenFine;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 
 /**
@@ -36,6 +39,8 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerReducerGrinder(player.inventory, (TileReducerGrinder) tileEntity);
         case SCREEN_COARSE:
             return new ContainerScreenCoarse(player.inventory, (TileScreenCoarse) tileEntity);
+        case SCREEN_FINE:
+            return new ContainerScreenFine(player.inventory, (TileScreenFine) tileEntity);
         case UNKNOWN:
         default:
             return null;
@@ -56,6 +61,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiReducerGrinder(player.inventory, (TileReducerGrinder) tileEntity);
         case SCREEN_COARSE:
             return new GuiScreenCoarse(player.inventory, (TileScreenCoarse) tileEntity);
+        case SCREEN_FINE:
+            return new GuiScreenFine(player.inventory, (TileScreenFine) tileEntity);
         case UNKNOWN:
         default:
             return null;

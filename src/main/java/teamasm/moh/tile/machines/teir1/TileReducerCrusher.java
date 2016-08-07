@@ -4,14 +4,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.fml.common.FMLLog;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.init.ModItems;
 import teamasm.moh.item.ItemOre;
 import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,14 +20,18 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
     public TileReducerCrusher() {
         setInventory(2, 64);
+        cycleTimeTime = 1;//TODO Before event change back to 50
     }
 
-    float maxPurity = 0.35F;
-    int runCost = 100;
-    int SLOT_INPUT = 0;
-    int SLOT_OUTPUT = 1;
-    Map<String, Float> workCache = new HashMap<String, Float>();
-    int itemsConsumed = 0;
+    public float maxPurity = 0.35F;
+    public float minPurity = 0F;
+    public int maxParticleSize = 20;
+    public int endParticleSize = 10;
+    public int runCost = 100;
+    public int SLOT_INPUT = 0;
+    public int SLOT_OUTPUT = 1;
+    public Map<String, Float> workCache = new HashMap<String, Float>();
+    public int newSize = 0;
 
     //region Logic
 
@@ -57,12 +59,6 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         else if (!workCache.isEmpty() && progress >= cycleTimeTime) {
             tryProcessOutput();
         }
-//        if (inputValid()) {
-//            progress++;
-//            if (progress == cycleTimeTime) {
-//                work();
-//            }
-//        }
     }
 
     protected void tryProcessOutput() {
@@ -71,6 +67,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         ItemOre item = (ItemOre) ModItems.brokenOre;
         item.setOres(workCache, newStack);
         item.setReduced(newStack, true);
+        item.setParticleSize(newStack, newSize);
 
         boolean wasSuccessful = false;
 
@@ -81,7 +78,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         else if (output.stackSize >= 64) {
             wasSuccessful = false;
         }
-        else if (ItemStack.areItemStackTagsEqual(output, newStack)) {
+        else if (ItemStack.areItemStackTagsEqual(output, newStack) && output.getItemDamage() == newStack.getItemDamage()) {
             output.stackSize++;
             wasSuccessful = true;
         }
@@ -90,6 +87,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             workCache.clear();
             progress = 0;
             //todo add waste (cobble) output
+            //create an add ItemsStack[] to inventory with a simulate option
         }
         else {
             isIdle = true;
@@ -108,8 +106,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         Map<String, Float> stackOre = item.getOres(stack);
         Map<String, Float> newCache = item.getOres(stack);
 
-        int count = Math.min(stack.stackSize, 8);
-        itemsConsumed = 0;
+        int count = 1;//Math.min(stack.stackSize, 8);TODO Clean this up. This is currently just a quick hack to make it only consume 1 item
         for (int i = 0; i < count; i++) {
             boolean shouldAdd = true;
 
@@ -127,8 +124,13 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
             if (shouldAdd) {
                 workCache.putAll(newCache);
+                newSize = item.getParticleSize(stack) - 3;
+
+                if (newSize < endParticleSize) {
+                    newSize = endParticleSize;
+                }
+
                 stack.stackSize--;
-                itemsConsumed++;
             }
             else {
                 break;
@@ -151,18 +153,34 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         }
 
         ItemOre item = (ItemOre)input.getItem();
-
-        if (item.isReduced(input)) {
-            return false;
-        }
+        int size = item.getParticleSize(input);
 
         Map<String, Float> stackOre = item.getOres(input);
 
+        boolean maxPurity = false;
+
         for (String name : stackOre.keySet()) {
-            if (stackOre.get(name) > maxPurity) {
-                return false;
+            if (stackOre.get(name) >= 1F) {
+                maxPurity = true;
+                break;
             }
         }
+
+        if ((item.isReduced(input) && !maxPurity) || size > maxParticleSize || size <= endParticleSize) {
+            return false;
+        }
+
+//        boolean foundMin = false; //todo Nolonger needed as this dose not combine ore now
+//
+//        for (String name : stackOre.keySet()) {
+//            if (stackOre.get(name) > maxPurity) {
+//                return false;
+//            }
+//
+//            if (stackOre.get(name) >= minPurity) {
+//                foundMin = true;
+//            }
+//        }
 
         return true;
     }
@@ -203,7 +221,6 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
     @Override
     public void onShortPacket(int index, int value) {
-        FMLLog.info("onShortPacket " + value);
         if (index == 0) {
             rotationSpeed = value / 1000F;
         }
@@ -225,7 +242,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         }
 
         compound.setTag("WorkCache", list);
-        compound.setByte("ItemsConsumed", (byte)itemsConsumed);
+        compound.setByte("NewSize", (byte)newSize);
 
         return super.writeToNBT(compound);
     }
@@ -240,25 +257,19 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             workCache.put(tag.getString("Name"), tag.getFloat("Purity"));
         }
 
-        itemsConsumed = compound.getByte("ItemsConsumed");
+        newSize = compound.getByte("NewSize");
         super.readFromNBT(compound);
     }
 
     //endregion
 
-    //region Inventory
-
-    @Override
-    public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
-        super.setInventorySlotContents(index, stack);
+    protected void inventoryChanged(){
         isIdle = false;
         if (!worldObj.isRemote) {
             getWorkSpeed();
             sendShortToClient(0, (int)(rotationSpeed * 1000F));
         }
     }
-
-    //endregion
 
     @Override
     public IMOHRecipe checkForValidRecipe() {

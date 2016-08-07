@@ -23,7 +23,8 @@ public class OreRegistry {
     private static List<WeightedChance> weightedChance = new ArrayList<WeightedChance>();
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
     private Map<String, Integer> nameToColour = new HashMap<String, Integer>();
-    private Map<String, Float> nameToPurity = new HashMap<String, Float>();
+    private Map<String, Float> nameToMaxPurity = new HashMap<String, Float>();
+    private Map<String, Float> nameToMinPurity = new HashMap<String, Float>();
     private Map<String, EnumFinalProduct> nameToProduct = new HashMap<String, EnumFinalProduct>();
     //todo Add getters as needed
 
@@ -45,12 +46,13 @@ public class OreRegistry {
      * @param maxPurity The maximum purity this ore can spawn with. range 0 > 1. Should always be greater than 0. Purity of 1 = 4 ingots ber block.
      * @param oreColour The colour for the ore item.
      */
-    public void registerOre(String oreName, int genWeight, float maxPurity, int oreColour, EnumFinalProduct product) {
+    public void registerOre(String oreName, int genWeight, float minPurity, float maxPurity, int oreColour, EnumFinalProduct product) {
         oreList.add(oreName);
         nameToGenWeight.put(oreName, genWeight);
         nameToColour.put(oreName, oreColour);
         weightedOres.add(new WeightedOre(oreName, genWeight));
-        nameToPurity.put(oreName, maxPurity);
+        nameToMaxPurity.put(oreName, maxPurity);
+        nameToMinPurity.put(oreName, minPurity);
         nameToProduct.put(oreName, product);
     }
 
@@ -70,7 +72,9 @@ public class OreRegistry {
         for (int i = 0; i < oreCount; i++) {
             WeightedOre ore = WeightedRandom.getRandomItem(random, weightedOres);
             String name = ore.name;
-            float purity = random.nextFloat() * nameToPurity.get(name);
+
+            float min = nameToMinPurity.get(name);
+            float purity = min + (random.nextFloat() * (nameToMaxPurity.get(name) - min));
 
             if (ores.containsKey(name)) {
                 ores.put(name, ores.get(name) + purity);

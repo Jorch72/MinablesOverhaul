@@ -146,7 +146,10 @@ public class ModelScreenFine extends ModelBase {
         this.motorTop.render(scale);
         this.motorBack.render(scale);
         this.transTop.render(scale);
+
+        grate1.rotationPointY = 17F + (float)(Math.sin(animationRotation) * 0.5F);
         this.grate1.render(scale);
+
         this.motorFront.render(scale);
         this.sideRight.render(scale);
         this.sideLeft.render(scale);

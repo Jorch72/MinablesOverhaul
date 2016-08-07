@@ -138,7 +138,7 @@ public class ModelGrinderAutomatic extends ModelBase {
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
         animationRotation /= 3F;
-        this.crankShaft.rotateAngleX = animationRotation;
+        this.crankShaft.rotateAngleX = 0.7F + animationRotation;
         this.crankShaft.render(scale);
         this.base.render(scale);
     }

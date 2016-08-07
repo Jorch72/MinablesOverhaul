@@ -50,19 +50,24 @@ public class TileInventoryBase extends TileEntity implements IInventory {
     @Nullable
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        return inventorySimple.decrStackSize(index, count);
+        ItemStack stack = inventorySimple.decrStackSize(index, count);
+        inventoryChanged();
+        return stack;
     }
 
     @Nullable
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        return inventorySimple.removeStackFromSlot(index);
+        ItemStack stack = inventorySimple.removeStackFromSlot(index);
+        inventoryChanged();
+        return stack;
     }
 
     @Override
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
         inventorySimple.setInventorySlotContents(index, stack);
         markDirty();
+        inventoryChanged();
     }
 
     @Override
@@ -113,6 +118,7 @@ public class TileInventoryBase extends TileEntity implements IInventory {
     @Override
     public void clear() {
         inventorySimple.clear();
+        inventoryChanged();
     }
 
     @Override
@@ -143,7 +149,9 @@ public class TileInventoryBase extends TileEntity implements IInventory {
         return super.getCapability(capability, facing);
     }
 
-    //endregion
+    protected void inventoryChanged(){}
+
+        //endregion
 
     //region Save
 

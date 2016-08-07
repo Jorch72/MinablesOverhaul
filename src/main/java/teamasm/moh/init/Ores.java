@@ -1,7 +1,6 @@
 package teamasm.moh.init;
 
 import teamasm.moh.reference.OreRegistry;
-import teamasm.moh.util.EnumFinalProduct;
 
 import static teamasm.moh.util.EnumFinalProduct.*;
 
@@ -11,24 +10,27 @@ import static teamasm.moh.util.EnumFinalProduct.*;
 public class Ores {
 
     public static void init() {
-        OreRegistry.INSTANCE.registerOre("oreGold", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreIron", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreAluminum", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreCopper", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreLead", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreTin", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreSilver", 1, 0.05F, 1, INGOT);//TODO
-        OreRegistry.INSTANCE.registerOre("oreUranium", 1, 0.05F, 1, INGOT);//TODO
+        float minPurity = 0.001F;
+        float maxPurity = 0.01F;
 
-        OreRegistry.INSTANCE.registerOre("oreLapis", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreDiamond", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreRedstone", 1, 0.05F, 1, DUST);//TODO
-        OreRegistry.INSTANCE.registerOre("oreEmerald", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreQuartz", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreCoal", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreRuby", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreSapphire", 1, 0.05F, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("orePeridot", 1, 0.05F, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreGold", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreIron", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreAluminum", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreCopper", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreLead", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreTin", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreSilver", 1, minPurity, maxPurity, 1, INGOT);//TODO
+        OreRegistry.INSTANCE.registerOre("oreUranium", 1, minPurity, maxPurity, 1, INGOT);//TODO
+
+        OreRegistry.INSTANCE.registerOre("oreLapis", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreDiamond", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreRedstone", 1, minPurity, maxPurity, 1, DUST);//TODO
+        OreRegistry.INSTANCE.registerOre("oreEmerald", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreQuartz", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreCoal", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreRuby", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("oreSapphire", 1, minPurity, maxPurity, 1, GEM);//TODO
+        OreRegistry.INSTANCE.registerOre("orePeridot", 1, minPurity, maxPurity, 1, GEM);//TODO
     }
 
 }

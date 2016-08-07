@@ -32,6 +32,8 @@ public class ModItems {
 
     @SideOnly(Side.CLIENT)
     public static void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(brokenOre, 0, new ModelResourceLocation(Reference.MOD_PREFIX + "brokenOre"));
+        for (int i = 0; i < 20; i++){
+            ModelLoader.setCustomModelResourceLocation(brokenOre, i, new ModelResourceLocation(Reference.MOD_PREFIX + "brokenOre"));
+        }
     }
 }
