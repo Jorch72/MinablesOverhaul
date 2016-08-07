@@ -1,8 +1,11 @@
 package teamasm.moh.network;
 
 import codechicken.lib.packet.PacketCustom;
+import codechicken.lib.tile.IRotatableTile;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import teamasm.moh.entity.capabilities.IResearch;
 import teamasm.moh.tile.TileProcessEnergy;
 import teamasm.moh.tile.TileProcessorBase;
@@ -30,11 +33,16 @@ public class PacketDispatcher {
         packet.sendToPlayer(playerMP);
     }
 
-    public static void dispatchTileShort(TileProcessorBase tile, int index, int shortValue) {
+    public static void dispatchRotationPacket(IRotatableTile tile, World world, BlockPos pos) {
         PacketCustom packet = new PacketCustom(NET_CHANNEL, 3);
-        packet.writeInt(tile.getPos().getX());
-        packet.writeInt(tile.getPos().getY());
-        packet.writeInt(tile.getPos().getZ());
+        packet.writePos(pos);
+        packet.writeByte(tile.getRotation().ordinal());
+        packet.sendPacketToAllAround(pos, 64, world.provider.getDimension());
+    }
+
+    public static void dispatchTileShort(TileProcessorBase tile, int index, int shortValue) {
+        PacketCustom packet = new PacketCustom(NET_CHANNEL, 4);
+        packet.writeBlockPos(tile.getPos());
         packet.writeByte(index);
         packet.writeShort(shortValue);
         packet.sendPacketToAllAround(tile.getPos(), 64, tile.getWorld().provider.getDimension());

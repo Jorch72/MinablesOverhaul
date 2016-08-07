@@ -10,8 +10,6 @@ import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.api.tile.IAnimationRotation;
 import teamasm.moh.network.PacketDispatcher;
 
-import javax.annotation.Nullable;
-
 /**
  * Created by brandon3055 on 5/08/2016.
  * This is the base tile for all "Processors" (Machines that turn one material into another via some process)
@@ -43,6 +41,7 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     public void doRotation(boolean shift) {
         facing = shift ? facing.rotateYCCW() : facing.rotateY();
         updateBlock();
+        sendRotationUpdate();
     }
 
     @Override
@@ -61,13 +60,13 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     }
 
     @Override
-    public void setPlacing(boolean placing) {}
+    public void setPlacing(boolean placing) {
+    }
 
     //endregion
 
     //region Save
-
-    @Nullable
+    
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound compound = new NBTTagCompound();
@@ -94,7 +93,7 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     }
 
     public void writeSyncedNBT(NBTTagCompound compound) {
-        compound.setByte("Facing", (byte)facing.getIndex());
+        compound.setByte("Facing", (byte) facing.getIndex());
     }
 
     public void readSyncedNBT(NBTTagCompound compound) {
@@ -135,8 +134,16 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
 
     //region Sync
 
+    public void sendRotationUpdate() {
+        if (!worldObj.isRemote) {
+            PacketDispatcher.dispatchRotationPacket(this, worldObj, getPos());
+        }
+    }
+
     public void sendShortToClient(int index, int shortValue) {
-        PacketDispatcher.dispatchTileShort(this, index, shortValue);
+        if (!worldObj.isRemote) {
+            PacketDispatcher.dispatchTileShort(this, index, shortValue);
+        }
     }
 
     public void onShortPacket(int index, int value) {
