@@ -25,8 +25,6 @@ public class ClientProxy extends CommonProxy {
         //CCBakedModelLoader.registerLoader(MinablesOverhaulBakedModelLoader.INSTANCE);
         ModItems.registerModels();
         ModBlocks.registerModels();
-        ClientRegistry.bindTileEntitySpecialRenderer(TileReducerCrusher.class, new RenderTileCrusherAutomatic());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileReducerGrinder.class, new RenderTileGrinderAutomatic());
     }
 
     @Override
