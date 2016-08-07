@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.WeightedRandom;
 import teamasm.moh.init.ModItems;
+import teamasm.moh.util.EnumFinalProduct;
 
 import java.util.*;
 
@@ -23,6 +24,7 @@ public class OreRegistry {
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
     private Map<String, Integer> nameToColour = new HashMap<String, Integer>();
     private Map<String, Float> nameToPurity = new HashMap<String, Float>();
+    private Map<String, EnumFinalProduct> nameToProduct = new HashMap<String, EnumFinalProduct>();
     //todo Add getters as needed
 
     /**
@@ -43,12 +45,13 @@ public class OreRegistry {
      * @param maxPurity The maximum purity this ore can spawn with. range 0 > 1. Should always be greater than 0. Purity of 1 = 4 ingots ber block.
      * @param oreColour The colour for the ore item.
      */
-    public void registerOre(String oreName, int genWeight, float maxPurity, int oreColour) {
+    public void registerOre(String oreName, int genWeight, float maxPurity, int oreColour, EnumFinalProduct product) {
         oreList.add(oreName);
         nameToGenWeight.put(oreName, genWeight);
         nameToColour.put(oreName, oreColour);
         weightedOres.add(new WeightedOre(oreName, genWeight));
         nameToPurity.put(oreName, maxPurity);
+        nameToProduct.put(oreName, product);
     }
 
     public List<String> getOreList() {
