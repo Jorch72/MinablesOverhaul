@@ -1,16 +1,19 @@
-package teamasm.moh.client;
+package teamasm.moh.client.render.tile;
 
 import codechicken.lib.colour.Colour;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.TextureUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import teamasm.moh.client.OreDustTextureManager;
 import teamasm.moh.reference.OreRegistry;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.TileDebug;
@@ -25,6 +28,24 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
 
     @Override
     public void renderTileEntityAt(TileDebug te, double x, double y, double z, float partialTicks, int destroyStage) {
+        render(x, y, z, 30);
+
+        Map<String, Colour> nameToColour = OreRegistry.INSTANCE.getOreColourMap();
+        String name = "ERROR!";
+        try {
+            int index = (int) Minecraft.getMinecraft().theWorld.getWorldTime() / 30 % nameToColour.size();
+            name = new ArrayList<String>(nameToColour.keySet()).get(index);
+        } catch (Exception ignored) {
+        }
+        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+
+        float viewY = renderManager.playerViewY;
+        float viewX = renderManager.playerViewX;
+        boolean thirdPerson = renderManager.options.thirdPersonView == 2;
+        EntityRenderer.func_189692_a(getFontRenderer(), name, (float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F, 0, viewY, viewX, thirdPerson, false);
+    }
+
+    public static void render(double x, double y, double z, int div) {
         TextureUtils.bindBlockTexture();
         GlStateManager.pushMatrix();
         TextureUtils.dissableBlockMipmap();
@@ -32,10 +53,9 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
         Map<String, Colour> nameToColour = OreRegistry.INSTANCE.getOreColourMap();
         String name = "oreCopper";
         try {
-            int index = (int) Minecraft.getMinecraft().theWorld.getWorldTime() / 10 % nameToColour.size();
+            int index = (int) Minecraft.getMinecraft().theWorld.getWorldTime() / div % nameToColour.size();
             name = new ArrayList<String>(nameToColour.keySet()).get(index);
-        } catch (Exception e){
-
+        } catch (Exception ignored) {
         }
         TextureAtlasSprite icon = OreDustTextureManager.getSprite(new ResourceLocation(Reference.MOD_ID, "textures/items/ore/generated/" + name));
 
@@ -47,7 +67,6 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
         buffer.pos(0, 0, 1).tex(icon.getMaxU(), icon.getMaxV()).normal(0, 1, 0).endVertex();
         buffer.pos(1, 0, 1).tex(icon.getMaxU(), icon.getMinV()).normal(0, 1, 0).endVertex();
         buffer.setTranslation(0, 0, 0);
-
 
         CCRenderState.draw();
 
