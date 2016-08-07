@@ -7,6 +7,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import teamasm.moh.api.recipe.IMOHRecipe;
+import teamasm.moh.api.tile.IAnimationRotation;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +16,7 @@ import javax.annotation.Nullable;
  * This is the base tile for all "Processors" (Machines that turn one material into another via some process)
  * This dose not implement energy because there will be manual machines that do not use energy.
  */
-public abstract class TileProcessorBase extends TileInventoryBase implements IRotatableTile {
+public abstract class TileProcessorBase extends TileInventoryBase implements IRotatableTile, IAnimationRotation {
 
     private EnumFacing facing = EnumFacing.NORTH;
 

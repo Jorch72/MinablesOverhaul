@@ -17,6 +17,9 @@ import teamasm.moh.reference.GuiIds;
 public abstract class TileProcessEnergy extends TileProcessorBase implements IEnergyReceiver, IGuiTile {
 
     public EnergyStorage energyStorage = new EnergyStorage(512000, 32000, 0);
+    public boolean isIdle = false;
+    public float rotation = 0;
+    public float rotationSpeed = 0;
 
     @Override
     public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
@@ -64,4 +67,21 @@ public abstract class TileProcessEnergy extends TileProcessorBase implements IEn
     }
 
     public abstract GuiIds getGuiID();
+
+    @Override
+    public float getRotation(float partialTicks) {
+        return isIdle ? 0 : rotation + (rotationSpeed * partialTicks);
+    }
+
+    @Override
+    public void writeSyncedNBT(NBTTagCompound compound) {
+        compound.setBoolean("IsIdle", isIdle);
+        super.writeSyncedNBT(compound);
+    }
+
+    @Override
+    public void readSyncedNBT(NBTTagCompound compound) {
+        isIdle = compound.getBoolean("IsIdle");
+        super.readSyncedNBT(compound);
+    }
 }

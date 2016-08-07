@@ -28,11 +28,10 @@ public class ContainerPoweredMachine extends BaseContainer {
         for (int i = 0; i < this.listeners.size(); i++) {
             IContainerListener listener = this.listeners.get(i);
             if (this.power != tileProcessEnergy.getEnergyStored(EnumFacing.DOWN) && listener instanceof EntityPlayerMP) {
-                listener.sendProgressBarUpdate(this, 0, power = tileProcessEnergy.getEnergyStored(EnumFacing.DOWN));
                 PacketDispatcher.dispatchContainerEnergySync(tileProcessEnergy, (EntityPlayerMP) listener);
             }
             if (this.progress != tileProcessEnergy.progress) {
-                listener.sendProgressBarUpdate(this, 1, progress = (int) tileProcessEnergy.progress);
+                listener.sendProgressBarUpdate(this, 0, progress = (int) tileProcessEnergy.progress);
             }
         }
     }
@@ -40,15 +39,17 @@ public class ContainerPoweredMachine extends BaseContainer {
     @Override
     public void addListener(IContainerListener crafting) {
         super.addListener(crafting);
-        crafting.sendProgressBarUpdate(this, 0, (int) tileProcessEnergy.getEnergyStored(EnumFacing.DOWN));
-        crafting.sendProgressBarUpdate(this, 1, (int) tileProcessEnergy.progress);
+        crafting.sendProgressBarUpdate(this, 0, (int) tileProcessEnergy.progress);
+        if (crafting instanceof EntityPlayerMP){
+            PacketDispatcher.dispatchContainerEnergySync(tileProcessEnergy, (EntityPlayerMP) crafting);
+        }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void updateProgressBar(int id, int value) {
         if (id == 0) {
-            tileProcessEnergy.energyStorage.setEnergyStored(value);
+            tileProcessEnergy.progress = value;
         }
     }
 }
