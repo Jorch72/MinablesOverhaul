@@ -48,7 +48,6 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
     public static void render(double x, double y, double z, int div) {
         TextureUtils.bindBlockTexture();
         GlStateManager.pushMatrix();
-        TextureUtils.dissableBlockMipmap();
 
         Map<String, Colour> nameToColour = OreRegistry.INSTANCE.getOreColourMap();
         String name = "oreCopper";
@@ -69,8 +68,7 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
         buffer.setTranslation(0, 0, 0);
 
         CCRenderState.draw();
-
-        TextureUtils.restoreBlockMipmap();
+        
         GlStateManager.popMatrix();
     }
 }
