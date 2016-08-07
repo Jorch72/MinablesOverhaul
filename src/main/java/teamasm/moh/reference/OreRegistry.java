@@ -1,6 +1,9 @@
 package teamasm.moh.reference;
 
+import codechicken.lib.colour.Colour;
+import codechicken.lib.colour.ColourARGB;
 import codechicken.lib.util.ItemNBTUtils;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -22,7 +25,7 @@ public class OreRegistry {
     private List<WeightedOre> weightedOres = new ArrayList<WeightedOre>();
     private static List<WeightedChance> weightedChance = new ArrayList<WeightedChance>();
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
-    private Map<String, Integer> nameToColour = new HashMap<String, Integer>();
+    private Map<String, Colour> nameToColour = new HashMap<String, Colour>();
     private Map<String, Float> nameToMaxPurity = new HashMap<String, Float>();
     private Map<String, Float> nameToMinPurity = new HashMap<String, Float>();
     private Map<String, EnumFinalProduct> nameToProduct = new HashMap<String, EnumFinalProduct>();
@@ -49,7 +52,7 @@ public class OreRegistry {
     public void registerOre(String oreName, int genWeight, float minPurity, float maxPurity, int oreColour, EnumFinalProduct product) {
         oreList.add(oreName);
         nameToGenWeight.put(oreName, genWeight);
-        nameToColour.put(oreName, oreColour);
+        nameToColour.put(oreName, new ColourARGB(oreColour));
         weightedOres.add(new WeightedOre(oreName, genWeight));
         nameToMaxPurity.put(oreName, maxPurity);
         nameToMinPurity.put(oreName, minPurity);
@@ -58,6 +61,10 @@ public class OreRegistry {
 
     public List<String> getOreList() {
         return oreList;
+    }
+
+    public ImmutableMap<String, Colour> getOreColourMap(){
+        return ImmutableMap.copyOf(nameToColour);
     }
 
     public boolean isOreRegistered(String ore) {
