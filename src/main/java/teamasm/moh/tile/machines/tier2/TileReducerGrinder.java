@@ -10,9 +10,9 @@ public class TileReducerGrinder extends TileReducerCrusher {
 
     public TileReducerGrinder() {
         setInventory(2, 64);
-        this.maxPurity = 0.7F;
-        this.minPurity = 0.34F;
-        this.maxParticleSize = 10;
+        this.maxPurity = 1F;
+        this.minPurity = 0.2F;
+        this.maxParticleSize = 2;
         this.endParticleSize = 1;
     }
 

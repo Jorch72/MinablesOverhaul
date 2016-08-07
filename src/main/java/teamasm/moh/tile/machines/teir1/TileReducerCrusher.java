@@ -23,10 +23,10 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         cycleTimeTime = 1;//TODO Before event change back to 50
     }
 
-    public float maxPurity = 0.35F;
+    public float maxPurity = 1F;
     public float minPurity = 0F;
-    public int maxParticleSize = 20;
-    public int endParticleSize = 10;
+    public int maxParticleSize = 3;
+    public int endParticleSize = 2;
     public int runCost = 100;
     public int SLOT_INPUT = 0;
     public int SLOT_OUTPUT = 1;
@@ -124,7 +124,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
             if (shouldAdd) {
                 workCache.putAll(newCache);
-                newSize = item.getParticleSize(stack) - 3;
+                newSize = item.getParticleSize(stack) - 1;
 
                 if (newSize < endParticleSize) {
                     newSize = endParticleSize;
@@ -170,19 +170,19 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             return false;
         }
 
-//        boolean foundMin = false; //todo Nolonger needed as this dose not combine ore now
+        boolean foundMin = false; //todo Nolonger needed as this dose not combine ore now
 //
-//        for (String name : stackOre.keySet()) {
+        for (String name : stackOre.keySet()) {
 //            if (stackOre.get(name) > maxPurity) {
 //                return false;
 //            }
-//
-//            if (stackOre.get(name) >= minPurity) {
-//                foundMin = true;
-//            }
-//        }
 
-        return true;
+            if (stackOre.get(name) >= minPurity) {
+                foundMin = true;
+            }
+        }
+
+        return foundMin;
     }
 
     protected double getWorkSpeed() {

@@ -5,19 +5,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import teamasm.moh.client.gui.machine.GuiReducerCrusher;
-import teamasm.moh.client.gui.machine.GuiReducerGrinder;
-import teamasm.moh.client.gui.machine.GuiScreenCoarse;
-import teamasm.moh.client.gui.machine.GuiScreenFine;
-import teamasm.moh.container.machine.ContainerReducerCrusher;
-import teamasm.moh.container.machine.ContainerReducerGrinder;
-import teamasm.moh.container.machine.ContainerScreenCoarse;
-import teamasm.moh.container.machine.ContainerScreenFine;
+import teamasm.moh.client.gui.machine.*;
+import teamasm.moh.container.machine.*;
 import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
 import teamasm.moh.tile.machines.teir1.TileScreenCoarse;
 import teamasm.moh.tile.machines.teir1.TileScreenFine;
+import teamasm.moh.tile.machines.teir1.TileSeparatorGravity;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 
 /**
@@ -41,6 +36,8 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerScreenCoarse(player.inventory, (TileScreenCoarse) tileEntity);
         case SCREEN_FINE:
             return new ContainerScreenFine(player.inventory, (TileScreenFine) tileEntity);
+        case SEPARATOR_GRAVITY:
+            return new ContainerSeperatorGravity(player.inventory, (TileSeparatorGravity) tileEntity);
         case UNKNOWN:
         default:
             return null;
@@ -63,6 +60,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiScreenCoarse(player.inventory, (TileScreenCoarse) tileEntity);
         case SCREEN_FINE:
             return new GuiScreenFine(player.inventory, (TileScreenFine) tileEntity);
+        case SEPARATOR_GRAVITY:
+            return new GuiSeperatorGravity(player.inventory, (TileSeparatorGravity) tileEntity);
         case UNKNOWN:
         default:
             return null;

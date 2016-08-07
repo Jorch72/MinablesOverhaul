@@ -110,7 +110,7 @@ public class ItemOre extends Item {
      * @return the particle size for this ore stack.
      */
     public int getParticleSize(ItemStack stack) {
-        return 20 - stack.getItemDamage();
+        return 3 - stack.getItemDamage();
     }
 
     /**
@@ -123,7 +123,7 @@ public class ItemOre extends Item {
      * @param particleSize a value between 1 and 20.
      */
     public void setParticleSize(ItemStack stack, int particleSize) {
-        stack.setItemDamage(20 - particleSize);
+        stack.setItemDamage(3 - particleSize);
     }
 
     /**

@@ -10,8 +10,12 @@ import static teamasm.moh.util.EnumFinalProduct.*;
 public class Ores {
 
     public static void init() {
-        float minPurity = 0.001F;
-        float maxPurity = 0.01F;
+        float minPurity = 0.01F;
+        float maxPurity = 0.1F;
+
+        //This is just so the above values can be actual percentages.
+        minPurity /= 100F;
+        maxPurity /= 100F;
 
         OreRegistry.INSTANCE.registerOre("oreGold", 1, minPurity, maxPurity, 1, INGOT);//TODO
         OreRegistry.INSTANCE.registerOre("oreIron", 1, minPurity, maxPurity, 1, INGOT);//TODO
@@ -27,7 +31,7 @@ public class Ores {
         OreRegistry.INSTANCE.registerOre("oreRedstone", 1, minPurity, maxPurity, 1, DUST);//TODO
         OreRegistry.INSTANCE.registerOre("oreEmerald", 1, minPurity, maxPurity, 1, GEM);//TODO
         OreRegistry.INSTANCE.registerOre("oreQuartz", 1, minPurity, maxPurity, 1, GEM);//TODO
-        OreRegistry.INSTANCE.registerOre("oreCoal", 1, minPurity, maxPurity, 1, GEM);//TODO
+//        OreRegistry.INSTANCE.registerOre("oreCoal", 1, minPurity, maxPurity, 1, GEM);//TODO
         OreRegistry.INSTANCE.registerOre("oreRuby", 1, minPurity, maxPurity, 1, GEM);//TODO
         OreRegistry.INSTANCE.registerOre("oreSapphire", 1, minPurity, maxPurity, 1, GEM);//TODO
         OreRegistry.INSTANCE.registerOre("orePeridot", 1, minPurity, maxPurity, 1, GEM);//TODO

@@ -10,9 +10,8 @@ public class TileScreenFine extends TileScreenCoarse {
     public TileScreenFine() {
         setInventory(2, 64);
         this.maxPurity = 1F;
-        this.minPurity = 0.5F;
-        this.maxParticleSize = 10;
-        this.minParticleSize = 1;
+        this.minPurity = 0.2F;
+        this.allowedSize = 1;
     }
 
     @Override

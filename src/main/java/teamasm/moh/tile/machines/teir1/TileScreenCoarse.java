@@ -23,10 +23,9 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
         cycleTimeTime = 1;//TODO Before event change back to 50
     }
 
-    public float maxPurity = 0.5F;
+    public float maxPurity = 0.25F;
     public float minPurity = 0F;
-    public int maxParticleSize = 20;
-    public int minParticleSize = 11;
+    public int allowedSize = 2;
     public int runCost = 100;
     public int SLOT_INPUT = 0;
     public int SLOT_OUTPUT = 1;
@@ -154,25 +153,29 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
         ItemOre item = (ItemOre)input.getItem();
         int size = item.getParticleSize(input);
 
-        if (!item.isReduced(input) || size > maxParticleSize || size < minParticleSize) {
+//        if (!item.isReduced(input) || size != allowedSize) {
+//            return false;
+//        }
+
+        if (size != allowedSize) {
             return false;
         }
 
         Map<String, Float> stackOre = item.getOres(input);
 
-        //boolean foundMin = false;TODO rethinking
+        boolean foundMin = false;//TODO rethinking
 
         for (String name : stackOre.keySet()) {
             if (stackOre.get(name) > maxPurity) {
                 return false;
             }
 
-//            if (stackOre.get(name) >= minPurity) {
-//                foundMin = true;
-//            }
+            if (stackOre.get(name) >= minPurity) {
+                foundMin = true;
+            }
         }
 
-        return true;
+        return foundMin;
     }
 
     protected double getWorkSpeed() {
@@ -184,30 +187,6 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
         return speed;
     }
 
-//    public void work() {
-//        ItemStack wipStack = getStackInSlot(SLOT_INPUT).copy();
-//        wipStack.stackSize = 1;
-//        if (wipStack == null) {
-//            decrStackSize(SLOT_INPUT, 1);
-//        }
-//        ItemOre itemOre = (ItemOre) wipStack.getItem();
-//        itemOre.setReduced(wipStack, true);
-//
-//        Map<String, Float> ores = itemOre.getOres(getStackInSlot(SLOT_INPUT));
-//        for (String name : ores.keySet()) {
-//            float newValue = itemOre.getOres(getStackInSlot(SLOT_INPUT)).get(name).floatValue() + itemOre.getOres(wipStack).get(name).floatValue();
-//            itemOre.modifyPurity(name, newValue, wipStack);
-//        }
-//        decrStackSize(SLOT_INPUT, 1);
-//        progress = 0;
-//
-//        //output
-//        if (getStackInSlot(SLOT_OUTPUT) == null && getStackInSlot(SLOT_INPUT) == null) {
-//            setInventorySlotContents(SLOT_OUTPUT, wipStack);
-//            wipStack = null;
-//            progress = 0;
-//        }
-//    }
 
     @Override
     public void onShortPacket(int index, int value) {
