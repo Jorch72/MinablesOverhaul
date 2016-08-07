@@ -22,7 +22,7 @@ public class OreRegistry {
     public static final OreRegistry INSTANCE = new OreRegistry();
 
     private List<String> oreList = new ArrayList<String>();
-    private List<WeightedOre> weightedOres = new ArrayList<WeightedOre>();
+    public List<WeightedOre> weightedOres = new ArrayList<WeightedOre>();
     private static List<WeightedChance> weightedChance = new ArrayList<WeightedChance>();
     private Map<String, Integer> nameToGenWeight = new HashMap<String, Integer>();
     private Map<String, Colour> nameToColour = new HashMap<String, Colour>();
@@ -104,9 +104,9 @@ public class OreRegistry {
         return stack;
     }
 
-    private static class WeightedOre extends WeightedRandom.Item {
+    public static class WeightedOre extends WeightedRandom.Item {
 
-        private final String name;
+        public final String name;
 
         public WeightedOre(String name, int itemWeightIn) {
             super(itemWeightIn);

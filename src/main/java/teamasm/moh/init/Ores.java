@@ -1,6 +1,10 @@
 package teamasm.moh.init;
 
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.oredict.OreDictionary;
 import teamasm.moh.reference.OreRegistry;
+
+import java.util.Iterator;
 
 import static teamasm.moh.util.EnumFinalProduct.*;
 
@@ -41,4 +45,15 @@ public class Ores {
         OreRegistry.INSTANCE.registerOre("orePeridot", 1, minPurity, maxPurity, 0xFF47A03A, GEM);//TODO
     }
 
+    public static void postInit() {
+        Iterator<OreRegistry.WeightedOre> i = OreRegistry.INSTANCE.weightedOres.iterator();
+
+        while (i.hasNext()) {
+            OreRegistry.WeightedOre ore = i.next();
+            if (OreDictionary.getOres(ore.name).isEmpty()) {
+                i.remove();
+                FMLLog.info(String.format("Removing %s because there are no mods installed that use it", ore.name));
+            }
+        }
+    }
 }

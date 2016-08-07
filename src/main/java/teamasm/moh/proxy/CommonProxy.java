@@ -58,5 +58,6 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
         OreStripManager.init();
+        Ores.postInit();
     }
 }
