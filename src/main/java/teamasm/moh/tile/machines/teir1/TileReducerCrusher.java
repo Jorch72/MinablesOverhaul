@@ -27,6 +27,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
     int SLOT_INPUT = 0;
     int SLOT_OUTPUT = 1;
     Map<String, Float> workCache = new HashMap<String, Float>();
+    int itemsConsumed = 0;
 
     //region Logic
 
@@ -46,13 +47,24 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             addItemsToCache();
             return;
         }
+        else if (!workCache.isEmpty() && progress < cycleTimeTime) {
+            double speed = getWorkSpeed();
+            energyStorage.modifyEnergyStored(- (int)(speed * runCost));
+            progress += speed;
+        }
+        else if (!workCache.isEmpty() && progress >= cycleTimeTime) {
 
+        }
 //        if (inputValid()) {
 //            progress++;
 //            if (progress == cycleTimeTime) {
 //                work();
 //            }
 //        }
+    }
+
+    protected void tryProcessOutput() {
+
     }
 
     protected void addItemsToCache(){
@@ -67,6 +79,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         Map<String, Float> newCache = item.getOres(stack);
 
         int count = Math.min(stack.stackSize, 8);
+        itemsConsumed = 0;
         for (int i = 0; i < count; i++) {
             boolean shouldAdd = true;
 
@@ -85,6 +98,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             if (shouldAdd) {
                 workCache.putAll(newCache);
                 stack.stackSize--;
+                itemsConsumed++;
             }
             else {
                 break;
@@ -120,34 +134,37 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
     protected double getWorkSpeed() {
         double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
-
+        if (Math.abs(rotationSpeed - speed) > 0.05) {
+            rotationSpeed = (float)speed;
+            sendShortToClient(0, (int)(rotationSpeed * 1000F));
+        }
         return speed;
     }
 
-    public void work() {
-        ItemStack wipStack = getStackInSlot(SLOT_INPUT).copy();
-        wipStack.stackSize = 1;
-        if (wipStack == null) {
-            decrStackSize(SLOT_INPUT, 1);
-        }
-        ItemOre itemOre = (ItemOre) wipStack.getItem();
-        itemOre.setReduced(wipStack, true);
-
-        Map<String, Float> ores = itemOre.getOres(getStackInSlot(SLOT_INPUT));
-        for (String name : ores.keySet()) {
-            float newValue = itemOre.getOres(getStackInSlot(SLOT_INPUT)).get(name).floatValue() + itemOre.getOres(wipStack).get(name).floatValue();
-            itemOre.modifyPurity(name, newValue, wipStack);
-        }
-        decrStackSize(SLOT_INPUT, 1);
-        progress = 0;
-
-        //output
-        if (getStackInSlot(SLOT_OUTPUT) == null && getStackInSlot(SLOT_INPUT) == null) {
-            setInventorySlotContents(SLOT_OUTPUT, wipStack);
-            wipStack = null;
-            progress = 0;
-        }
-    }
+//    public void work() {
+//        ItemStack wipStack = getStackInSlot(SLOT_INPUT).copy();
+//        wipStack.stackSize = 1;
+//        if (wipStack == null) {
+//            decrStackSize(SLOT_INPUT, 1);
+//        }
+//        ItemOre itemOre = (ItemOre) wipStack.getItem();
+//        itemOre.setReduced(wipStack, true);
+//
+//        Map<String, Float> ores = itemOre.getOres(getStackInSlot(SLOT_INPUT));
+//        for (String name : ores.keySet()) {
+//            float newValue = itemOre.getOres(getStackInSlot(SLOT_INPUT)).get(name).floatValue() + itemOre.getOres(wipStack).get(name).floatValue();
+//            itemOre.modifyPurity(name, newValue, wipStack);
+//        }
+//        decrStackSize(SLOT_INPUT, 1);
+//        progress = 0;
+//
+//        //output
+//        if (getStackInSlot(SLOT_OUTPUT) == null && getStackInSlot(SLOT_INPUT) == null) {
+//            setInventorySlotContents(SLOT_OUTPUT, wipStack);
+//            wipStack = null;
+//            progress = 0;
+//        }
+//    }
 
     @Override
     public void onShortPacket(int index, int value) {
@@ -172,6 +189,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         }
 
         compound.setTag("WorkCache", list);
+        compound.setByte("ItemsConsumed", (byte)itemsConsumed);
 
         return super.writeToNBT(compound);
     }
@@ -186,6 +204,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             workCache.put(tag.getString("Name"), tag.getFloat("Purity"));
         }
 
+        itemsConsumed = compound.getByte("ItemsConsumed");
         super.readFromNBT(compound);
     }
 

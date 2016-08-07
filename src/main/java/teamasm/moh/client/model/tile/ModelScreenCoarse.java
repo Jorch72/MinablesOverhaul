@@ -133,7 +133,10 @@ public class ModelScreenCoarse extends ModelBase {
         this.transBottom.render(scale);
         this.crankShaft.render(scale);
         this.sideRight.render(scale);
+
+        grate1.rotationPointY = 17F + (float)(Math.sin(animationRotation) * 0.5F);
         this.grate1.render(scale);
+
         this.motorBottom.render(scale);
         this.sideLeft.render(scale);
         this.motorFront.render(scale);
