@@ -3,6 +3,7 @@ package teamasm.moh.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -14,6 +15,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamasm.moh.client.CustomTextureDebug;
+import teamasm.moh.client.OreDustTextureManager;
 import teamasm.moh.entity.capabilities.CapabilityHelper;
 import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.manager.OreStripManager;
@@ -75,5 +78,12 @@ public class EventHandler {
         if (event.phase == Phase.START) {
             renderTickFrame = event.renderTickTime;
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void textureStitchEvent(TextureStitchEvent.Pre event) {
+        CustomTextureDebug.load(event.getMap());
+        OreDustTextureManager.loadTextures(event.getMap());
     }
 }
