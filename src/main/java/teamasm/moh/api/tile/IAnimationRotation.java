@@ -5,5 +5,5 @@ package teamasm.moh.api.tile;
  */
 public interface IAnimationRotation {
 
-    float getRotation(float partialTicks);
+    float getAnimRotStat(float partialTicks);
 }

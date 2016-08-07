@@ -69,7 +69,7 @@ public abstract class TileProcessEnergy extends TileProcessorBase implements IEn
     public abstract GuiIds getGuiID();
 
     @Override
-    public float getRotation(float partialTicks) {
+    public float getAnimRotStat(float partialTicks) {
         return isIdle ? 0 : rotation + (rotationSpeed * partialTicks);
     }
 
