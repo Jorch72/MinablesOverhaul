@@ -28,24 +28,12 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
 
     @Override
     public void renderTileEntityAt(TileDebug te, double x, double y, double z, float partialTicks, int destroyStage) {
-        render(x, y, z, 30);
+        render(x, y, z, 30, true);
 
-        Map<String, Colour> nameToColour = OreRegistry.INSTANCE.getOreColourMap();
-        String name = "ERROR!";
-        try {
-            int index = (int) Minecraft.getMinecraft().theWorld.getWorldTime() / 30 % nameToColour.size();
-            name = new ArrayList<String>(nameToColour.keySet()).get(index);
-        } catch (Exception ignored) {
-        }
-        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
 
-        float viewY = renderManager.playerViewY;
-        float viewX = renderManager.playerViewX;
-        boolean thirdPerson = renderManager.options.thirdPersonView == 2;
-        EntityRenderer.func_189692_a(getFontRenderer(), name, (float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F, 0, viewY, viewX, thirdPerson, false);
     }
 
-    public static void render(double x, double y, double z, int div) {
+    public static void render(double x, double y, double z, int div, boolean label) {
         TextureUtils.bindBlockTexture();
         GlStateManager.pushMatrix();
 
@@ -68,7 +56,16 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
         buffer.setTranslation(0, 0, 0);
 
         CCRenderState.draw();
-        
+
+        if (label){
+            RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+
+            float viewY = renderManager.playerViewY;
+            float viewX = renderManager.playerViewX;
+            boolean thirdPerson = renderManager.options.thirdPersonView == 2;
+            EntityRenderer.func_189692_a(renderManager.getFontRenderer(), name, (float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F, 0, viewY, viewX, thirdPerson, false);
+        }
+
         GlStateManager.popMatrix();
     }
 }
