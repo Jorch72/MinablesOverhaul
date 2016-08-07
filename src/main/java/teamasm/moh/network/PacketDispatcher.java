@@ -4,6 +4,7 @@ import codechicken.lib.packet.PacketCustom;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import teamasm.moh.entity.capabilities.IResearch;
+import teamasm.moh.tile.TileProcessEnergy;
 
 import static teamasm.moh.entity.capabilities.ResearchStorage.RESEARCH_CAP;
 
@@ -22,4 +23,9 @@ public class PacketDispatcher {
         packet.sendToPlayer(playerMP);
     }
 
+    public static void dispatchContainerEnergySync(TileProcessEnergy tile, EntityPlayerMP playerMP) {
+        PacketCustom packet = new PacketCustom(NET_CHANNEL, 2);
+        packet.writeInt(tile.energyStorage.getEnergyStored());
+        packet.sendToPlayer(playerMP);
+    }
 }

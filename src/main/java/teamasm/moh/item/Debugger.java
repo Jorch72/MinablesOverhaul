@@ -59,7 +59,7 @@ public class Debugger extends Item {
 
         for (int x = -10; x < 10; x++) {
             for (int z = -10; z < 10; z++) {
-                //world.getChunkFromBlockCoords(pos.add(x * 16, 0, z * 16)).generateSkylightMap();
+                world.getChunkFromBlockCoords(pos.add(x * 16, 0, z * 16)).generateSkylightMap();
             }
         }
        // }

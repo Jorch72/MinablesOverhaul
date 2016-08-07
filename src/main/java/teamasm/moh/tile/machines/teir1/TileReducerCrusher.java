@@ -28,7 +28,7 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
         if (!worldObj.isRemote) {
             if(canWork()){
                 progress++;
-                if(progress == 100) {
+                if(progress == cycleTimeTime) {
                     work();
                 }
 

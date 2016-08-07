@@ -18,10 +18,6 @@ import javax.annotation.Nullable;
 public abstract class TileProcessorBase extends TileInventoryBase implements IRotatableTile {
 
     private EnumFacing facing = EnumFacing.NORTH;
-    /**
-     * I dont actually know what this is for or if this is how it is supposed to be implemented.
-     */
-    private boolean placing = false;
 
     /**
      * The currently crafting recipe.
@@ -35,7 +31,7 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     /**
      * The number of ticks required by the current recipe.
      */
-    public int recipeTime = 0;
+    public int cycleTimeTime = 100;
 
     public abstract IMOHRecipe checkForValidRecipe();
 
@@ -59,13 +55,11 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
 
     @Override
     public boolean getPlacing() {
-        return placing;
+        return false;
     }
 
     @Override
-    public void setPlacing(boolean placing) {
-        this.placing = placing;
-    }
+    public void setPlacing(boolean placing) {}
 
     //endregion
 
@@ -108,14 +102,12 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setDouble("Progress", progress);
-        compound.setInteger("RecipeTime", recipeTime);
         return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         progress = compound.getDouble("Progress");
-        recipeTime = compound.getInteger("RecipeTime");
         super.readFromNBT(compound);
     }
 

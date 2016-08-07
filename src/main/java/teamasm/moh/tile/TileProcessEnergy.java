@@ -16,7 +16,7 @@ import teamasm.moh.reference.GuiIds;
  */
 public abstract class TileProcessEnergy extends TileProcessorBase implements IEnergyReceiver, IGuiTile {
 
-    protected EnergyStorage energyStorage = new EnergyStorage(512000, 32000, 0);
+    public EnergyStorage energyStorage = new EnergyStorage(512000, 32000, 0);
 
     @Override
     public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {

@@ -1,10 +1,12 @@
 package teamasm.moh.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamasm.moh.network.PacketDispatcher;
 import teamasm.moh.tile.TileProcessEnergy;
 
 /**
@@ -24,12 +26,13 @@ public class ContainerPoweredMachine extends BaseContainer {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < this.listeners.size(); i++) {
-            IContainerListener IContainerListener = this.listeners.get(i);
-            if (this.power != tileProcessEnergy.getEnergyStored(EnumFacing.DOWN)) {
-                IContainerListener.sendProgressBarUpdate(this, 0, (int) tileProcessEnergy.getEnergyStored(EnumFacing.DOWN));
+            IContainerListener listener = this.listeners.get(i);
+            if (this.power != tileProcessEnergy.getEnergyStored(EnumFacing.DOWN) && listener instanceof EntityPlayerMP) {
+                listener.sendProgressBarUpdate(this, 0, power = tileProcessEnergy.getEnergyStored(EnumFacing.DOWN));
+                PacketDispatcher.dispatchContainerEnergySync(tileProcessEnergy, (EntityPlayerMP) listener);
             }
             if (this.progress != tileProcessEnergy.progress) {
-                IContainerListener.sendProgressBarUpdate(this, 1, (int) tileProcessEnergy.progress);
+                listener.sendProgressBarUpdate(this, 1, progress = (int) tileProcessEnergy.progress);
             }
         }
     }
@@ -45,10 +48,7 @@ public class ContainerPoweredMachine extends BaseContainer {
     @Override
     public void updateProgressBar(int id, int value) {
         if (id == 0) {
-            this.power = value;
-        }
-        else if (id == 1) {
-            this.progress = value;
+            tileProcessEnergy.energyStorage.setEnergyStored(value);
         }
     }
 }
