@@ -1,14 +1,23 @@
 package teamasm.moh.init;
 
 import codechicken.lib.block.ItemBlockMultiType;
+import codechicken.lib.render.ModelRegistryHelper;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.block.BlockMachine;
 import teamasm.moh.block.BlockOre;
+import teamasm.moh.client.render.item.RenderItemCrusherAutomatic;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.machines.teir1.*;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
 import teamasm.moh.tile.machines.tier2.TileSeperatorElectrostatic;
+
+import static teamasm.moh.reference.VariantReference.machinesList;
 
 /**
  * Created by brandon3055 on 4/08/2016.
@@ -39,6 +48,17 @@ public class ModBlocks {
         blockMachine.registerSubItemAndTile(7, "separatorFlotation", TileSeperatorFlotation.class);
         blockMachine.registerSubItemAndTile(8, "separatorElectrostatic", TileSeperatorElectrostatic.class);
         blockMachine.registerSubItemAndTile(9, "dryerRotary", TileDryerRotary.class);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void registerModels() {
+        for (int i = 0; i < machinesList.size(); i++) {
+            String variant = machinesList.get(i);
+            ModelResourceLocation location = new ModelResourceLocation(blockMachine.getRegistryName(), "type=" + variant);
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockMachine), i, location);
+        }
+
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerCrusher"), new RenderItemCrusherAutomatic());
 
     }
 

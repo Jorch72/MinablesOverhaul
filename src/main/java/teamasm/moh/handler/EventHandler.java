@@ -10,6 +10,10 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.entity.capabilities.CapabilityHelper;
 import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.manager.OreStripManager;
@@ -21,6 +25,10 @@ import static teamasm.moh.entity.capabilities.ResearchStorage.RESEARCH_CAP;
  * Created by covers1624 on 8/4/2016.
  */
 public class EventHandler {
+    @SideOnly(Side.CLIENT)
+    public static int clientTicks;
+    @SideOnly(Side.CLIENT)
+    public static float renderTickFrame;
 
     @SubscribeEvent
     public void onOreGen(OreGenEvent.GenerateMinable event) {
@@ -51,5 +59,21 @@ public class EventHandler {
     @SubscribeEvent
     public void playerLoggedIn(PlayerLoggedInEvent event) {
         CapabilityHelper.syncResearch(event.player);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void clientTickEvent(TickEvent.ClientTickEvent event) {
+        if (event.phase == Phase.END) {
+            clientTicks++;
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void renderTickEvent(TickEvent.RenderTickEvent event) {
+        if (event.phase == Phase.START) {
+            renderTickFrame = event.renderTickTime;
+        }
     }
 }
