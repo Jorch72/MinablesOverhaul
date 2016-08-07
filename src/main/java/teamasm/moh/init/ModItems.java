@@ -1,6 +1,8 @@
 package teamasm.moh.init;
 
 import codechicken.lib.asm.ObfMapping;
+import codechicken.lib.model.CCOverrideBakedModel;
+import codechicken.lib.render.ModelRegistryHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -10,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.item.Debugger;
 import teamasm.moh.item.ItemOre;
 import teamasm.moh.item.ItemOreDust;
+import teamasm.moh.reference.OreRegistry;
 import teamasm.moh.reference.Reference;
 
 /**
@@ -41,5 +44,12 @@ public class ModItems {
         ModelLoader.setCustomModelResourceLocation(brokenOre, 0, new ModelResourceLocation(Reference.MOD_PREFIX + "brokenOre", "broken"));
         ModelLoader.setCustomModelResourceLocation(brokenOre, 1, new ModelResourceLocation(Reference.MOD_PREFIX + "brokenOre", "crushed"));
         ModelLoader.setCustomModelResourceLocation(brokenOre, 2, new ModelResourceLocation(Reference.MOD_PREFIX + "brokenOre", "ground"));
+
+        for (int i = 0; i < OreRegistry.INSTANCE.getOreList().size(); i++) {
+            String oreName = OreRegistry.INSTANCE.getOreList().get(i);
+            ModelResourceLocation location = new ModelResourceLocation(oreDust.getRegistryName(), "type=" + oreName);
+            ModelLoader.setCustomModelResourceLocation(oreDust, i, location);
+            ModelRegistryHelper.register(location, new CCOverrideBakedModel());
+        }
     }
 }
