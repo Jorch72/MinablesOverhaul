@@ -138,6 +138,8 @@ public class ModelScreenFine extends ModelBase {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        animationRotation /= 3F;
+        this.crankShaft.rotateAngleX = animationRotation;
         this.transBottom.render(scale);
         this.motorBottom.render(scale);
         this.crankShaft.render(scale);

@@ -15,9 +15,11 @@ import teamasm.moh.block.BlockOre;
 import teamasm.moh.client.render.item.RenderItemCrusherAutomatic;
 import teamasm.moh.client.render.item.RenderItemGrinderAutomatic;
 import teamasm.moh.client.render.item.RenderItemScreenCoarse;
+import teamasm.moh.client.render.item.RenderItemScreenFine;
 import teamasm.moh.client.render.tile.RenderTileCrusherAutomatic;
 import teamasm.moh.client.render.tile.RenderTileGrinderAutomatic;
 import teamasm.moh.client.render.tile.RenderTileScreenCoarse;
+import teamasm.moh.client.render.tile.RenderTileScreenFine;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.machines.teir1.*;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
@@ -47,13 +49,12 @@ public class ModBlocks {
         blockMachine.registerSubItemAndTile(0, "reducerCrusher", TileReducerCrusher.class);
         blockMachine.registerSubItemAndTile(1, "reducerGrinder", TileReducerGrinder.class);
         blockMachine.registerSubItemAndTile(2, "screenCoarse", TileScreenCoarse.class);
-        blockMachine.registerSubItemAndTile(3, "screenMedium", TileScreenMedium.class);
-        blockMachine.registerSubItemAndTile(4, "screenFine", TileScreenFine.class);
-        blockMachine.registerSubItemAndTile(5, "separatorMagnetic", TileSeperatorMagnetic.class);
-        blockMachine.registerSubItemAndTile(6, "separatorGravity", TileSeperatorGravity.class);
-        blockMachine.registerSubItemAndTile(7, "separatorFlotation", TileSeperatorFlotation.class);
-        blockMachine.registerSubItemAndTile(8, "separatorElectrostatic", TileSeperatorElectrostatic.class);
-        blockMachine.registerSubItemAndTile(9, "dryerRotary", TileDryerRotary.class);
+        blockMachine.registerSubItemAndTile(3, "screenFine", TileScreenFine.class);
+        blockMachine.registerSubItemAndTile(4, "separatorMagnetic", TileSeperatorMagnetic.class);
+        blockMachine.registerSubItemAndTile(5, "separatorGravity", TileSeperatorGravity.class);
+        blockMachine.registerSubItemAndTile(6, "separatorFlotation", TileSeperatorFlotation.class);
+        blockMachine.registerSubItemAndTile(7, "separatorElectrostatic", TileSeperatorElectrostatic.class);
+        blockMachine.registerSubItemAndTile(8, "dryerRotary", TileDryerRotary.class);
     }
 
     @SideOnly(Side.CLIENT)
@@ -62,6 +63,7 @@ public class ModBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileReducerCrusher.class, new RenderTileCrusherAutomatic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileReducerGrinder.class, new RenderTileGrinderAutomatic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileScreenCoarse.class, new RenderTileScreenCoarse());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileScreenFine.class, new RenderTileScreenFine());
 
         for (int i = 0; i < machinesList.size(); i++) {
             String variant = machinesList.get(i);
@@ -72,6 +74,7 @@ public class ModBlocks {
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerCrusher"), new RenderItemCrusherAutomatic());
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerGrinder"), new RenderItemGrinderAutomatic());
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenCoarse"), new RenderItemScreenCoarse());
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenFine"), new RenderItemScreenFine());
 
     }
 
