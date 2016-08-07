@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 /**
- * ScreenCoarse - Undefined
+ * ScreenCoarse - brandon3055
  * Created using Tabula 5.1.0
  */
 public class ModelScreenCoarse extends ModelBase {
