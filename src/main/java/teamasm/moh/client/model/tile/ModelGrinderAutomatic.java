@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * Grinder - brandon3055
  * Created using Tabula 5.1.0
  */
-public class ModelGrinder extends ModelBase {
+public class ModelGrinderAutomatic extends ModelBase {
     public ModelRenderer base;
     public ModelRenderer crankShaft;
     public ModelRenderer backPlate;
@@ -33,7 +33,7 @@ public class ModelGrinder extends ModelBase {
     public ModelRenderer statorMagnet4;
     public ModelRenderer grindStoneA;
 
-    public ModelGrinder() {
+    public ModelGrinderAutomatic() {
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.backPlate = new ModelRenderer(this, 0, 15);
@@ -136,9 +136,11 @@ public class ModelGrinder extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.crankShaft.render(f5);
-        this.base.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        animationRotation /= 3F;
+        this.crankShaft.rotateAngleX = animationRotation;
+        this.crankShaft.render(scale);
+        this.base.render(scale);
     }
 
     /**

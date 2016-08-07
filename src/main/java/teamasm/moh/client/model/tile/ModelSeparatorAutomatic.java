@@ -127,15 +127,15 @@ public class ModelSeparatorAutomatic extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.motorBottom.render(f5);
-        this.motorBack.render(f5);
-        this.supportLeft.render(f5);
-        this.supportRight.render(f5);
-        this.motorTop.render(f5);
-        this.crankShaft.render(f5);
-        this.motorFront.render(f5);
-        this.base.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        this.motorBottom.render(scale);
+        this.motorBack.render(scale);
+        this.supportLeft.render(scale);
+        this.supportRight.render(scale);
+        this.motorTop.render(scale);
+        this.crankShaft.render(scale);
+        this.motorFront.render(scale);
+        this.base.render(scale);
     }
 
     /**

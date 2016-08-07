@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import teamasm.moh.block.BlockMachine;
 import teamasm.moh.block.BlockOre;
 import teamasm.moh.client.render.item.RenderItemCrusherAutomatic;
+import teamasm.moh.client.render.item.RenderItemGrinderAutomatic;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.machines.teir1.*;
 import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
@@ -59,6 +60,7 @@ public class ModBlocks {
         }
 
         ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerCrusher"), new RenderItemCrusherAutomatic());
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=reducerGrinder"), new RenderItemGrinderAutomatic());
 
     }
 

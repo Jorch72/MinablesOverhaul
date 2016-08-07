@@ -149,14 +149,14 @@ public class ModelCrusherAutomatic extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        this.base.render(f5);
-        f4 /= 3F;
+    public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        this.base.render(scale);
+        animationRotation /= 3F;
 
-        this.crushPlate.rotateAngleX = 0.15009831F - (float) (Math.max(-1 * Math.sin(f4), 0) * 0.1F);
-        this.crushPlate.render(f5);
-        this.crankShaft.rotateAngleX = f4;
-        this.crankShaft.render(f5);
+        this.crushPlate.rotateAngleX = 0.15009831F - (float) (Math.max(-1 * Math.sin(animationRotation), 0) * 0.1F);
+        this.crushPlate.render(scale);
+        this.crankShaft.rotateAngleX = animationRotation;
+        this.crankShaft.render(scale);
     }
 
     /**

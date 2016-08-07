@@ -137,17 +137,17 @@ public class ModelScreenFine extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.transBottom.render(f5);
-        this.motorBottom.render(f5);
-        this.crankShaft.render(f5);
-        this.motorTop.render(f5);
-        this.motorBack.render(f5);
-        this.transTop.render(f5);
-        this.grate1.render(f5);
-        this.motorFront.render(f5);
-        this.sideRight.render(f5);
-        this.sideLeft.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        this.transBottom.render(scale);
+        this.motorBottom.render(scale);
+        this.crankShaft.render(scale);
+        this.motorTop.render(scale);
+        this.motorBack.render(scale);
+        this.transTop.render(scale);
+        this.grate1.render(scale);
+        this.motorFront.render(scale);
+        this.sideRight.render(scale);
+        this.sideLeft.render(scale);
     }
 
     /**

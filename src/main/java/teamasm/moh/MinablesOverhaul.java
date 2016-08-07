@@ -20,7 +20,7 @@ public class MinablesOverhaul {
     @SidedProxy(clientSide = CLIENT_PROXY, serverSide = COMMON_PROXY)
     public static CommonProxy proxy;
 
-    public static final SimpleCreativeTab MOH_TAB = new SimpleCreativeTab("minablesoverhaul", "minablesoverhaul:blockOre");
+    public static final SimpleCreativeTab MOH_TAB = new SimpleCreativeTab("minablesoverhaul", "minablesoverhaul:machine");
 
     @Instance(MOD_NAME)
     public static MinablesOverhaul instance;
