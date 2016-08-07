@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * CrusherAutomatic - brandon3055
  * Created using Tabula 5.1.0
  */
-public class ModelCrusherAutomatic extends ModelBase {
+public class ModelCrusher extends ModelBase {
     public ModelRenderer base;
     public ModelRenderer crushPlate;
     public ModelRenderer crankShaft;
@@ -36,7 +36,7 @@ public class ModelCrusherAutomatic extends ModelBase {
     public ModelRenderer statorMagnet3;
     public ModelRenderer statorMagnet4;
 
-    public ModelCrusherAutomatic() {
+    public ModelCrusher() {
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.motorCoil3 = new ModelRenderer(this, 43, 11);

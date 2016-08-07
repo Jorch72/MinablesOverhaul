@@ -6,20 +6,66 @@ import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import teamasm.moh.MinablesOverhaul;
 import teamasm.moh.reference.GuiIds;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public abstract class TileProcessEnergy extends TileProcessorBase implements IEnergyReceiver, IGuiTile {
+public abstract class TileProcessEnergy extends TileProcessorBase implements IEnergyReceiver, IGuiTile, ITickable {
 
     public EnergyStorage energyStorage = new EnergyStorage(512000, 32000, 0);
     public boolean isIdle = false;
-    public float rotation = 0;
-    public float rotationSpeed = 0;
+    public Map<String, Float> workCache = new HashMap<String, Float>();
+    public int runCost = 100;
+    public int particleSize = 0;
+
+    @Override
+    public void update() {
+        if (worldObj.isRemote || isIdle) {
+            rotation += rotationSpeed;
+            return;
+        }
+
+        if (workCache.isEmpty() && !inputValid()) {
+            isIdle = true;
+            sendShortToClient(0, 0);
+            return;
+        }
+        else if (workCache.isEmpty() && inputValid()) {
+            addItemsToCache();
+            return;
+        }
+        else if (!workCache.isEmpty() && progress < cycleTime) {
+            double speed = getWorkSpeed();
+            energyStorage.modifyEnergyStored(-(int) (speed * runCost));
+            progress += speed;
+        }
+        else if (!workCache.isEmpty() && progress >= cycleTime) {
+            tryProcessOutput();
+        }
+    }
+
+    protected abstract void addItemsToCache();
+
+    protected abstract void tryProcessOutput();
+
+    protected abstract boolean inputValid();
+
+    protected double getWorkSpeed() {
+        double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
+        if (Math.abs(rotationSpeed - speed) > 0.01) {
+            rotationSpeed = (float)speed;
+            sendShortToClient(0, (int)(rotationSpeed * 1000F));
+        }
+        return speed;
+    }
 
     @Override
     public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
@@ -55,10 +101,6 @@ public abstract class TileProcessEnergy extends TileProcessorBase implements IEn
 
     protected void openGui(GuiIds id, World world, BlockPos pos, EntityPlayer player) {
         player.openGui(MinablesOverhaul.instance, id.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
-    }
-
-    public long getPowerScaled (int scale) {
-        return (this.getEnergyStored(EnumFacing.DOWN) * scale) / this.getMaxEnergyStored(EnumFacing.DOWN);
     }
 
     @Override

@@ -4,25 +4,27 @@ import codechicken.lib.render.TextureUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import teamasm.moh.client.model.tile.ModelSeparatorGravity;
+import teamasm.moh.api.tile.ITileItemRenderer;
+import teamasm.moh.client.model.tile.ModelCrusherManual;
 import teamasm.moh.reference.Reference;
-import teamasm.moh.tile.machines.teir1.TileCentrifuge;
+import teamasm.moh.tile.machines.hand.TileCrusherManual;
 import teamasm.moh.util.RotationHelper;
 
 /**
- * Created by covers1624 on 8/7/2016.
+ * Created by covers1624 on 8/6/2016.
  */
-public class RenderTileSeparatorGravity extends TileEntitySpecialRenderer<TileCentrifuge> {
+public class RenderTileCrusherManual extends TileEntitySpecialRenderer<TileCrusherManual> implements ITileItemRenderer {
 
-    private static final ModelSeparatorGravity model = new ModelSeparatorGravity();
-    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/separator.png");
+    private static final ModelCrusherManual model = new ModelCrusherManual();
+    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/crusher.png");
 
     @Override
-    public void renderTileEntityAt(TileCentrifuge te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void renderTileEntityAt(TileCrusherManual te, double x, double y, double z, float partialTicks, int destroyStage) {
         render(x, y, z, RotationHelper.sideToEntity(te.getRotation()), -te.getAnimRotStat(partialTicks));
     }
 
-    public static void render(double x, double y, double z, int rotation, float animationRotation) {
+    @Override
+    public void render(double x, double y, double z, int rotation, float animationRotation) {
         TextureUtils.changeTexture(texture);
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5, y + 1.5, z + 0.5);

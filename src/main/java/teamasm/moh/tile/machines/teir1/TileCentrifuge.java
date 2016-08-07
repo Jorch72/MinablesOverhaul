@@ -6,8 +6,6 @@ import codechicken.lib.util.ItemNBTUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ITickable;
-import net.minecraftforge.fml.common.FMLLog;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.init.ModItems;
 import teamasm.moh.item.ItemOre;
@@ -16,54 +14,25 @@ import teamasm.moh.reference.OreRegistry;
 import teamasm.moh.tile.TileProcessEnergy;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileCentrifuge extends TileProcessEnergy implements ITickable {
+public class TileCentrifuge extends TileProcessEnergy {
 
     public TileCentrifuge() {
         setInventory(7, 64);
-        cycleTimeTime = 1;//TODO Before event change back to 50
+        cycleTime = 1;//TODO Before event change back to 50
     }
 
-    public int runCost = 100;
+
     public int SLOT_INPUT = 0;
-    //public int SLOT_OUTPUT = 1;
-    public Map<String, Float> workCache = new HashMap<String, Float>();
-    public int particleSize = 0;
+
 
     //region Logic
 
     @Override
-    public void update() {
-        if (worldObj.isRemote || isIdle) {
-            rotation += rotationSpeed;
-            return;
-        }
-
-        if (workCache.isEmpty() && !inputValid()) {
-            isIdle = true;
-            sendShortToClient(0, 0);
-            return;
-        }
-        else if (workCache.isEmpty() && inputValid()) {
-            addItemsToCache();
-            return;
-        }
-        else if (!workCache.isEmpty() && progress < cycleTimeTime) {
-            double speed = getWorkSpeed();
-            energyStorage.modifyEnergyStored(- (int)(speed * runCost));
-            progress += speed;
-        }
-        else if (!workCache.isEmpty() && progress >= cycleTimeTime) {
-            tryProcessOutput();
-        }
-    }
-
     protected void tryProcessOutput() {
         List<String> ores = new ArrayList<String>();
         ores.addAll(workCache.keySet());
@@ -93,7 +62,8 @@ public class TileCentrifuge extends TileProcessEnergy implements ITickable {
         }
     }
 
-    protected void addItemsToCache(){
+    @Override
+    protected void addItemsToCache() {
         ItemStack stack = getStackInSlot(SLOT_INPUT);
 
         if (stack == null || !(stack.getItem() instanceof ItemOre)) {
@@ -113,21 +83,21 @@ public class TileCentrifuge extends TileProcessEnergy implements ITickable {
         }
     }
 
+    @Override
     protected boolean inputValid() {
         ItemStack input = getStackInSlot(SLOT_INPUT);
 
-        if (input == null || !(input.getItem() instanceof ItemOre)){
+        if (input == null || !(input.getItem() instanceof ItemOre)) {
             return false;
         }
 
-        ItemOre item = (ItemOre)input.getItem();
+        ItemOre item = (ItemOre) input.getItem();
         int size = item.getParticleSize(input);
 
 //        if (!item.isReduced(input) || size != allowedSize) {
 //            return false;
 //        }
 
-        FMLLog.info(""+size);
         if (size > 2) {
             return false;
         }
@@ -147,23 +117,6 @@ public class TileCentrifuge extends TileProcessEnergy implements ITickable {
 //        }
 
         return true;
-    }
-
-    protected double getWorkSpeed() {
-        double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
-        if (Math.abs(rotationSpeed - speed) > 0.01) {
-            rotationSpeed = (float)speed;
-            sendShortToClient(0, (int)(rotationSpeed * 1000F));
-        }
-        return speed;
-    }
-
-
-    @Override
-    public void onShortPacket(int index, int value) {
-        if (index == 0) {
-            rotationSpeed = value / 1000F;
-        }
     }
 
     //endregion
@@ -202,11 +155,11 @@ public class TileCentrifuge extends TileProcessEnergy implements ITickable {
 
     //endregion
 
-    protected void inventoryChanged(){
+    protected void inventoryChanged() {
         isIdle = false;
         if (!worldObj.isRemote) {
             getWorkSpeed();
-            sendShortToClient(0, (int)(rotationSpeed * 1000F));
+            sendShortToClient(0, (int) (rotationSpeed * 1000F));
         }
     }
 

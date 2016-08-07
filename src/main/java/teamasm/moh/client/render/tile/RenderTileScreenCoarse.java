@@ -4,6 +4,7 @@ import codechicken.lib.render.TextureUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
+import teamasm.moh.api.tile.ITileItemRenderer;
 import teamasm.moh.client.model.tile.ModelScreenCoarse;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.machines.teir1.TileScreenCoarse;
@@ -12,7 +13,7 @@ import teamasm.moh.util.RotationHelper;
 /**
  * Created by covers1624 on 8/7/2016.
  */
-public class RenderTileScreenCoarse extends TileEntitySpecialRenderer<TileScreenCoarse> {
+public class RenderTileScreenCoarse extends TileEntitySpecialRenderer<TileScreenCoarse> implements ITileItemRenderer {
 
     private static final ModelScreenCoarse model = new ModelScreenCoarse();
     private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/screen.png");
@@ -22,7 +23,8 @@ public class RenderTileScreenCoarse extends TileEntitySpecialRenderer<TileScreen
         render(x, y, z, RotationHelper.sideToEntity(te.getRotation()), -te.getAnimRotStat(partialTicks));
     }
 
-    public static void render(double x, double y, double z, int rotation, float animationRotation) {
+    @Override
+    public void render(double x, double y, double z, int rotation, float animationRotation) {
         TextureUtils.changeTexture(texture);
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5, y + 1.5, z + 0.5);

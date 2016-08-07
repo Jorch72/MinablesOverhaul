@@ -11,7 +11,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import teamasm.moh.MinablesOverhaul;
-import teamasm.moh.reference.VariantReference;
 
 import java.util.List;
 
@@ -31,11 +30,11 @@ public class ItemBlockOre extends ItemBlock {
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         int meta = stack.getMetadata();
-        if (meta <= 15) {//0 is an index
-            return "item." + VariantReference.normalOres[meta];
-        } else if (meta > 16 && meta <= 31) {//0 is an index
-            return "item." + VariantReference.miscOres[meta - 17];
-        }
+//        if (meta <= 15) {//0 is an index
+//            return "item." + VariantReference.normalOres[meta];
+//        } else if (meta > 16 && meta <= 31) {//0 is an index
+//            return "item." + VariantReference.miscOres[meta - 17];
+//        }
         return "item.UNKNOWN_ORE_META";
     }
 
@@ -54,11 +53,11 @@ public class ItemBlockOre extends ItemBlock {
 
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (int i = 0; i < VariantReference.normalOres.length; i++) {
-            subItems.add(new ItemStack(this, 1, i));
-        }
-        for (int i = 0; i < VariantReference.miscOres.length; i++) {
-            subItems.add(new ItemStack(this, 1, i + 17));
-        }
+//        for (int i = 0; i < VariantReference.normalOres.length; i++) {
+//            subItems.add(new ItemStack(this, 1, i));
+//        }
+//        for (int i = 0; i < VariantReference.miscOres.length; i++) {
+//            subItems.add(new ItemStack(this, 1, i + 17));
+//        }
     }
 }

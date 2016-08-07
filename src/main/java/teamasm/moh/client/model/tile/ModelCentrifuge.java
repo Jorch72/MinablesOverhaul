@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * SeperatorAutomatic - brandon3055
  * Created using Tabula 5.1.0
  */
-public class ModelSeparatorGravity extends ModelBase {
+public class ModelCentrifuge extends ModelBase {
     public ModelRenderer crankShaft;
     public ModelRenderer motorFront;
     public ModelRenderer motorBack;
@@ -33,7 +33,7 @@ public class ModelSeparatorGravity extends ModelBase {
     public ModelRenderer motorCoil3;
     public ModelRenderer motorCoil4;
 
-    public ModelSeparatorGravity() {
+    public ModelCentrifuge() {
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.drumTop = new ModelRenderer(this, 0, 24);

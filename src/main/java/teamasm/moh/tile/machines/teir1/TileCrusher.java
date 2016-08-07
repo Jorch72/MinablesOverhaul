@@ -3,71 +3,41 @@ package teamasm.moh.tile.machines.teir1;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ITickable;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.init.ModItems;
 import teamasm.moh.item.ItemOre;
 import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileCrusher extends TileProcessEnergy implements ITickable {
+public class TileCrusher extends TileProcessEnergy {
 
     public TileCrusher() {
         setInventory(2, 64);
-        cycleTimeTime = 1;//TODO Before event change back to 50
+        cycleTime = 1;//TODO Before event change back to 50
     }
 
     public float maxPurity = 1F;
     public float minPurity = 0F;
     public int maxParticleSize = 3;
     public int endParticleSize = 2;
-    public int runCost = 100;
     public int SLOT_INPUT = 0;
     public int SLOT_OUTPUT = 1;
-    public Map<String, Float> workCache = new HashMap<String, Float>();
-    public int newSize = 0;
 
     //region Logic
 
     @Override
-    public void update() {
-        if (worldObj.isRemote || isIdle) {
-            rotation += rotationSpeed;
-            return;
-        }
-
-        if (workCache.isEmpty() && !inputValid()) {
-            isIdle = true;
-            sendShortToClient(0, 0);
-            return;
-        }
-        else if (workCache.isEmpty() && inputValid()) {
-            addItemsToCache();
-            return;
-        }
-        else if (!workCache.isEmpty() && progress < cycleTimeTime) {
-            double speed = getWorkSpeed();
-            energyStorage.modifyEnergyStored(- (int)(speed * runCost));
-            progress += speed;
-        }
-        else if (!workCache.isEmpty() && progress >= cycleTimeTime) {
-            tryProcessOutput();
-        }
-    }
-
     protected void tryProcessOutput() {
         ItemStack output = getStackInSlot(SLOT_OUTPUT);
         ItemStack newStack = new ItemStack(ModItems.brokenOre);
         ItemOre item = (ItemOre) ModItems.brokenOre;
         item.setOres(workCache, newStack);
         item.setReduced(newStack, true);
-        item.setParticleSize(newStack, newSize);
+        item.setParticleSize(newStack, particleSize);
 
         boolean wasSuccessful = false;
 
@@ -95,16 +65,17 @@ public class TileCrusher extends TileProcessEnergy implements ITickable {
         }
     }
 
-    protected void addItemsToCache(){
-        ItemStack stack = getStackInSlot(SLOT_INPUT);
+    @Override
+    protected void addItemsToCache() {
+        ItemStack input = getStackInSlot(SLOT_INPUT);
 
-        if (stack == null || !(stack.getItem() instanceof ItemOre)) {
+        if (input == null || !(input.getItem() instanceof ItemOre)) {
             return;
         }
 
-        ItemOre item = (ItemOre) stack.getItem();
-        Map<String, Float> stackOre = item.getOres(stack);
-        Map<String, Float> newCache = item.getOres(stack);
+        ItemOre item = (ItemOre) input.getItem();
+        Map<String, Float> stackOre = item.getOres(input);
+        Map<String, Float> newCache = item.getOres(input);
 
         int count = 1;//Math.min(stack.stackSize, 8);TODO Clean this up. This is currently just a quick hack to make it only consume 1 item
         for (int i = 0; i < count; i++) {
@@ -124,35 +95,36 @@ public class TileCrusher extends TileProcessEnergy implements ITickable {
 
             if (shouldAdd) {
                 workCache.putAll(newCache);
-                newSize = item.getParticleSize(stack) - 1;
+                particleSize = item.getParticleSize(input) - 1;
 
-                if (newSize < endParticleSize) {
-                    newSize = endParticleSize;
+                if (particleSize < endParticleSize) {
+                    particleSize = endParticleSize;
                 }
 
-                stack.stackSize--;
+                input.stackSize--;
             }
             else {
                 break;
             }
         }
 
-        if (stack.stackSize <= 0) {
+        if (input.stackSize <= 0) {
             setInventorySlotContents(SLOT_INPUT, null);
         }
         else {
-            setInventorySlotContents(SLOT_INPUT, stack);
+            setInventorySlotContents(SLOT_INPUT, input);
         }
     }
 
+    @Override
     protected boolean inputValid() {
         ItemStack input = getStackInSlot(SLOT_INPUT);
 
-        if (input == null || !(input.getItem() instanceof ItemOre)){
+        if (input == null || !(input.getItem() instanceof ItemOre)) {
             return false;
         }
 
-        ItemOre item = (ItemOre)input.getItem();
+        ItemOre item = (ItemOre) input.getItem();
         int size = item.getParticleSize(input);
 
         Map<String, Float> stackOre = item.getOres(input);
@@ -185,47 +157,6 @@ public class TileCrusher extends TileProcessEnergy implements ITickable {
         return foundMin;
     }
 
-    protected double getWorkSpeed() {
-        double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
-        if (Math.abs(rotationSpeed - speed) > 0.01) {
-            rotationSpeed = (float)speed;
-            sendShortToClient(0, (int)(rotationSpeed * 1000F));
-        }
-        return speed;
-    }
-
-//    public void work() {
-//        ItemStack wipStack = getStackInSlot(SLOT_INPUT).copy();
-//        wipStack.stackSize = 1;
-//        if (wipStack == null) {
-//            decrStackSize(SLOT_INPUT, 1);
-//        }
-//        ItemOre itemOre = (ItemOre) wipStack.getItem();
-//        itemOre.setReduced(wipStack, true);
-//
-//        Map<String, Float> ores = itemOre.getOres(getStackInSlot(SLOT_INPUT));
-//        for (String name : ores.keySet()) {
-//            float newValue = itemOre.getOres(getStackInSlot(SLOT_INPUT)).get(name).floatValue() + itemOre.getOres(wipStack).get(name).floatValue();
-//            itemOre.modifyPurity(name, newValue, wipStack);
-//        }
-//        decrStackSize(SLOT_INPUT, 1);
-//        progress = 0;
-//
-//        //output
-//        if (getStackInSlot(SLOT_OUTPUT) == null && getStackInSlot(SLOT_INPUT) == null) {
-//            setInventorySlotContents(SLOT_OUTPUT, wipStack);
-//            wipStack = null;
-//            progress = 0;
-//        }
-//    }
-
-    @Override
-    public void onShortPacket(int index, int value) {
-        if (index == 0) {
-            rotationSpeed = value / 1000F;
-        }
-    }
-
     //endregion
 
     //region Save
@@ -242,7 +173,7 @@ public class TileCrusher extends TileProcessEnergy implements ITickable {
         }
 
         compound.setTag("WorkCache", list);
-        compound.setByte("NewSize", (byte)newSize);
+        compound.setByte("NewSize", (byte) particleSize);
 
         return super.writeToNBT(compound);
     }
@@ -257,17 +188,17 @@ public class TileCrusher extends TileProcessEnergy implements ITickable {
             workCache.put(tag.getString("Name"), tag.getFloat("Purity"));
         }
 
-        newSize = compound.getByte("NewSize");
+        particleSize = compound.getByte("NewSize");
         super.readFromNBT(compound);
     }
 
     //endregion
 
-    protected void inventoryChanged(){
+    protected void inventoryChanged() {
         isIdle = false;
         if (!worldObj.isRemote) {
             getWorkSpeed();
-            sendShortToClient(0, (int)(rotationSpeed * 1000F));
+            sendShortToClient(0, (int) (rotationSpeed * 1000F));
         }
     }
 

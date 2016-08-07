@@ -9,9 +9,12 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import org.apache.commons.lang3.tuple.Pair;
+import teamasm.moh.api.tile.ITileItemRenderer;
+import teamasm.moh.handler.EventHandler;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
@@ -21,7 +24,15 @@ import java.util.List;
 /**
  * Created by covers1624 on 8/7/2016.
  */
-public abstract class RenderItemMachine implements IItemRenderer, IPerspectiveAwareModel {
+public class RenderItemMachine implements IItemRenderer, IPerspectiveAwareModel {
+
+    private ITileItemRenderer renderer;
+
+    public RenderItemMachine(){}
+
+    public RenderItemMachine(ITileItemRenderer renderer) {
+        this.renderer = renderer;
+    }
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
@@ -61,5 +72,10 @@ public abstract class RenderItemMachine implements IItemRenderer, IPerspectiveAw
     @Override
     public ItemOverrideList getOverrides() {
         return ItemOverrideList.NONE;
+    }
+
+    @Override
+    public void renderItem(ItemStack item) {
+        renderer.render(0, 0, 0, 2, -(EventHandler.clientTicks + EventHandler.renderTickFrame));
     }
 }

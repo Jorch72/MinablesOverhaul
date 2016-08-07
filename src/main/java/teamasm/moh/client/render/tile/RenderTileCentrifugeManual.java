@@ -4,25 +4,27 @@ import codechicken.lib.render.TextureUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import teamasm.moh.client.model.tile.ModelCrusherAutomatic;
+import teamasm.moh.api.tile.ITileItemRenderer;
+import teamasm.moh.client.model.tile.ModelCentrifugeManual;
 import teamasm.moh.reference.Reference;
-import teamasm.moh.tile.machines.teir1.TileCrusher;
+import teamasm.moh.tile.machines.hand.TileCentrifugeManual;
 import teamasm.moh.util.RotationHelper;
 
 /**
- * Created by covers1624 on 8/6/2016.
+ * Created by covers1624 on 8/7/2016.
  */
-public class RenderTileCrusherAutomatic extends TileEntitySpecialRenderer<TileCrusher> {
+public class RenderTileCentrifugeManual extends TileEntitySpecialRenderer<TileCentrifugeManual> implements ITileItemRenderer {
 
-    private static final ModelCrusherAutomatic model = new ModelCrusherAutomatic();
-    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/crusher.png");
+    private static final ModelCentrifugeManual model = new ModelCentrifugeManual();
+    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/separator.png");
 
     @Override
-    public void renderTileEntityAt(TileCrusher te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void renderTileEntityAt(TileCentrifugeManual te, double x, double y, double z, float partialTicks, int destroyStage) {
         render(x, y, z, RotationHelper.sideToEntity(te.getRotation()), -te.getAnimRotStat(partialTicks));
     }
 
-    public static void render(double x, double y, double z, int rotation, float animationRotation) {
+    @Override
+    public void render(double x, double y, double z, int rotation, float animationRotation) {
         TextureUtils.changeTexture(texture);
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5, y + 1.5, z + 0.5);

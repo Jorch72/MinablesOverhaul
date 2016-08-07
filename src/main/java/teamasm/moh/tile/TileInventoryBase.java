@@ -139,12 +139,12 @@ public class TileInventoryBase extends TileEntity implements IInventory {
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return inventorySimple.hasCapability(capability, facing) || super.hasCapability(capability, facing);
+        return getSizeInventory() > 0 && inventorySimple.hasCapability(capability, facing) || super.hasCapability(capability, facing);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (inventorySimple.hasCapability(capability, facing)) {
+        if (inventorySimple.hasCapability(capability, facing) && getSizeInventory() > 0) {
             return inventorySimple.getCapability(capability, facing);
         }
         return super.getCapability(capability, facing);

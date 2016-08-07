@@ -5,21 +5,21 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
 import teamasm.moh.api.tile.ITileItemRenderer;
-import teamasm.moh.client.model.tile.ModelScreenFine;
+import teamasm.moh.client.model.tile.ModelCrusher;
 import teamasm.moh.reference.Reference;
-import teamasm.moh.tile.machines.teir1.TileScreenFine;
+import teamasm.moh.tile.machines.teir1.TileCrusher;
 import teamasm.moh.util.RotationHelper;
 
 /**
- * Created by covers1624 on 8/7/2016.
+ * Created by covers1624 on 8/6/2016.
  */
-public class RenderTileScreenFine extends TileEntitySpecialRenderer<TileScreenFine> implements ITileItemRenderer {
+public class RenderTileCrusher extends TileEntitySpecialRenderer<TileCrusher> implements ITileItemRenderer {
 
-    private static final ModelScreenFine model = new ModelScreenFine();
-    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/screen.png");
+    private static final ModelCrusher model = new ModelCrusher();
+    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/crusher.png");
 
     @Override
-    public void renderTileEntityAt(TileScreenFine te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void renderTileEntityAt(TileCrusher te, double x, double y, double z, float partialTicks, int destroyStage) {
         render(x, y, z, RotationHelper.sideToEntity(te.getRotation()), -te.getAnimRotStat(partialTicks));
     }
 

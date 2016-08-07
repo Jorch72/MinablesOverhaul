@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * SeperatorManual - brandon3055
  * Created using Tabula 5.1.0
  */
-public class ModelSeparatorManual extends ModelBase {
+public class ModelCentrifugeManual extends ModelBase {
     public ModelRenderer crankShaft;
     public ModelRenderer supportLeft;
     public ModelRenderer supportRight;
@@ -22,7 +22,7 @@ public class ModelSeparatorManual extends ModelBase {
     public ModelRenderer handleA;
     public ModelRenderer handleB;
 
-    public ModelSeparatorManual() {
+    public ModelCentrifugeManual() {
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.drumBack = new ModelRenderer(this, 32, 20);
@@ -77,6 +77,8 @@ public class ModelSeparatorManual extends ModelBase {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float scale) {
+        animationRotation /= 3F;
+        this.crankShaft.rotateAngleX = animationRotation;
         this.supportRight.render(scale);
         this.base.render(scale);
         this.supportLeft.render(scale);

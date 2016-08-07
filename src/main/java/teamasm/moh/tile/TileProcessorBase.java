@@ -18,6 +18,8 @@ import teamasm.moh.network.PacketDispatcher;
 public abstract class TileProcessorBase extends TileInventoryBase implements IRotatableTile, IAnimationRotation {
 
     private EnumFacing facing = EnumFacing.NORTH;
+    public float rotation = 0;
+    public float rotationSpeed = 0;
 
     /**
      * The currently crafting recipe.
@@ -31,7 +33,7 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     /**
      * The number of ticks required by the current recipe.
      */
-    public int cycleTimeTime = 100;
+    public int cycleTime = 100;
 
     public abstract IMOHRecipe checkForValidRecipe();
 
@@ -149,7 +151,9 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     }
 
     public void onShortPacket(int index, int value) {
-
+        if (index == 0) {
+            rotationSpeed = value / 1000F;
+        }
     }
 
     //endregion

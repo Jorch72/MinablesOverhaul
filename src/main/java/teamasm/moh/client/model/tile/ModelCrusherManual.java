@@ -91,9 +91,12 @@ public class ModelCrusherManual extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float animationRotation, float f5) {
         this.base.render(f5);
+        animationRotation /= 3F;
+        this.crushPlate.rotateAngleX = 0.15009831F - (float) (Math.max(-1 * Math.sin(animationRotation), 0) * 0.1F);
         this.crushPlate.render(f5);
+        this.crankShaft.rotateAngleX = animationRotation;
         this.crankShaft.render(f5);
     }
 

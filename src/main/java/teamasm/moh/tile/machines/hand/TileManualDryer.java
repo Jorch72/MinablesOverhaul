@@ -1,5 +1,6 @@
 package teamasm.moh.tile.machines.hand;
 
+import net.minecraft.entity.player.EntityPlayer;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.tile.TileProcessorManual;
 
@@ -15,6 +16,16 @@ public class TileManualDryer extends TileProcessorManual {
     @Override
     public IMOHRecipe checkForValidRecipe() {
         return null;
+    }
+
+    @Override
+    protected void tryProcessOutput() {
+
+    }
+
+    @Override
+    public boolean handleClick(EntityPlayer player) {
+        return false;
     }
 
     @Override

@@ -3,65 +3,35 @@ package teamasm.moh.tile.machines.teir1;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ITickable;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.init.ModItems;
 import teamasm.moh.item.ItemOre;
 import teamasm.moh.reference.GuiIds;
 import teamasm.moh.tile.TileProcessEnergy;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
+public class TileScreenCoarse extends TileProcessEnergy {
 
     public TileScreenCoarse() {
         setInventory(2, 64);
-        cycleTimeTime = 1;//TODO Before event change back to 50
+        cycleTime = 1;//TODO Before event change back to 50
     }
 
     public float maxPurity = 0.25F;
     public float minPurity = 0F;
     public int allowedSize = 2;
-    public int runCost = 100;
     public int SLOT_INPUT = 0;
     public int SLOT_OUTPUT = 1;
-    public Map<String, Float> workCache = new HashMap<String, Float>();
-    public int particleSize = 0;
 
     public int itemsConsumed = 0; //Will be used to add stone to the junk output slot
 
     //region Logic
 
     @Override
-    public void update() {
-        if (worldObj.isRemote || isIdle) {
-            rotation += rotationSpeed;
-            return;
-        }
-
-        if (workCache.isEmpty() && !inputValid()) {
-            isIdle = true;
-            sendShortToClient(0, 0);
-            return;
-        }
-        else if (workCache.isEmpty() && inputValid()) {
-            addItemsToCache();
-            return;
-        }
-        else if (!workCache.isEmpty() && progress < cycleTimeTime) {
-            double speed = getWorkSpeed();
-            energyStorage.modifyEnergyStored(- (int)(speed * runCost));
-            progress += speed;
-        }
-        else if (!workCache.isEmpty() && progress >= cycleTimeTime) {
-            tryProcessOutput();
-        }
-    }
-
     protected void tryProcessOutput() {
         ItemStack output = getStackInSlot(SLOT_OUTPUT);
         ItemStack newStack = new ItemStack(ModItems.brokenOre);
@@ -96,20 +66,21 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
         }
     }
 
-    protected void addItemsToCache(){
-        ItemStack stack = getStackInSlot(SLOT_INPUT);
+    @Override
+    protected void addItemsToCache() {
+        ItemStack input = getStackInSlot(SLOT_INPUT);
 
-        if (stack == null || !(stack.getItem() instanceof ItemOre)) {
+        if (input == null || !(input.getItem() instanceof ItemOre)) {
             return;
         }
 
-        ItemOre item = (ItemOre) stack.getItem();
-        Map<String, Float> stackOre = item.getOres(stack);
-        Map<String, Float> newCache = item.getOres(stack);
+        ItemOre item = (ItemOre) input.getItem();
+        Map<String, Float> stackOre = item.getOres(input);
+        Map<String, Float> newCache = item.getOres(input);
 
-        int count = Math.min(stack.stackSize, 8);
+        int count = Math.min(input.stackSize, 8);
         itemsConsumed = 0;
-        particleSize = item.getParticleSize(stack);
+        particleSize = item.getParticleSize(input);
         for (int i = 0; i < count; i++) {
             boolean shouldAdd = true;
 
@@ -127,7 +98,7 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
 
             if (shouldAdd) {
                 workCache.putAll(newCache);
-                stack.stackSize--;
+                input.stackSize--;
                 itemsConsumed++;
             }
             else {
@@ -135,22 +106,23 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
             }
         }
 
-        if (stack.stackSize <= 0) {
+        if (input.stackSize <= 0) {
             setInventorySlotContents(SLOT_INPUT, null);
         }
         else {
-            setInventorySlotContents(SLOT_INPUT, stack);
+            setInventorySlotContents(SLOT_INPUT, input);
         }
     }
 
+    @Override
     protected boolean inputValid() {
         ItemStack input = getStackInSlot(SLOT_INPUT);
 
-        if (input == null || !(input.getItem() instanceof ItemOre)){
+        if (input == null || !(input.getItem() instanceof ItemOre)) {
             return false;
         }
 
-        ItemOre item = (ItemOre)input.getItem();
+        ItemOre item = (ItemOre) input.getItem();
         int size = item.getParticleSize(input);
 
 //        if (!item.isReduced(input) || size != allowedSize) {
@@ -178,23 +150,6 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
         return foundMin;
     }
 
-    protected double getWorkSpeed() {
-        double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
-        if (Math.abs(rotationSpeed - speed) > 0.01) {
-            rotationSpeed = (float)speed;
-            sendShortToClient(0, (int)(rotationSpeed * 1000F));
-        }
-        return speed;
-    }
-
-
-    @Override
-    public void onShortPacket(int index, int value) {
-        if (index == 0) {
-            rotationSpeed = value / 1000F;
-        }
-    }
-
     //endregion
 
     //region Save
@@ -211,7 +166,7 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
         }
 
         compound.setTag("WorkCache", list);
-        compound.setByte("ItemsConsumed", (byte)itemsConsumed);
+        compound.setByte("ItemsConsumed", (byte) itemsConsumed);
         compound.setByte("ParticleSize", (byte) particleSize);
         return super.writeToNBT(compound);
     }
@@ -233,11 +188,11 @@ public class TileScreenCoarse extends TileProcessEnergy implements ITickable {
 
     //endregion
 
-    protected void inventoryChanged(){
+    protected void inventoryChanged() {
         isIdle = false;
         if (!worldObj.isRemote) {
             getWorkSpeed();
-            sendShortToClient(0, (int)(rotationSpeed * 1000F));
+            sendShortToClient(0, (int) (rotationSpeed * 1000F));
         }
     }
 

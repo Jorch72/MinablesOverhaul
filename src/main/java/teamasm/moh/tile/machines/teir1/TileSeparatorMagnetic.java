@@ -20,6 +20,21 @@ public class TileSeparatorMagnetic extends TileProcessEnergy {
     }
 
     @Override
+    protected void addItemsToCache() {
+
+    }
+
+    @Override
+    protected void tryProcessOutput() {
+
+    }
+
+    @Override
+    protected boolean inputValid() {
+        return false;
+    }
+
+    @Override
     public GuiIds getGuiID() {
         return GuiIds.UNKNOWN;
     }
