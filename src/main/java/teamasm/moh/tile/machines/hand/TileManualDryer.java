@@ -16,4 +16,9 @@ public class TileManualDryer extends TileProcessorManual {
     public IMOHRecipe checkForValidRecipe() {
         return null;
     }
+
+    @Override
+    public float getAnimRotStat(float partialTicks) {
+        return 0;
+    }
 }

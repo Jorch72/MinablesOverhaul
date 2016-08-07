@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import teamasm.moh.entity.capabilities.IResearch;
 import teamasm.moh.tile.TileProcessEnergy;
+import teamasm.moh.tile.TileProcessorBase;
 
 import static teamasm.moh.entity.capabilities.ResearchStorage.RESEARCH_CAP;
 
@@ -27,5 +28,15 @@ public class PacketDispatcher {
         PacketCustom packet = new PacketCustom(NET_CHANNEL, 2);
         packet.writeInt(tile.energyStorage.getEnergyStored());
         packet.sendToPlayer(playerMP);
+    }
+
+    public static void dispatchTileShort(TileProcessorBase tile, int index, int shortValue) {
+        PacketCustom packet = new PacketCustom(NET_CHANNEL, 3);
+        packet.writeInt(tile.getPos().getX());
+        packet.writeInt(tile.getPos().getY());
+        packet.writeInt(tile.getPos().getZ());
+        packet.writeByte(index);
+        packet.writeShort(shortValue);
+        packet.sendPacketToAllAround(tile.getPos(), 64, tile.getWorld().provider.getDimension());
     }
 }

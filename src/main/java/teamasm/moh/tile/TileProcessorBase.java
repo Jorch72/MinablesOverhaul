@@ -8,6 +8,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.api.tile.IAnimationRotation;
+import teamasm.moh.network.PacketDispatcher;
 
 import javax.annotation.Nullable;
 
@@ -116,7 +117,7 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
 
     //region Helper
 
-    public void updateBlock(){
+    public void updateBlock() {
         IBlockState blockState = worldObj.getBlockState(pos);
         worldObj.notifyBlockUpdate(getPos(), blockState, blockState, 3);
     }
@@ -130,5 +131,17 @@ public abstract class TileProcessorBase extends TileInventoryBase implements IRo
     public NBTTagCompound getTileData() {
         return super.getTileData();
     }
+    //endregion
+
+    //region Sync
+
+    public void sendShortToClient(int index, int shortValue) {
+        PacketDispatcher.dispatchTileShort(this, index, shortValue);
+    }
+
+    public void onShortPacket(int index, int value) {
+
+    }
+
     //endregion
 }

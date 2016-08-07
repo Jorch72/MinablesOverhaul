@@ -33,11 +33,13 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
     @Override
     public void update() {
         if (worldObj.isRemote || isIdle) {
+            rotation += rotationSpeed;
             return;
         }
 
         if (workCache.isEmpty() && !inputValid()) {
             isIdle = true;
+            sendShortToClient(0, 0);
             return;
         }
         else if (workCache.isEmpty() && inputValid()) {
@@ -117,7 +119,9 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
     }
 
     protected double getWorkSpeed() {
-        return Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
+        double speed = Math.min(1, energyStorage.getEnergyStored() / (double)(energyStorage.getMaxEnergyStored() / 2));
+
+        return speed;
     }
 
     public void work() {
@@ -142,6 +146,13 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
             setInventorySlotContents(SLOT_OUTPUT, wipStack);
             wipStack = null;
             progress = 0;
+        }
+    }
+
+    @Override
+    public void onShortPacket(int index, int value) {
+        if (index == 0) {
+            rotation = value / 1000F;
         }
     }
 
