@@ -32,8 +32,8 @@ public class ModItems {
         GameRegistry.register(brokenOre.setRegistryName("brokenOre"));
 
         oreDust = new ItemOreDust();//TODO Custom Item
-        brokenOre.setUnlocalizedName(Reference.MOD_PREFIX + "oreDust");
-        GameRegistry.register(brokenOre.setRegistryName("oreDust"));
+        oreDust.setUnlocalizedName(Reference.MOD_PREFIX + "oreDust");
+        GameRegistry.register(oreDust.setRegistryName("oreDust"));
     }
 
     @SideOnly(Side.CLIENT)

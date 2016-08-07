@@ -18,7 +18,11 @@ public class Debugger extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 
-        FMLLog.info(""+ OreRegistry.INSTANCE.getOreList().indexOf("oreAluminum"));
+        for (String name : OreRegistry.INSTANCE.getOreList()) {
+
+            if (world.isRemote) FMLLog.info(String.format("item.minablesoverhaul:oreDust.%s.name=%s", name, name.replace("ore", "")));
+
+        }
 
 
         //if (world.isRemote) {
