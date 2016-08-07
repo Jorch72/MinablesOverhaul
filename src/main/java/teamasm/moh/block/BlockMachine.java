@@ -4,15 +4,15 @@ import codechicken.lib.block.property.PropertyString;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import teamasm.moh.tile.TileProcessorBase;
+import teamasm.moh.MinablesOverhaul;
+
+import java.util.List;
 
 import static teamasm.moh.reference.VariantReference.machinesList;
 
@@ -27,10 +27,17 @@ public class BlockMachine extends BaseBlock {//TODO More stuff.
     public BlockMachine() {
         super(Material.ROCK);
         setHardness(2.0F);
+        setCreativeTab(MinablesOverhaul.MOH_TAB);
+    }
+
+    @Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+        for (int i = 0; i < machinesList.size(); i++) {
+            list.add(new ItemStack(this, 1, i));
+        }
     }
 
     //region Render
-
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
@@ -50,11 +57,9 @@ public class BlockMachine extends BaseBlock {//TODO More stuff.
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
-
     //endregion
 
     //region Blockstate
-
     @Override
     public int damageDropped(IBlockState state) {
         return getMetaFromState(state);
@@ -74,23 +79,5 @@ public class BlockMachine extends BaseBlock {//TODO More stuff.
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, TYPE);
     }
-
-    //endregion
-
-    //region Place
-
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
-
-        EnumFacing rotation = placer.getHorizontalFacing().getOpposite();
-        TileEntity tile = world.getTileEntity(pos);
-
-        if (!world.isRemote && tile instanceof TileProcessorBase) {
-            ((TileProcessorBase) tile).setRotation(rotation);
-            ((TileProcessorBase) tile).updateBlock();
-        }
-    }
-
     //endregion
 }
