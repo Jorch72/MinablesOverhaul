@@ -6,9 +6,9 @@ import teamasm.moh.tile.TileProcessorManual;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileManualSeparator extends TileProcessorManual {
+public class TileCentrifugeManual extends TileProcessorManual {
 
-    public TileManualSeparator() {
+    public TileCentrifugeManual() {
         setInventory(2, 64);
     }
 

@@ -16,9 +16,9 @@ import java.util.Map;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
+public class TileCrusher extends TileProcessEnergy implements ITickable {
 
-    public TileReducerCrusher() {
+    public TileCrusher() {
         setInventory(2, 64);
         cycleTimeTime = 1;//TODO Before event change back to 50
     }
@@ -278,6 +278,6 @@ public class TileReducerCrusher extends TileProcessEnergy implements ITickable {
 
     @Override
     public GuiIds getGuiID() {
-        return GuiIds.REDUCER_CRUSHER;
+        return GuiIds.CRUSHER;
     }
 }

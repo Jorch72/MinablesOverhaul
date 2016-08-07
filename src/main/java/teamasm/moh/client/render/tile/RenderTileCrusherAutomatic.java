@@ -6,19 +6,19 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
 import teamasm.moh.client.model.tile.ModelCrusherAutomatic;
 import teamasm.moh.reference.Reference;
-import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
+import teamasm.moh.tile.machines.teir1.TileCrusher;
 import teamasm.moh.util.RotationHelper;
 
 /**
  * Created by covers1624 on 8/6/2016.
  */
-public class RenderTileCrusherAutomatic extends TileEntitySpecialRenderer<TileReducerCrusher> {
+public class RenderTileCrusherAutomatic extends TileEntitySpecialRenderer<TileCrusher> {
 
     private static final ModelCrusherAutomatic model = new ModelCrusherAutomatic();
     private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/crusher.png");
 
     @Override
-    public void renderTileEntityAt(TileReducerCrusher te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void renderTileEntityAt(TileCrusher te, double x, double y, double z, float partialTicks, int destroyStage) {
         render(x, y, z, RotationHelper.sideToEntity(te.getRotation()), -te.getAnimRotStat(partialTicks));
     }
 

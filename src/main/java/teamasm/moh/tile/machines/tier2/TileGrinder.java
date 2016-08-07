@@ -1,14 +1,14 @@
 package teamasm.moh.tile.machines.tier2;
 
 import teamasm.moh.reference.GuiIds;
-import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
+import teamasm.moh.tile.machines.teir1.TileCrusher;
 
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileReducerGrinder extends TileReducerCrusher {
+public class TileGrinder extends TileCrusher {
 
-    public TileReducerGrinder() {
+    public TileGrinder() {
         setInventory(2, 64);
         this.maxPurity = 1F;
         this.minPurity = 0.2F;
@@ -18,6 +18,6 @@ public class TileReducerGrinder extends TileReducerCrusher {
 
     @Override
     public GuiIds getGuiID() {
-        return GuiIds.REDUCER_GRINDER;
+        return GuiIds.GRINDER;
     }
 }

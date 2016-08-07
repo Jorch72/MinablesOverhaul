@@ -5,15 +5,15 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumFacing;
 import teamasm.moh.client.gui.GuiUtils;
 import teamasm.moh.container.machine.ContainerSeperatorGravity;
-import teamasm.moh.tile.machines.teir1.TileSeparatorGravity;
+import teamasm.moh.tile.machines.teir1.TileCentrifuge;
 
 /**
  * Created by Gigabit101 on 05/08/2016.
  */
 public class GuiSeperatorGravity extends GuiContainer {
-    private TileSeparatorGravity separatorGravity;
+    private TileCentrifuge separatorGravity;
 
-    public GuiSeperatorGravity(InventoryPlayer inventoryPlayer, TileSeparatorGravity separatorGravity) {
+    public GuiSeperatorGravity(InventoryPlayer inventoryPlayer, TileCentrifuge separatorGravity) {
         super(new ContainerSeperatorGravity(inventoryPlayer, separatorGravity));
         this.separatorGravity = separatorGravity;
     }

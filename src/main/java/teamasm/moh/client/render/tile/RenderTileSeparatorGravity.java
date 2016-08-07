@@ -6,19 +6,19 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
 import teamasm.moh.client.model.tile.ModelSeparatorGravity;
 import teamasm.moh.reference.Reference;
-import teamasm.moh.tile.machines.teir1.TileSeparatorGravity;
+import teamasm.moh.tile.machines.teir1.TileCentrifuge;
 import teamasm.moh.util.RotationHelper;
 
 /**
  * Created by covers1624 on 8/7/2016.
  */
-public class RenderTileSeparatorGravity extends TileEntitySpecialRenderer<TileSeparatorGravity> {
+public class RenderTileSeparatorGravity extends TileEntitySpecialRenderer<TileCentrifuge> {
 
     private static final ModelSeparatorGravity model = new ModelSeparatorGravity();
     private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_PREFIX + "textures/blocks/separator.png");
 
     @Override
-    public void renderTileEntityAt(TileSeparatorGravity te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void renderTileEntityAt(TileCentrifuge te, double x, double y, double z, float partialTicks, int destroyStage) {
         render(x, y, z, RotationHelper.sideToEntity(te.getRotation()), -te.getAnimRotStat(partialTicks));
     }
 

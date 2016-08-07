@@ -6,9 +6,9 @@ import teamasm.moh.tile.TileProcessorManual;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileManualScreen extends TileProcessorManual {
+public class TileCrusherManual extends TileProcessorManual {
 
-    public TileManualScreen() {
+    public TileCrusherManual() {
         setInventory(2, 64);
     }
 

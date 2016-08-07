@@ -2,14 +2,17 @@ package teamasm.moh.tile.machines.teir1;
 
 import codechicken.lib.inventory.InventoryRange;
 import codechicken.lib.inventory.InventoryUtils;
+import codechicken.lib.util.ItemNBTUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.fml.common.FMLLog;
 import teamasm.moh.api.recipe.IMOHRecipe;
 import teamasm.moh.init.ModItems;
 import teamasm.moh.item.ItemOre;
 import teamasm.moh.reference.GuiIds;
+import teamasm.moh.reference.OreRegistry;
 import teamasm.moh.tile.TileProcessEnergy;
 
 import java.util.ArrayList;
@@ -20,9 +23,9 @@ import java.util.Map;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileSeparatorGravity extends TileProcessEnergy implements ITickable {
+public class TileCentrifuge extends TileProcessEnergy implements ITickable {
 
-    public TileSeparatorGravity() {
+    public TileCentrifuge() {
         setInventory(7, 64);
         cycleTimeTime = 1;//TODO Before event change back to 50
     }
@@ -64,16 +67,18 @@ public class TileSeparatorGravity extends TileProcessEnergy implements ITickable
     protected void tryProcessOutput() {
         List<String> ores = new ArrayList<String>();
         ores.addAll(workCache.keySet());
-        ItemOre item = (ItemOre) ModItems.brokenOre;
 
         for (String name : ores) {
-            ItemStack stack = new ItemStack(ModItems.brokenOre); //TODO Output ore dust
-            item.setOre(name, workCache.get(name), stack);
-            item.setParticleSize(stack, particleSize);
+            ItemStack stack = new ItemStack(ModItems.oreDust, 1, OreRegistry.getOreIndex(name));
+            ItemNBTUtils.setFloat(stack, "Purity", workCache.get(name));
+
+            insertOverride = true;
 
             if (InventoryUtils.insertItem(new InventoryRange(this, 1, 7), stack, false) == 0) {
                 workCache.remove(name);
             }
+
+            insertOverride = false;
         }
 
         if (workCache.size() == 0) {
@@ -122,7 +127,8 @@ public class TileSeparatorGravity extends TileProcessEnergy implements ITickable
 //            return false;
 //        }
 
-        if (size != 1) {
+        FMLLog.info(""+size);
+        if (size > 2) {
             return false;
         }
 
@@ -211,6 +217,6 @@ public class TileSeparatorGravity extends TileProcessEnergy implements ITickable
 
     @Override
     public GuiIds getGuiID() {
-        return GuiIds.SEPARATOR_GRAVITY;
+        return GuiIds.CENTRIFUGE;
     }
 }

@@ -19,8 +19,6 @@ public class ContainerScreenFine extends ContainerPoweredMachine {
 
         addSlotToContainer(new Slot(tileScreenFine, 0, 41, 31));
         addSlotToContainer(new SlotFurnaceOutput(inventoryPlayer.player, tileScreenFine, 1, 121, 31));
-        addPlayersInventory();
-        addPlayersHotbar();
     }
 
     @Override

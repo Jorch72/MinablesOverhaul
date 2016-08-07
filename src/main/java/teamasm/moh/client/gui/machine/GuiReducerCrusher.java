@@ -5,15 +5,15 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumFacing;
 import teamasm.moh.client.gui.GuiUtils;
 import teamasm.moh.container.machine.ContainerReducerCrusher;
-import teamasm.moh.tile.machines.teir1.TileReducerCrusher;
+import teamasm.moh.tile.machines.teir1.TileCrusher;
 
 /**
  * Created by Gigabit101 on 05/08/2016.
  */
 public class GuiReducerCrusher extends GuiContainer {
-    private TileReducerCrusher tileReducerCrusher;
+    private TileCrusher tileReducerCrusher;
 
-    public GuiReducerCrusher(InventoryPlayer inventoryPlayer, TileReducerCrusher tileReducerCrusher) {
+    public GuiReducerCrusher(InventoryPlayer inventoryPlayer, TileCrusher tileReducerCrusher) {
         super(new ContainerReducerCrusher(inventoryPlayer, tileReducerCrusher));
         this.tileReducerCrusher = tileReducerCrusher;
     }

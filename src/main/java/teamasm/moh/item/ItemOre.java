@@ -9,6 +9,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.TextFormatting;
 import teamasm.moh.MinablesOverhaul;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,8 @@ import java.util.Map;
  * Created by brandon3055 on 6/08/2016.
  */
 public class ItemOre extends Item {
+
+    private NumberFormat format = new DecimalFormat("###.###");
 
     public ItemOre() {
         setCreativeTab(MinablesOverhaul.MOH_TAB);
@@ -152,7 +156,7 @@ public class ItemOre extends Item {
         tooltip.add(TextFormatting.GOLD + "Contains traces of:");
 
         for (String name : ores.keySet()) {
-            tooltip.add(TextFormatting.BLUE + " -" + name + " " + ores.get(name) * 100F + "%");
+            tooltip.add(TextFormatting.BLUE + " -" + name + " " + format.format(ores.get(name) * 100F) + "%");
         }
 
         tooltip.add(TextFormatting.GOLD + "Particle Size: " + getParticleSize(stack));

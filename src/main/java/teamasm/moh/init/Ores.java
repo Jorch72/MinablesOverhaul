@@ -2,6 +2,7 @@ package teamasm.moh.init;
 
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.Level;
 import teamasm.moh.reference.OreRegistry;
 
 import java.util.Iterator;
@@ -52,7 +53,7 @@ public class Ores {
             OreRegistry.WeightedOre ore = i.next();
             if (OreDictionary.getOres(ore.name).isEmpty()) {
                 i.remove();
-                FMLLog.info(String.format("Removing %s because there are no mods installed that use it", ore.name));
+                FMLLog.log("[Minables Overhaul]", Level.INFO, String.format("Removing %s because there are no mods installed that use it", ore.name));
             }
         }
     }

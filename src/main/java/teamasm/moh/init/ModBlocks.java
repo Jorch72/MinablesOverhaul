@@ -19,7 +19,7 @@ import teamasm.moh.client.render.tile.*;
 import teamasm.moh.reference.Reference;
 import teamasm.moh.tile.TileDebug;
 import teamasm.moh.tile.machines.teir1.*;
-import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
+import teamasm.moh.tile.machines.tier2.TileGrinder;
 import teamasm.moh.tile.machines.tier2.TileSeparatorElectrostatic;
 
 import static teamasm.moh.reference.VariantReference.machinesList;
@@ -45,12 +45,12 @@ public class ModBlocks {
         GameRegistry.register(blockMachine.setRegistryName("machine"));
         GameRegistry.register(new ItemBlockMultiType(blockMachine).setRegistryName("machine"));
 
-        blockMachine.registerSubItemAndTile(0, "reducerCrusher", TileReducerCrusher.class);
-        blockMachine.registerSubItemAndTile(1, "reducerGrinder", TileReducerGrinder.class);
+        blockMachine.registerSubItemAndTile(0, "reducerCrusher", TileCrusher.class);
+        blockMachine.registerSubItemAndTile(1, "reducerGrinder", TileGrinder.class);
         blockMachine.registerSubItemAndTile(2, "screenCoarse", TileScreenCoarse.class);
         blockMachine.registerSubItemAndTile(3, "screenFine", TileScreenFine.class);
         blockMachine.registerSubItemAndTile(4, "separatorMagnetic", TileSeparatorMagnetic.class);
-        blockMachine.registerSubItemAndTile(5, "separatorGravity", TileSeparatorGravity.class);
+        blockMachine.registerSubItemAndTile(5, "separatorGravity", TileCentrifuge.class);
         blockMachine.registerSubItemAndTile(6, "separatorFlotation", TileSeparatorFlotation.class);
         blockMachine.registerSubItemAndTile(7, "separatorElectrostatic", TileSeparatorElectrostatic.class);
         blockMachine.registerSubItemAndTile(8, "dryerRotary", TileDryerRotary.class);
@@ -68,12 +68,12 @@ public class ModBlocks {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileDebug.class, new RenderTileDebug());
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileReducerCrusher.class, new RenderTileCrusherAutomatic());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileReducerGrinder.class, new RenderTileGrinderAutomatic());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCrusher.class, new RenderTileCrusherAutomatic());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class, new RenderTileGrinderAutomatic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileScreenCoarse.class, new RenderTileScreenCoarse());
         ClientRegistry.bindTileEntitySpecialRenderer(TileScreenFine.class, new RenderTileScreenFine());
         //ClientRegistry.bindTileEntitySpecialRenderer(TileSeparatorMagnetic.class, new RenderTileSeparatorMagnetic());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileSeparatorGravity.class, new RenderTileSeparatorGravity());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCentrifuge.class, new RenderTileSeparatorGravity());
 
         for (int i = 0; i < machinesList.size(); i++) {
             String variant = machinesList.get(i);

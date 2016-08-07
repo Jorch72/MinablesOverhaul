@@ -5,15 +5,15 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumFacing;
 import teamasm.moh.client.gui.GuiUtils;
 import teamasm.moh.container.machine.ContainerReducerGrinder;
-import teamasm.moh.tile.machines.tier2.TileReducerGrinder;
+import teamasm.moh.tile.machines.tier2.TileGrinder;
 
 /**
  * Created by Gigabit101 on 05/08/2016.
  */
 public class GuiReducerGrinder extends GuiContainer {
-    private TileReducerGrinder tileReducerGrinder;
+    private TileGrinder tileReducerGrinder;
 
-    public GuiReducerGrinder(InventoryPlayer inventoryPlayer, TileReducerGrinder tileReducerGrinder) {
+    public GuiReducerGrinder(InventoryPlayer inventoryPlayer, TileGrinder tileReducerGrinder) {
         super(new ContainerReducerGrinder(inventoryPlayer, tileReducerGrinder));
         this.tileReducerGrinder = tileReducerGrinder;
     }

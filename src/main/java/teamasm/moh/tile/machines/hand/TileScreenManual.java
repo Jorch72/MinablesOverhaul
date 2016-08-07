@@ -6,9 +6,9 @@ import teamasm.moh.tile.TileProcessorManual;
 /**
  * Created by brandon3055 on 5/08/2016.
  */
-public class TileManualReducer extends TileProcessorManual {
+public class TileScreenManual extends TileProcessorManual {
 
-    public TileManualReducer() {
+    public TileScreenManual() {
         setInventory(2, 64);
     }
 

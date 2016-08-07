@@ -22,6 +22,7 @@ public class TileInventoryBase extends TileEntity implements IInventory {
 
     private InventorySimple inventorySimple;
     public int progress;
+    public boolean insertOverride = false;
 
     public TileInventoryBase() {
     }
@@ -97,7 +98,7 @@ public class TileInventoryBase extends TileEntity implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return true;
+        return index == 0 || insertOverride;
     }
 
     @Override

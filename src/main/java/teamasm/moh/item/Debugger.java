@@ -20,7 +20,7 @@ public class Debugger extends Item {
 
         for (String name : OreRegistry.INSTANCE.getOreList()) {
 
-            if (world.isRemote) FMLLog.info(String.format("item.minablesoverhaul:oreDust.%s.name=%s", name, name.replace("ore", "")));
+            if (world.isRemote) FMLLog.info(String.format("item.minablesoverhaul:oreDust.%s.name=%s", name, name.replace("ore", "") + " Ore Dust"));
 
         }
 
