@@ -16,7 +16,7 @@ public class ConfigHandler {
     public static int orePocketHeightFactor = 32;
     public static double chancePerPoint = 0.3F;
 
-    public static boolean stripOres = true;
+    public static boolean stripOres = false;
 
     public static void loadConfig(Configuration config) {
 
