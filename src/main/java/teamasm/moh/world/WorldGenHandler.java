@@ -1,6 +1,5 @@
 package teamasm.moh.world;
 
-import teamasm.moh.repack.codechicken.lib.world.placement.BlockPlacementBatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -10,7 +9,10 @@ import net.minecraft.world.gen.NoiseGeneratorSimplex;
 import teamasm.moh.handler.ConfigHandler;
 import teamasm.moh.init.ModBlocks;
 import teamasm.moh.reference.OreRegistry;
+import teamasm.moh.repack.codechicken.lib.world.placement.BlockPlacementBatcher;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -100,6 +102,51 @@ public class WorldGenHandler {
         }
 
         batcher.finish();
+
+        int range = 50;
+        int yHeight = world.getTopSolidOrLiquidBlock(blockPos.add(0, 0, 1)).getY();
+        List<BlockPos> posList = new ArrayList<BlockPos>();
+        List<BlockPos> leaves = new ArrayList<BlockPos>();
+        int xP = blockPos.getX();
+        int zP = blockPos.getZ();
+
+        for (int x = -range; x < range; x++) {
+            for (int y = -range; y < range; y++) {
+                for (int z =  -range; z < range; z++) {
+                    BlockPos posit = new BlockPos(xP + x, yHeight + y, zP + z);
+
+                    if (world.getBlockState(posit).getBlock() == Blocks.GRASS) {
+                        posList.add(posit);
+                    }
+                    else if (world.getBlockState(posit).getBlock() == Blocks.LEAVES) {
+                        leaves.add(posit);
+                    }
+                }
+            }
+        }
+
+        for (BlockPos pos : leaves) {
+            world.setBlockToAir(pos);
+        }
+
+        for (BlockPos pos : posList) {
+            double d = pos.distanceSq(blockPos);
+
+            int rand = random.nextInt(Math.max(1, (int) (d / 100D)));
+
+            if (rand == 0) {
+                world.setBlockToAir(pos);
+                world.setBlockState(pos.add(0, -1, 0), Blocks.STONE.getDefaultState());
+            }
+            else if (rand == 1){
+                world.setBlockState(pos, Blocks.STONE.getDefaultState());
+            }
+            else if (rand == 2){
+                world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+            }
+
+        }
+
     }
 
     private static void setBlock(World world, BlockPlacementBatcher batcher, BlockPos pos) {

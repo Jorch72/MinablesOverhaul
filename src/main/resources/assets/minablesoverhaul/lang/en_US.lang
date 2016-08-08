@@ -1,6 +1,15 @@
-
-
-
+tile.minablesoverhaul:crusher.name=Crusher
+tile.minablesoverhaul:grinder.name=Grinder
+tile.minablesoverhaul:screencoarse.name=Coarse Screen
+tile.minablesoverhaul:screenfine.name=Fine Screen
+tile.minablesoverhaul:separatormagnetic.name=separatormagnetic
+tile.minablesoverhaul:centrifuge.name=Centrifuge
+tile.minablesoverhaul:separatorflotation.name=separatorflotation
+tile.minablesoverhaul:separatorelectrostatic.name=separatorelectrostatic
+tile.minablesoverhaul:dryerrotary.name=dryerrotary
+tile.minablesoverhaul:crushermanual.name=Manual Crusher
+tile.minablesoverhaul:screenmanual.name=Manual Screen
+tile.minablesoverhaul:centrifugemanual.name=Manual Centrifuge
 
 item.minablesoverhaul:oreDust.oreGold.name=Gold Ore Dust
 item.minablesoverhaul:oreDust.oreIron.name=Iron Ore Dust
@@ -20,3 +29,16 @@ item.minablesoverhaul:oreDust.oreEmerald.name=Emerald Ore Dust
 item.minablesoverhaul:oreDust.oreRuby.name=Ruby Ore Dust
 item.minablesoverhaul:oreDust.oreSapphire.name=Sapphire Ore Dust
 item.minablesoverhaul:oreDust.orePeridot.name=Peridot Ore Dust
+
+
+item.minablesoverhaul:component.crusherframe.name=Crusher Frame
+item.minablesoverhaul:component.crusherplates.name=Crusher Plates
+item.minablesoverhaul:component.crusherwheel.name=Grinding Wheel
+item.minablesoverhaul:component.screenframec.name=Screen Frame Coarse
+item.minablesoverhaul:component.screenframef.name=Screen Frame Fine
+item.minablesoverhaul:component.separatorframe.name=Centrifuge Frame
+item.minablesoverhaul:component.separatordrum.name=Centrifuge Drum
+item.minablesoverhaul:component.motorhousing.name=Motor Housing
+item.minablesoverhaul:component.motorstator.name=Motor Stator
+item.minablesoverhaul:component.motor.name=Motor
+item.minablesoverhaul:component.crank.name=Crank
