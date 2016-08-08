@@ -71,7 +71,7 @@ public class OreRegistry {
         return oreList.contains(ore);
     }
 
-    public ItemStack getRandomOreForSeed(Random random) { //TODO refine this and add support for purity when that mechanic gets implemented.
+    public ItemStack getRandomOreForSeed(Random random) {
         int oreCount = WeightedRandom.getRandomItem(random, weightedChance).count;
         ItemStack stack = new ItemStack(ModItems.brokenOre);
         Map<String, Float> ores = new HashMap<String, Float>();

@@ -42,7 +42,7 @@ public class OreStripManager {
         }
     }
 
-    public static boolean shouldStrip(IBlockState state) {//TODO needs to obey IBlockState
+    public static boolean shouldStrip(IBlockState state) {
         return oresToStrip.contains(state.toString());
     }
 
