@@ -8,13 +8,13 @@ import net.minecraftforge.fml.common.FMLLog;
  */
 public class ConfigHandler {
 
-    public static int oreGridSize = 256;
+    public static int oreGridSize = 512;
     /**
      * Ore pocket size should be no more then half grid size to avoid overlap.
      */
     public static int orePocketSizeFactor = 128;
     public static int orePocketHeightFactor = 32;
-    public static double chancePerPoint = 0.45F;
+    public static double chancePerPoint = 0.3F;
 
     public static boolean stripOres = true;
 
