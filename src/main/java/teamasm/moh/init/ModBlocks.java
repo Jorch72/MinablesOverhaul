@@ -52,18 +52,18 @@ public class ModBlocks {
         GameRegistry.register(blockMachine.setRegistryName("machine"));
         GameRegistry.register(new ItemBlockMultiType(blockMachine).setRegistryName("machine"));
 
-        blockMachine.registerSubItemAndTile(0, "crusher", TileCrusher.class);
-        blockMachine.registerSubItemAndTile(1, "grinder", TileGrinder.class);
-        blockMachine.registerSubItemAndTile(2, "screenCoarse", TileScreenCoarse.class);
-        blockMachine.registerSubItemAndTile(3, "screenFine", TileScreenFine.class);
-        //blockMachine.registerSubItemAndTile(4, "separatorMagnetic", TileSeparatorMagnetic.class);todo these are just disabled untill i get around to implementing them
-        blockMachine.registerSubItemAndTile(5, "centrifuge", TileCentrifuge.class);
-        //blockMachine.registerSubItemAndTile(6, "separatorFlotation", TileSeparatorFlotation.class);
-        //blockMachine.registerSubItemAndTile(7, "separatorElectrostatic", TileSeparatorElectrostatic.class);
-        //blockMachine.registerSubItemAndTile(8, "dryerRotary", TileDryerRotary.class);
-        blockMachine.registerSubItemAndTile(9, "crusherManual", TileCrusherManual.class);
-        blockMachine.registerSubItemAndTile(10, "screenManual", TileScreenManual.class);
-        blockMachine.registerSubItemAndTile(11, "centrifugeManual", TileCentrifugeManual.class);
+        blockMachine.registerSubItemAndTile(0, Reference.MOD_PREFIX + "crusher", TileCrusher.class);
+        blockMachine.registerSubItemAndTile(1, Reference.MOD_PREFIX + "grinder", TileGrinder.class);
+        blockMachine.registerSubItemAndTile(2, Reference.MOD_PREFIX + "screenCoarse", TileScreenCoarse.class);
+        blockMachine.registerSubItemAndTile(3, Reference.MOD_PREFIX + "screenFine", TileScreenFine.class);
+        //blockMachine.registerSubItemAndTile(4, Reference.MOD_PREFIX + "separatorMagnetic", TileSeparatorMagnetic.class);todo these are just disabled untill i get around to implementing them
+        blockMachine.registerSubItemAndTile(5, Reference.MOD_PREFIX + "centrifuge", TileCentrifuge.class);
+        //blockMachine.registerSubItemAndTile(6, Reference.MOD_PREFIX + "separatorFlotation", TileSeparatorFlotation.class);
+        //blockMachine.registerSubItemAndTile(7, Reference.MOD_PREFIX + "separatorElectrostatic", TileSeparatorElectrostatic.class);
+        //blockMachine.registerSubItemAndTile(8, Reference.MOD_PREFIX + "dryerRotary", TileDryerRotary.class);
+        blockMachine.registerSubItemAndTile(9, Reference.MOD_PREFIX + "crusherManual", TileCrusherManual.class);
+        blockMachine.registerSubItemAndTile(10, Reference.MOD_PREFIX + "screenManual", TileScreenManual.class);
+        blockMachine.registerSubItemAndTile(11, Reference.MOD_PREFIX + "centrifugeManual", TileCentrifugeManual.class);
 
         testBlock = new BlockDebug();
         testBlock.setRegistryName("testBlock");
