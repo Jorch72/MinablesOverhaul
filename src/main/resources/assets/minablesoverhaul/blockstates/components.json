@@ -1,0 +1,44 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "type": {
+      "crusherframe": {
+        "model": "minablesoverhaul:modelCrusherFrame"
+      },
+      "crusherplates": {
+        "model": "minablesoverhaul:modelCrusherPlates"
+      },
+      "crusherwheel": {
+        "model": "minablesoverhaul:modelGrindStone"
+      },
+      "screenframec": {
+        "model": "minablesoverhaul:modelScreenCourse"
+      },
+      "screenframef": {
+        "model": "minablesoverhaul:modelScreenFine"
+      },
+      "separatorframe": {
+        "model": "minablesoverhaul:modelCentrifugeFrame"
+      },
+      "separatordrum": {
+        "model": "minablesoverhaul:modelCentrifugeDrum"
+      },
+      "motorhousing": {
+        "model": "minablesoverhaul:modelMotorHousing"
+      },
+      "motorstator": {
+        "model": "minablesoverhaul:modelMotorStator"
+      },
+      "motor": {
+        "model": "minablesoverhaul:modelMotor"
+      },
+      "crank": {
+        "model": "minablesoverhaul:modelCrank"
+      }
+    }
+  }
+}

@@ -160,7 +160,7 @@ public class ItemOre extends Item {
         }
 
         tooltip.add(TextFormatting.GOLD + "Particle Size: " + getParticleSize(stack));
-        tooltip.add(TextFormatting.GOLD + "Is Reduced: " + isReduced(stack));
+        //tooltip.add(TextFormatting.GOLD + "Is Reduced: " + isReduced(stack));
     }
 
     //endregion

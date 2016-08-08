@@ -154,4 +154,12 @@ public class OreRegistry {
     public static String getFromIndex(int index) {
         return index < 0 || index >= INSTANCE.getOreList().size() ? null : INSTANCE.getOreList().get(index);
     }
+
+    public static String getProduct(String name) {
+        if (name == null || !INSTANCE.nameToProduct.containsKey(name)) {
+            return null;
+        }
+
+        return name.replace("ore", INSTANCE.nameToProduct.get(name).name().toLowerCase());
+    }
 }

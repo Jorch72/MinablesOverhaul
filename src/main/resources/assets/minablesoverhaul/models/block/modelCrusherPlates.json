@@ -1,0 +1,33 @@
+{
+    "textures": {
+      "iron": "blocks/anvil_base"
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 5.0, 1.0, 5.0 ], 
+            "to": [ 11.0, 13.0, 6.0 ], 
+            "faces": {
+                "north": { "texture": "#iron", "uv": [ 2.0, 4.0, 8.0, 16.0 ] },
+                "east": { "texture": "#iron", "uv": [ 5.0, 3.0, 6.0, 15.0 ] },
+                "south": { "texture": "#iron", "uv": [ 5.0, 3.0, 11.0, 15.0 ] },
+                "west": { "texture": "#iron", "uv": [ 4.0, 1.0, 5.0, 13.0 ] },
+                "up": { "texture": "#iron", "uv": [ 4.0, 6.0, 10.0, 7.0 ] },
+                "down": { "texture": "#iron", "uv": [ 3.0, 4.0, 9.0, 5.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 5.0, 1.0, 10.0 ], 
+            "to": [ 11.0, 13.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#iron", "uv": [ 5.0, 2.0, 11.0, 14.0 ] },
+                "east": { "texture": "#iron", "uv": [ 5.0, 3.0, 6.0, 15.0 ] },
+                "south": { "texture": "#iron", "uv": [ 4.0, 2.0, 10.0, 14.0 ] },
+                "west": { "texture": "#iron", "uv": [ 3.0, 1.0, 4.0, 13.0 ] },
+                "up": { "texture": "#iron", "uv": [ 4.0, 4.0, 10.0, 5.0 ] },
+                "down": { "texture": "#iron", "uv": [ 1.0, 4.0, 7.0, 5.0 ] }
+            }
+        }
+    ]
+}

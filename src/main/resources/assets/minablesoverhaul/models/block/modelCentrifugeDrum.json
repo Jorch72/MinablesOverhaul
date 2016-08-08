@@ -1,0 +1,86 @@
+{
+    "textures": {
+      "wood": "blocks/planks_oak",
+      "wood_dark": "blocks/planks_big_oak"
+    },
+    "elements": [
+        {
+            "name": "bottom",
+            "from": [ 4.500000007450581, 2.0, 4.500000007450581 ], 
+            "to": [ 11.50000000745058, 3.0, 11.50000000745058 ], 
+            "faces": {
+                "north": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "east": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "south": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "west": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "up": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 7.0 ] },
+                "down": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 7.0 ] }
+            }
+        },
+        {
+            "name": "top",
+            "from": [ 4.500000007450581, 11.0, 4.500000007450581 ], 
+            "to": [ 11.50000000745058, 12.0, 11.50000000745058 ], 
+            "faces": {
+                "north": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "east": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "south": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "west": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "up": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 7.0 ] },
+                "down": { "texture": "#wood", "uv": [ 0.0, 0.0, 7.0, 7.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 4.500000007450581, 2.0, 3.5000000074505806 ], 
+            "to": [ 11.50000000745058, 12.0, 4.500000007450581 ], 
+            "faces": {
+                "north": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "east": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "south": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "west": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "up": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "down": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 4.500000007450581, 2.0, 11.50000000745058 ], 
+            "to": [ 11.50000000745058, 12.0, 12.50000000745058 ], 
+            "faces": {
+                "north": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "east": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "south": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "west": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "up": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 1.0 ] },
+                "down": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 3.5000000074505806, 2.0, 4.500000007450581 ], 
+            "to": [ 4.500000007450581, 12.0, 11.50000000745058 ], 
+            "faces": {
+                "north": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "east": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "south": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "west": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "up": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 7.0 ] },
+                "down": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 7.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 11.50000000745058, 2.0, 4.500000007450581 ], 
+            "to": [ 12.50000000745058, 12.0, 11.50000000745058 ], 
+            "faces": {
+                "north": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "east": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "south": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+                "west": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 7.0, 10.0 ] },
+                "up": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 7.0 ] },
+                "down": { "texture": "#wood_dark", "uv": [ 0.0, 0.0, 1.0, 7.0 ] }
+            }
+        }
+    ]
+}
