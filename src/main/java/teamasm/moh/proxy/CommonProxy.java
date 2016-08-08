@@ -13,6 +13,7 @@ import teamasm.moh.api.recipe.APIConstants;
 import teamasm.moh.entity.capabilities.IResearch;
 import teamasm.moh.entity.capabilities.ResearchProvider;
 import teamasm.moh.entity.capabilities.ResearchStorage;
+import teamasm.moh.handler.ConfigHandler;
 import teamasm.moh.handler.EventHandler;
 import teamasm.moh.handler.GuiHandler;
 import teamasm.moh.init.ModBlocks;
@@ -38,8 +39,10 @@ public class CommonProxy {
         MinecraftForge.TERRAIN_GEN_BUS.register(handler);
         MinecraftForge.ORE_GEN_BUS.register(handler);
 
-        RetroOreStripper stripper = new RetroOreStripper();
-        MinecraftForge.EVENT_BUS.register(stripper);
+        if (ConfigHandler.stripOres) {
+            RetroOreStripper stripper = new RetroOreStripper();
+            MinecraftForge.EVENT_BUS.register(stripper);
+        }
 
         ModBlocks.init();
         ModItems.init();

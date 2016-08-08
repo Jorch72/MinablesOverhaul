@@ -34,11 +34,12 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onOreGen(OreGenEvent.GenerateMinable event) {
-
-        if (event.getGenerator() instanceof WorldGenMinable) {
-            WorldGenMinable worldGenMinable = (WorldGenMinable) event.getGenerator();
-            if (OreStripManager.shouldStrip(worldGenMinable.oreBlock)) {
-                event.setResult(Result.DENY);
+        if (ConfigHandler.stripOres) {
+            if (event.getGenerator() instanceof WorldGenMinable) {
+                WorldGenMinable worldGenMinable = (WorldGenMinable) event.getGenerator();
+                if (OreStripManager.shouldStrip(worldGenMinable.oreBlock)) {
+                    event.setResult(Result.DENY);
+                }
             }
         }
     }

@@ -1,12 +1,14 @@
 package teamasm.moh;
 
 import codechicken.lib.gui.SimpleCreativeTab;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import teamasm.moh.handler.ConfigHandler;
 import teamasm.moh.proxy.CommonProxy;
 
 import static teamasm.moh.reference.Reference.*;
@@ -31,6 +33,7 @@ public class MinablesOverhaul {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        ConfigHandler.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
         proxy.preInit(event);
     }
 

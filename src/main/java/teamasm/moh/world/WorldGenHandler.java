@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.gen.NoiseGeneratorSimplex;
+import teamasm.moh.handler.ConfigHandler;
 import teamasm.moh.init.ModBlocks;
 import teamasm.moh.reference.OreRegistry;
 
@@ -18,15 +19,7 @@ import java.util.Random;
  */
 public class WorldGenHandler {
     private static Random random = new Random();
-
-    private static int gridSize = 512;
-    /**
-     * Ore pocket size should be no more then half grid size to avoid overlap.
-     */
-    private static int orePocketSizeFactor = 128;
-    private static int orePocketHeightFactor = 32;
-    private static float chancePerPoint = 0.3F;
-    private static float noiseFactor = 0.3F;
+    public static double noiseFactor = 0.3F;
     private static NoiseGeneratorSimplex noise = new NoiseGeneratorSimplex(new Random());
 
     //region OreCalculation
@@ -35,8 +28,8 @@ public class WorldGenHandler {
         GridPoint grid = getNearestGridPoint(blockPos.getX(), blockPos.getZ());
         random.setSeed(grid.getPointSeed(world));
 
-        if (random.nextFloat() > chancePerPoint) {
-            return null;
+        if (random.nextFloat() > ConfigHandler.chancePerPoint) {
+            //return null;
         }
 
         return OreRegistry.INSTANCE.getRandomOreForSeed(random);
@@ -47,7 +40,6 @@ public class WorldGenHandler {
     //region WorldGen
 
     public static void generateChunk(World world, int chunkX, int chunkZ) {
-        noiseFactor = 0.3F;
         int posX = (chunkX * 16);
         int posZ = (chunkZ * 16);
         GridPoint grid = getNearestGridPoint(posX, posZ);
@@ -55,7 +47,7 @@ public class WorldGenHandler {
         if (grid.x > posX && grid.x <= posX + 16 && grid.z > posZ && grid.z <= posZ + 16) {
             random.setSeed(grid.getPointSeed(world));
 
-            if (random.nextFloat() > chancePerPoint) {
+            if (random.nextFloat() > ConfigHandler.chancePerPoint) {
                 return;
             }
 
@@ -83,9 +75,9 @@ public class WorldGenHandler {
             return;
         }
 
-        int xRad = (int) (orePocketSizeFactor * (0.8 + (random.nextDouble() * 0.2)));
-        int yRad = (int) (orePocketHeightFactor * (0.8 + (random.nextDouble() * 0.2)));
-        int zRad = (int) (orePocketSizeFactor * (0.8 + (random.nextDouble() * 0.2)));
+        int xRad = (int) (ConfigHandler.orePocketSizeFactor * (0.8 + (random.nextDouble() * 0.2)));
+        int yRad = (int) (ConfigHandler.orePocketHeightFactor * (0.8 + (random.nextDouble() * 0.2)));
+        int zRad = (int) (ConfigHandler.orePocketSizeFactor * (0.8 + (random.nextDouble() * 0.2)));
 
         BlockPlacementBatcher batcher = new BlockPlacementBatcher((WorldServer)world);
 
@@ -121,7 +113,7 @@ public class WorldGenHandler {
     //region Grid Calculations
 
     private static GridPoint getNearestGridPoint(int blockX, int blockZ) {
-        return new GridPoint(getNearestMultiple(blockX, gridSize), getNearestMultiple(blockZ, gridSize));//TODO Switch back to grid size
+        return new GridPoint(getNearestMultiple(blockX, ConfigHandler.oreGridSize), getNearestMultiple(blockZ, ConfigHandler.oreGridSize));
     }
 
     private static int getNearestMultiple(int number, int multiple) {

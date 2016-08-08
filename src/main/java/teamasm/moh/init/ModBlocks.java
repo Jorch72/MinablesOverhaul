@@ -101,17 +101,17 @@ public class ModBlocks {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockOre), 0, new ModelResourceLocation(blockOre.getRegistryName(), "normal"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(testBlock), 0, new ModelResourceLocation(testBlock.getRegistryName(), "inventory"));
 
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=crusher"), new RenderItemMachine(new RenderTileCrusher()));
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=grinder"), new RenderItemMachine(new RenderTileGrinder()));
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenCoarse"), new RenderItemMachine(new RenderTileScreenCoarse()));
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenFine"), new RenderItemMachine(new RenderTileScreenFine()));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=crusher"), new RenderItemMachine(new RenderTileMachine(new ModelCrusher(), textureCrusher)));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=grinder"), new RenderItemMachine(new RenderTileMachine(new ModelGrinder(), textureCrusher)));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenCoarse"), new RenderItemMachine(new RenderTileMachine(new ModelScreenCoarse(), textureScreen)));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenFine"), new RenderItemMachine(new RenderTileMachine(new ModelScreenFine(), textureScreen)));
         //ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=separatorMagnetic"), new RenderItemSeparatorMagnetic());
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=centrifuge"), new RenderItemMachine(new RenderTileCentrifuge()));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=centrifuge"), new RenderItemMachine(new RenderTileMachine(new ModelCentrifuge(), textureCentrifuge)));
         ModelRegistryHelper.register(new ModelResourceLocation(testBlock.getRegistryName(), "inventory"), new RenderItemDebug());
 
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=crusherManual"), new RenderItemMachine(new RenderTileCrusherManual()));
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenManual"), new RenderItemMachine(new RenderTileScreenManual()));
-        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=centrifugeManual"), new RenderItemMachine(new RenderTileCentrifugeManual()));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=crusherManual"), new RenderItemMachine(new RenderTileMachine(new ModelCrusherManual(), textureCrusher)));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=screenManual"), new RenderItemMachine(new RenderTileMachine(new ModelScreenManual(), textureScreen)));
+        ModelRegistryHelper.register(new ModelResourceLocation(blockMachine.getRegistryName(), "type=centrifugeManual"), new RenderItemMachine(new RenderTileMachine(new ModelCentrifugeManual(), textureCentrifuge)));
     }
 
 }
