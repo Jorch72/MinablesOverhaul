@@ -102,8 +102,8 @@ public class BlockPlacementBatcher {
             int height = chunk.heightMap[(pos.getZ() & 15) << 4 | (pos.getX() & 15)];
             storage = new ExtendedBlockStorage(pos.getY() >> 4 << 4, !serverWorld.provider.getHasNoSky());
             chunk.storageArrays[pos.getY() >> 4] = storage;
-            builder.setHeight(height);
             if (builder != null && pos.getY() >= height) {
+                builder.setHeight(height);
                 builder.setChunkHeightModified();
             }
         }
