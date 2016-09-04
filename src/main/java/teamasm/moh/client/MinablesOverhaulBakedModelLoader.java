@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IPerspectiveAwareModel.MapWrapper;
 import net.minecraftforge.client.model.ItemLayerModel;
@@ -57,7 +56,7 @@ public class MinablesOverhaulBakedModelLoader implements IBakedModelLoader {
         }
 
         @Override
-        public String createKey(IBlockState state, EnumFacing face) {
+        public String createKey(IBlockState state) {
             return null;
         }
     }

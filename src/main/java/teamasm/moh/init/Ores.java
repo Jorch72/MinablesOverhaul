@@ -53,7 +53,7 @@ public class Ores {
             OreRegistry.WeightedOre ore = i.next();
             if (OreDictionary.getOres(ore.name).isEmpty()) {
                 i.remove();
-                FMLLog.log("[Minables Overhaul]", Level.INFO, String.format("Removing %s because there are no mods installed that use it", ore.name));
+                FMLLog.log("Minables Overhaul", Level.INFO, String.format("Removing %s because there are no mods installed that use it", ore.name));
             }
         }
     }
