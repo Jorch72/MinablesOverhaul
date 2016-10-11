@@ -2,7 +2,7 @@ package teamasm.moh.init;
 
 import codechicken.lib.asm.ObfMapping;
 import codechicken.lib.model.CCOverrideBakedModel;
-import codechicken.lib.render.ModelRegistryHelper;
+import codechicken.lib.model.ModelRegistryHelper;
 import codechicken.lib.util.ArrayUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

@@ -2,7 +2,7 @@ package teamasm.moh.client.render.tile;
 
 import codechicken.lib.colour.Colour;
 import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.TextureUtils;
+import codechicken.lib.texture.TextureUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -46,7 +46,8 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
         }
         TextureAtlasSprite icon = OreDustTextureManager.getSprite(new ResourceLocation(Reference.MOD_ID, "textures/items/ore/generated/" + name));
 
-        VertexBuffer buffer = CCRenderState.startDrawing(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        CCRenderState state = CCRenderState.instance();
+        VertexBuffer buffer = state.startDrawing(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
 
         buffer.setTranslation(x, y + 0.001, z);
         buffer.pos(1, 0, 0).tex(icon.getMinU(), icon.getMinV()).normal(0, 1, 0).endVertex();
@@ -55,7 +56,7 @@ public class RenderTileDebug extends TileEntitySpecialRenderer<TileDebug> {
         buffer.pos(1, 0, 1).tex(icon.getMaxU(), icon.getMinV()).normal(0, 1, 0).endVertex();
         buffer.setTranslation(0, 0, 0);
 
-        CCRenderState.draw();
+        state.draw();
 
         if (label){
             RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();

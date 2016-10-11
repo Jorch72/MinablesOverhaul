@@ -1,9 +1,9 @@
 package teamasm.moh.client;
 
 import codechicken.lib.colour.Colour;
-import codechicken.lib.render.TextureDataHolder;
-import codechicken.lib.render.TextureSpecial;
-import codechicken.lib.render.TextureUtils;
+import codechicken.lib.texture.TextureDataHolder;
+import codechicken.lib.texture.TextureSpecial;
+import codechicken.lib.texture.TextureUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;

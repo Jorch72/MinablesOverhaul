@@ -2,7 +2,7 @@ package teamasm.moh.client;
 
 import codechicken.lib.model.SimplePerspectiveAwareBakedModel;
 import codechicken.lib.model.loader.IBakedModelLoader;
-import codechicken.lib.render.TransformUtils;
+import codechicken.lib.util.TransformUtils;
 import codechicken.lib.util.ArrayUtils;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;

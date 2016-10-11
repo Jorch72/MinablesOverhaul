@@ -1,7 +1,7 @@
 package teamasm.moh.init;
 
 import codechicken.lib.block.ItemBlockMultiType;
-import codechicken.lib.render.ModelRegistryHelper;
+import codechicken.lib.model.ModelRegistryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
